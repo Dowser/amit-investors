@@ -40,7 +40,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
 
       # Nyheter cachas mellan körningar. Om Google News fallerar en gång
       # behåller sidan gårdagens rubriker i stället för att visa tom panel.
