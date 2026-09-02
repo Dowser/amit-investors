@@ -36,12 +36,12 @@
       "about": "Svenskt satellitkommunikationsbolag i Solna som säljer mobilt bredband via satellit, främst till försvar, myndigheter och hjälporganisationer. Sköt upp sin egen satellit Ovzon 3 i början av 2024 och gick därmed från att hyra kapacitet till att äga den. Litet bolag med tung investeringsprofil — kursen rör sig kraftigt på enskilda order och finansieringsbesked."
     },
     {
-      "id": "david",
-      "name": "David",
+      "id": "oscar",
+      "name": "Oscar",
       "ticker": "SINCH.ST",
       "company": "Sinch",
       "avatar": "💬",
-      "motto": "Ett sms i taget.",
+      "motto": "",
       "about": "Molnplattform för kundkommunikation – sms, röst och video via API:er. Växte snabbt genom förvärv, vilket gett både skala och en skuldsättning som marknaden följer noga. Hög volatilitet."
     },
     {

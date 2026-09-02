@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-09-02T09:39:25.403Z",
+ "generatedAt": "2026-09-02T11:11:23.365Z",
  "state": "pre",
  "marketState": "REGULAR",
  "session": {
@@ -31,10 +31,10 @@
    "ok": true,
    "baseline": null,
    "baselineDate": null,
-   "price": 96.26,
+   "price": 96.46,
    "currency": "SEK",
    "pct": null,
-   "dayChangePct": -0.228,
+   "dayChangePct": -0.021,
    "series": [],
    "stats": {
     "longName": "Telefonaktiebolaget LM Ericsson (publ)",
@@ -43,14 +43,14 @@
     "dayLow": 96.22,
     "high52": 128.45,
     "low52": 72.52,
-    "volume": 1518214,
+    "volume": 1824210,
     "previousClose": 96.76
    },
    "session": {
     "start": 1788332400,
     "end": 1788363000
    },
-   "lastTrade": 1788341956
+   "lastTrade": 1788347470
   },
   {
    "id": "peter",
@@ -65,10 +65,10 @@
    "ok": true,
    "baseline": null,
    "baselineDate": null,
-   "price": 829.2,
+   "price": 825.6,
    "currency": "SEK",
    "pct": null,
-   "dayChangePct": -0.072,
+   "dayChangePct": -0.506,
    "series": [],
    "stats": {
     "longName": "Evolution AB (publ)",
@@ -77,14 +77,14 @@
     "dayLow": 822.2,
     "high52": 841.8,
     "low52": 515.4,
-    "volume": 102767,
+    "volume": 137677,
     "previousClose": 836.8
    },
    "session": {
     "start": 1788332400,
     "end": 1788363000
    },
-   "lastTrade": 1788341896
+   "lastTrade": 1788347402
   },
   {
    "id": "markus",
@@ -99,44 +99,44 @@
    "ok": true,
    "baseline": null,
    "baselineDate": null,
-   "price": 36.9,
+   "price": 37.78,
    "currency": "SEK",
    "pct": null,
-   "dayChangePct": -1.6,
+   "dayChangePct": 0.747,
    "series": [],
    "stats": {
     "longName": "Ovzon AB (publ)",
     "exchange": "Stockholm",
-    "dayHigh": 37.52,
-    "dayLow": 36.9,
+    "dayHigh": 37.9,
+    "dayLow": 36.84,
     "high52": 69.75,
     "low52": 29.7,
-    "volume": 197114,
+    "volume": 301624,
     "previousClose": 40.68
    },
    "session": {
     "start": 1788332400,
     "end": 1788363000
    },
-   "lastTrade": 1788341946
+   "lastTrade": 1788347470
   },
   {
-   "id": "david",
-   "name": "David",
+   "id": "oscar",
+   "name": "Oscar",
    "company": "Sinch",
    "ticker": "SINCH.ST",
    "avatar": "💬",
-   "motto": "Ett sms i taget.",
+   "motto": "",
    "about": "Molnplattform för kundkommunikation – sms, röst och video via API:er. Växte snabbt genom förvärv, vilket gett både skala och en skuldsättning som marknaden följer noga. Hög volatilitet.",
    "color": "#8ab4ff",
    "benchmark": false,
    "ok": true,
    "baseline": null,
    "baselineDate": null,
-   "price": 43.98,
+   "price": 44.11,
    "currency": "SEK",
    "pct": null,
-   "dayChangePct": -2.223,
+   "dayChangePct": -1.934,
    "series": [],
    "stats": {
     "longName": "Sinch AB (publ)",
@@ -145,14 +145,14 @@
     "dayLow": 43.71,
     "high52": 48.3,
     "low52": 18.86,
-    "volume": 442491,
+    "volume": 604901,
     "previousClose": 47.2
    },
    "session": {
     "start": 1788332400,
     "end": 1788363000
    },
-   "lastTrade": 1788341894
+   "lastTrade": 1788347431
   },
   {
    "id": "elin",
@@ -167,10 +167,10 @@
    "ok": true,
    "baseline": null,
    "baselineDate": null,
-   "price": 270,
+   "price": 270.4,
    "currency": "SEK",
    "pct": null,
-   "dayChangePct": -1.603,
+   "dayChangePct": -1.458,
    "series": [],
    "stats": {
     "longName": "Vitec Software Group AB (publ)",
@@ -179,14 +179,14 @@
     "dayLow": 268.8,
     "high52": 383.2,
     "low52": 212,
-    "volume": 16628,
+    "volume": 20576,
     "previousClose": 279.2
    },
    "session": {
     "start": 1788332400,
     "end": 1788363000
    },
-   "lastTrade": 1788341894
+   "lastTrade": 1788347399
   },
   {
    "id": "farid",
@@ -201,26 +201,26 @@
    "ok": true,
    "baseline": null,
    "baselineDate": null,
-   "price": 23.71,
+   "price": 23.6,
    "currency": "SEK",
    "pct": null,
-   "dayChangePct": -2.388,
+   "dayChangePct": -2.841,
    "series": [],
    "stats": {
     "longName": "Truecaller AB (publ)",
     "exchange": "Stockholm",
     "dayHigh": 24.56,
-    "dayLow": 23.6,
+    "dayLow": 23.53,
     "high52": 47,
     "low52": 9.27,
-    "volume": 826739,
+    "volume": 1030187,
     "previousClose": 24.6
    },
    "session": {
     "start": 1788332400,
     "end": 1788363000
    },
-   "lastTrade": 1788341890
+   "lastTrade": 1788347449
   },
   {
    "id": "moderskeppet",
@@ -235,26 +235,26 @@
    "ok": true,
    "baseline": null,
    "baselineDate": null,
-   "price": 101.6,
+   "price": 102.8,
    "currency": "SEK",
    "pct": null,
-   "dayChangePct": 3.252,
+   "dayChangePct": 4.472,
    "series": [],
    "stats": {
     "longName": "AcadeMedia AB (publ)",
     "exchange": "Stockholm",
-    "dayHigh": 102.4,
+    "dayHigh": 103,
     "dayLow": 98.4,
     "high52": 109.4,
     "low52": 85.5,
-    "volume": 69459,
+    "volume": 86879,
     "previousClose": 98
    },
    "session": {
     "start": 1788332400,
     "end": 1788363000
    },
-   "lastTrade": 1788340912
+   "lastTrade": 1788347469
   }
  ]
 }

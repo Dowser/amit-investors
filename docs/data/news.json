@@ -1,43 +1,8 @@
 {
- "generatedAt": "2026-09-02T09:39:30.209Z",
+ "generatedAt": "2026-09-02T11:11:28.042Z",
  "byParticipant": {
-  "david": {
-   "fetchedAt": "2026-09-02T09:39:27.872Z",
-   "items": [
-    {
-     "title": "Sinch kopplar Mailgun till Salesforce – ny AI-satsning mot företagskunder",
-     "link": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE9DREROYi1YQ0g2QUJ0N1V5Q3g3TkpEaW9ZRl9rZmZVTWx5bXlkeVNrTC0wUk9kN1ZkOGdTRV9mNjdGN0xLWkRtalhhd2Y1ZFQtdzUzMDBB?oc=5",
-     "source": "HurBra.se",
-     "published": "2026-09-01T15:57:59.000Z"
-    },
-    {
-     "title": "Sinch ingår AI-samarbete med Coderra i Australien",
-     "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxOTThIMFRPZ19DcTBCblVuRXpMcmV5b0w1QXFDOHNhTTNCYUw1c3RkaEdJbWVTTjdnSE13Um5HOGZYRXFSWG1tbjhDWkpSamJ1WERsZXRPRHZGY01XMnZNc3NPdnZtVU5vSlBRdUZIajE0OUhwNGgwV2hIRF9FT1RCLXBtOUNFTHpYbVE?oc=5",
-     "source": "Börsvärlden",
-     "published": "2026-09-01T06:33:00.000Z"
-    },
-    {
-     "title": "Ändring av antalet aktier och röster i Sinch",
-     "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxQMUY0dkhFVDVsVWV1WDFoRUpMZ1BDSW9JbUd5bEhyMUZvZFA2M1d6QnhObUY1cDB4LWZ0MlhRbWxTOG9xczF6S1BHQlBoNVlaOG9JMjFaYzA4NjlRM2pDN19TVWFiUUYyelNIQkVDRmJIYU5NQW1OZzJELVV0cDdHdUhGeHg1Nlg3ZHc?oc=5",
-     "source": "TradeVenue",
-     "published": "2026-08-31T07:50:24.000Z"
-    },
-    {
-     "title": "Avanzas sparare säljer trots börsrekord – Saab mest sålda",
-     "link": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxPc0EtbHY4eWRiTExINkxvUF9WXzZ0NzFsblN5amZUa3V3em1NejhyMl82ZVU3X09DdWFGUjhfZXNoUFJuaVpSNURHazhidjhYcUlvRmdfV1FUelExMEJnSDdMV2ZoejdHWWlMcmZldmZzd2E5a3N5MGcyQ0Z1Rktlc1VlRC1lcG9sMmluZG4zV1pWMmFVMm5Fekp1LUVaWjg0X29ySktsWE0?oc=5",
-     "source": "Placera.se",
-     "published": "2026-08-31T05:23:08.000Z"
-    },
-    {
-     "title": "Bank of America höjer riktkursen för Sinch till 29 kronor (26), upprepar underperform",
-     "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPeFE5TWFkc2dkb1ZPWXF3R0VNSXlqSmt4bEM3a1B3RjNNUzhjSHVTcGhUdGxBTW1kRFZ2M3RzZFk2bnUtNTNlaDVOV2psU3V2NEUwci1OOXpWazg1VHhhYW9HcmYzRFl4bTFyaldkSUg0dWVvVDFrdGtITndiaklZa2EtR3hud1g2RUtxaDg1OW0tRWc4amh6ZGEwODExdWl4alRGSDhOWkNFVzJIVDBXN0tsa1FtY0VaVlNLSVVOZw?oc=5",
-     "source": "Affärsvärlden",
-     "published": "2026-08-27T17:44:07.000Z"
-    }
-   ]
-  },
   "elin": {
-   "fetchedAt": "2026-09-02T09:39:28.476Z",
+   "fetchedAt": "2026-09-02T11:11:26.371Z",
    "items": [
     {
      "title": "Blandad stängning i Stockholm – Boliden sänke i OMXS30",
@@ -72,7 +37,7 @@
    ]
   },
   "farid": {
-   "fetchedAt": "2026-09-02T09:39:29.077Z",
+   "fetchedAt": "2026-09-02T11:11:26.982Z",
    "items": [
     {
      "title": "Storbank: Truecallers aktie kan dubblas på nio månader",
@@ -107,19 +72,13 @@
    ]
   },
   "andreas": {
-   "fetchedAt": "2026-09-02T09:39:25.825Z",
+   "fetchedAt": "2026-09-02T11:11:23.776Z",
    "items": [
     {
      "title": "Börsen idag: Ericsson och ABB stiger i kölvattnet av Nvidias rapport",
      "link": "https://news.google.com/rss/articles/CBMipwFBVV95cUxPSDNxSTBSeDR4cWlDR2QwME82VXRJZjFrLW1wWVJNQ0NFQ2wtRzVZcmY4Um44VXp2bG80RFI4Slh0cTdnakxEeWEtRm1PWWF0azFvMUYxSnNiOE0tUUIxUE14UFVZRmxuM3BoRWs5WlVDSE56WFJIRWszblRwdGxUYXhFbGpFSE5BcG1FbmlZUXo3cWttcUJsWDFidHV0VzFHaXltdjRsYw?oc=5",
      "source": "Börskollen",
      "published": "2026-08-27T07:40:00.000Z"
-    },
-    {
-     "title": "Ericsson skruvade upp återköpen efter raset",
-     "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxQcUxWUksxcWhWenVNeHFjSjByd1hSMFZHZjB4eHZ3MjZxa19MMzEtMDZTS1dMc3dHUVRGYXRZWklTMl84c25LckNYNHZvOUlmWG83UWxVQWNFQWoyaTFhUk1oam16MnQ2UjlmeEF3eTVHS21lMGh6TmE0NFBydlQ1eXNVV2lQSERB?oc=5",
-     "source": "TradeVenue",
-     "published": "2026-07-20T07:00:00.000Z"
     },
     {
      "title": "Kris, mod och miljarder: därför lyckades de",
@@ -134,6 +93,12 @@
      "published": "2026-07-15T07:00:00.000Z"
     },
     {
+     "title": "Banken: Överdrivet kursras i Ericsson",
+     "link": "https://news.google.com/rss/articles/CBMibEFVX3lxTE5FU2FLbmgtTnBSSGZnUTN4ZC1NY0RQa0FhSHVOU05MWEI4Zm9KUTY1VzVMSTJOUk9jMU1MY29LS2xaLWJORmt1Vl84bEF5Y20wWng2SjJHd3VXTzgxVzRERWlEdkJTWUhUUXdUdA?oc=5",
+     "source": "Dagens industri",
+     "published": "2026-07-15T07:00:00.000Z"
+    },
+    {
      "title": "Ericsson sänke på Stockholmsbörsen, OMXS30-index backade 0,1 procent",
      "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxNSzBwSnNvNGhzdGV6Q291MldCOUhPZE16bDZPVnJpTmt1ZGlfdTdIbHAyTE5oNlVIcHB1V2VRaEVad3NhdnR5d0xwWXY0SWlVMmhPV1N1ckRlY0d3dEJmR2JEZmVESG1ldFJ4dUJpTjIxVURRTVNjWkZWNklpeXUyUUl6TC1uZUh3VUZ6TnprZlY0RXFWUHJYRzd1ZHUyYjlM?oc=5",
      "source": "Börsvärlden",
@@ -142,7 +107,7 @@
    ]
   },
   "peter": {
-   "fetchedAt": "2026-09-02T09:39:26.543Z",
+   "fetchedAt": "2026-09-02T11:11:24.441Z",
    "items": [
     {
      "title": "Gernandt & Danielsson biträder Evolution i samband med budpliktserbjudande från Candle Lake",
@@ -177,7 +142,7 @@
    ]
   },
   "markus": {
-   "fetchedAt": "2026-09-02T09:39:27.200Z",
+   "fetchedAt": "2026-09-02T11:11:25.051Z",
    "items": [
     {
      "title": "Nu är Qviberg kung på börsen",
@@ -198,25 +163,25 @@
      "published": "2026-08-21T07:00:00.000Z"
     },
     {
-     "title": "Hoist redovisar urstark vinst före skatt",
-     "link": "https://news.google.com/rss/articles/CBMiakFVX3lxTFAzQkNKQUR1eThwbTBMVl9aazRwTWx5Wk1iQVc4TmhlN1N2MDhkVVh3aVdGaUdFZWc0N3NBaHo4bXVNRTNUV0VPMGRVSzB3Zm5aeVZjMjFZV00yYjFzdlFJMUdTWVRKenJ4X0E?oc=5",
-     "source": "Affärsvärlden",
-     "published": "2026-07-24T05:13:20.000Z"
-    },
-    {
      "title": "Detta händer fredag 17 juli",
      "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTFBYajk3dEJSZGUxaDZka2Y1eWhzSlotbkptRUJmZUtJZzBmbHp0WElvb05USUNsUnNXTzhmbUFIcy1YMmJIY1lGQ0pabFA4ZHJFMXRGdXZUVmtDQXBVN3F0c0U5X3A5MnRf?oc=5",
      "source": "Dagens industri",
      "published": "2026-07-17T07:00:00.000Z"
+    },
+    {
+     "title": "Satellitbolaget får order på 36 miljoner kronor",
+     "link": "https://news.google.com/rss/articles/CBMie0FVX3lxTE56WVFQdnFrUy1teUVIZlBVNWl4bFZWU3VvOWMwOThHeWRkaFlDQWRabFlOX05sS1lHMDl1OUNWUkxhYVNTOXlQcEVmaDBST19mYjd2OHhYLThKbHVQR0pNVEdqd1VBNGdZSWRCSlNKUFhYLUp6SjJEWnVMcw?oc=5",
+     "source": "Dagens industri",
+     "published": "2026-07-16T07:00:00.000Z"
     }
    ]
   },
   "moderskeppet": {
-   "fetchedAt": "2026-09-02T09:39:29.805Z",
+   "fetchedAt": "2026-09-02T11:11:27.641Z",
    "items": [
     {
      "title": "SEB skrotar säljstämpel på Academedia – här är dagens rekar",
-     "link": "https://news.google.com/rss/articles/CBMibkFVX3lxTE5HT1lZS0tSS2VWXzhKNVBpQVdFN2E5bG9CbUlDUXQ0WGprOVd2ZTQtTnVGQkdHVDFKMFVXak5saXd0cDdUSGZ6OWhrQTdYa2hIQU9IN3VoaEppNXBERHlVVVRtQjg2eTB2TEFZREJ3?oc=5",
+     "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxNdzB3TU4yM1I5UDg1cFhIYzZ3UUswX0RDbmV2amRSNmwtQlZNVzUyTTNHQXJoTHVmSTl4Z0VTNjFJZGNnaklxaDRicWtrMk1WN3JIaVl5M0ZlMUY1U1MxZHlDd0xxU2hlSG9XVFAyU3NsVUFkVGpveGZXQ0h0UUcxUHR6ZTN5V3J3?oc=5",
      "source": "Dagens industri",
      "published": "2026-09-01T05:49:25.000Z"
     },
@@ -243,6 +208,41 @@
      "link": "https://news.google.com/rss/articles/CBMiekFVX3lxTE8tc3BVdmNpU2xIWFgxcUI5a1FhU1BINVptczVLSWE1MU9kU09ZSWREWkdmWktGNmhBc0xiVC1JLW9XTy0yQjZUR0lHaERtVjlYaUxQUFN1bnlSZ29rNmRsVlNzUThoTTVfREIyUS0tc3Z5MzZ1djM5bW5B?oc=5",
      "source": "Placera.se",
      "published": "2026-08-31T10:38:10.000Z"
+    }
+   ]
+  },
+  "oscar": {
+   "fetchedAt": "2026-09-02T11:11:25.711Z",
+   "items": [
+    {
+     "title": "Sinch ingår AI-samarbete med Coderra i Australien",
+     "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxOTThIMFRPZ19DcTBCblVuRXpMcmV5b0w1QXFDOHNhTTNCYUw1c3RkaEdJbWVTTjdnSE13Um5HOGZYRXFSWG1tbjhDWkpSamJ1WERsZXRPRHZGY01XMnZNc3NPdnZtVU5vSlBRdUZIajE0OUhwNGgwV2hIRF9FT1RCLXBtOUNFTHpYbVE?oc=5",
+     "source": "Börsvärlden",
+     "published": "2026-09-01T06:33:00.000Z"
+    },
+    {
+     "title": "Ändring av antalet aktier och röster i Sinch",
+     "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxQMUY0dkhFVDVsVWV1WDFoRUpMZ1BDSW9JbUd5bEhyMUZvZFA2M1d6QnhObUY1cDB4LWZ0MlhRbWxTOG9xczF6S1BHQlBoNVlaOG9JMjFaYzA4NjlRM2pDN19TVWFiUUYyelNIQkVDRmJIYU5NQW1OZzJELVV0cDdHdUhGeHg1Nlg3ZHc?oc=5",
+     "source": "TradeVenue",
+     "published": "2026-08-31T07:50:24.000Z"
+    },
+    {
+     "title": "Avanzas sparare säljer trots börsrekord – Saab mest sålda",
+     "link": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxPc0EtbHY4eWRiTExINkxvUF9WXzZ0NzFsblN5amZUa3V3em1NejhyMl82ZVU3X09DdWFGUjhfZXNoUFJuaVpSNURHazhidjhYcUlvRmdfV1FUelExMEJnSDdMV2ZoejdHWWlMcmZldmZzd2E5a3N5MGcyQ0Z1Rktlc1VlRC1lcG9sMmluZG4zV1pWMmFVMm5Fekp1LUVaWjg0X29ySktsWE0?oc=5",
+     "source": "Placera.se",
+     "published": "2026-08-31T05:23:08.000Z"
+    },
+    {
+     "title": "Bank of America höjer riktkursen för Sinch till 29 kronor (26), upprepar underperform",
+     "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPeFE5TWFkc2dkb1ZPWXF3R0VNSXlqSmt4bEM3a1B3RjNNUzhjSHVTcGhUdGxBTW1kRFZ2M3RzZFk2bnUtNTNlaDVOV2psU3V2NEUwci1OOXpWazg1VHhhYW9HcmYzRFl4bTFyaldkSUg0dWVvVDFrdGtITndiaklZa2EtR3hud1g2RUtxaDg1OW0tRWc4amh6ZGEwODExdWl4alRGSDhOWkNFVzJIVDBXN0tsa1FtY0VaVlNLSVVOZw?oc=5",
+     "source": "Affärsvärlden",
+     "published": "2026-08-27T17:44:07.000Z"
+    },
+    {
+     "title": "Bofa höjer Sinch riktkurs – ser förbättrade utsikter för sektorn",
+     "link": "https://news.google.com/rss/articles/CBMigwFBVV95cUxOOGpkdmRwaDdLNlBLMGJjLWM3enljV0t1RUo0OGFHa19ReXRiTGc3MFFlNGRKWVhDeXNTcXRkTF8zSGNsWWMxQk9KcWd1NDV2UGF1eHd2eGtrdF9yeTFoRi01eVdKU2tyQl92X21sM2ZUSDkzWG1VeTJFWVhHS1JuNUpIYw?oc=5",
+     "source": "EFN",
+     "published": "2026-08-27T10:52:50.000Z"
     }
    ]
   }
