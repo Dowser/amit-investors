@@ -503,6 +503,31 @@ main { position: relative; z-index: 2; }
 }
 .row.is-open .caret { transform: rotate(180deg); color: var(--amber); }
 
+/* --- Referensdeltagaren -------------------------------------------------- */
+
+/* Streckad ram och dämpad ton: raden ska läsa som en måttstock under fältet,
+   inte som en sjunde tävlande. */
+.row.is-benchmark {
+  border-style: dashed;
+  border-color: rgba(150, 190, 230, .22);
+  background: transparent;
+  margin-top: 7px;
+}
+.row.is-benchmark .who-name { color: var(--ink-2); font-weight: 500; }
+.row.is-benchmark .avatar { opacity: .75; }
+.row.is-benchmark .pct { font-weight: 500; }
+
+.rank-ref {
+  font-size: 9.5px !important; letter-spacing: .14em;
+  color: var(--ink-3); font-weight: 500;
+}
+
+.series-benchmark { stroke-width: 1.6; opacity: .72; }
+.chart.is-focused .series-benchmark:not(.is-active) { opacity: .10; }
+
+.legend-item.is-benchmark { border-style: dashed; }
+.legend-item.is-benchmark .legend-swatch { border-radius: 1px; height: 3px; }
+
 /* Dossier */
 .dossier {
   display: grid; grid-template-rows: 0fr;

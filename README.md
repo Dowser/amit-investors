@@ -44,6 +44,27 @@ Kontrollera alltid att symbolerna finns innan du committar:
 node scripts/update.mjs --validate
 ```
 
+### Referensdeltagare
+
+En deltagare med `"benchmark": true` tävlar inte — den fungerar som måttstock:
+
+```jsonc
+{
+  "id": "moderskeppet",
+  "name": "Moderskeppet",
+  "ticker": "ACAD.ST",
+  "company": "AcadeMedia",
+  "benchmark": true
+}
+```
+
+Referensen rankas inte, kan inte leda tävlingen och räknas inte in i antalet
+deltagare. I grafen ritas den som en streckad grå linje bakom fältet, i
+tabellen ligger den sist märkt `REF`, och varje tävlandes utfällda rad visar
+skillnaden mot den i procentenheter.
+
+Ta bort raden `"benchmark": true` för att göra den till en vanlig deltagare.
+
 ### Hitta rätt ticker
 
 Sök bolaget på [finance.yahoo.com](https://finance.yahoo.com) och använd symbolen

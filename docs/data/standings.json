@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-09-02T09:23:47.719Z",
+ "generatedAt": "2026-09-02T09:39:25.403Z",
  "state": "pre",
  "marketState": "REGULAR",
  "session": {
@@ -27,29 +27,30 @@
    "motto": "",
    "about": "Telekomjätten från Kista. Bygger mobilnät åt operatörer över hela världen och lever på 5G-utbyggnadens takt. Tung exponering mot Nordamerika, vilket gör aktien känslig för både dollarkurs och operatörernas investeringsbudgetar.",
    "color": "#ffb454",
+   "benchmark": false,
    "ok": true,
    "baseline": null,
    "baselineDate": null,
-   "price": 96.5,
+   "price": 96.26,
    "currency": "SEK",
    "pct": null,
-   "dayChangePct": 0.021,
+   "dayChangePct": -0.228,
    "series": [],
    "stats": {
     "longName": "Telefonaktiebolaget LM Ericsson (publ)",
     "exchange": "Stockholm",
     "dayHigh": 97.6,
-    "dayLow": 96.5,
+    "dayLow": 96.22,
     "high52": 128.45,
     "low52": 72.52,
-    "volume": 1460286,
+    "volume": 1518214,
     "previousClose": 96.76
    },
    "session": {
     "start": 1788332400,
     "end": 1788363000
    },
-   "lastTrade": 1788340975
+   "lastTrade": 1788341956
   },
   {
    "id": "peter",
@@ -60,13 +61,14 @@
    "motto": "",
    "about": "Världsledande på live casino – de bygger studiorna där riktiga dealers streamas ut till onlinekasinon. Extremt höga marginaler, men aktien svänger kraftigt på regleringsnyheter från enskilda marknader.",
    "color": "#5fe9d0",
+   "benchmark": false,
    "ok": true,
    "baseline": null,
    "baselineDate": null,
-   "price": 828.6,
+   "price": 829.2,
    "currency": "SEK",
    "pct": null,
-   "dayChangePct": -0.145,
+   "dayChangePct": -0.072,
    "series": [],
    "stats": {
     "longName": "Evolution AB (publ)",
@@ -75,14 +77,14 @@
     "dayLow": 822.2,
     "high52": 841.8,
     "low52": 515.4,
-    "volume": 97101,
+    "volume": 102767,
     "previousClose": 836.8
    },
    "session": {
     "start": 1788332400,
     "end": 1788363000
    },
-   "lastTrade": 1788340970
+   "lastTrade": 1788341896
   },
   {
    "id": "markus",
@@ -93,13 +95,14 @@
    "motto": "",
    "about": "Svenskt satellitkommunikationsbolag i Solna som säljer mobilt bredband via satellit, främst till försvar, myndigheter och hjälporganisationer. Sköt upp sin egen satellit Ovzon 3 i början av 2024 och gick därmed från att hyra kapacitet till att äga den. Litet bolag med tung investeringsprofil — kursen rör sig kraftigt på enskilda order och finansieringsbesked.",
    "color": "#ff7a8a",
+   "benchmark": false,
    "ok": true,
    "baseline": null,
    "baselineDate": null,
-   "price": 37.02,
+   "price": 36.9,
    "currency": "SEK",
    "pct": null,
-   "dayChangePct": -1.28,
+   "dayChangePct": -1.6,
    "series": [],
    "stats": {
     "longName": "Ovzon AB (publ)",
@@ -108,14 +111,14 @@
     "dayLow": 36.9,
     "high52": 69.75,
     "low52": 29.7,
-    "volume": 187675,
+    "volume": 197114,
     "previousClose": 40.68
    },
    "session": {
     "start": 1788332400,
     "end": 1788363000
    },
-   "lastTrade": 1788340954
+   "lastTrade": 1788341946
   },
   {
    "id": "david",
@@ -126,13 +129,14 @@
    "motto": "Ett sms i taget.",
    "about": "Molnplattform för kundkommunikation – sms, röst och video via API:er. Växte snabbt genom förvärv, vilket gett både skala och en skuldsättning som marknaden följer noga. Hög volatilitet.",
    "color": "#8ab4ff",
+   "benchmark": false,
    "ok": true,
    "baseline": null,
    "baselineDate": null,
-   "price": 44.39,
+   "price": 43.98,
    "currency": "SEK",
    "pct": null,
-   "dayChangePct": -1.312,
+   "dayChangePct": -2.223,
    "series": [],
    "stats": {
     "longName": "Sinch AB (publ)",
@@ -141,14 +145,14 @@
     "dayLow": 43.71,
     "high52": 48.3,
     "low52": 18.86,
-    "volume": 392480,
+    "volume": 442491,
     "previousClose": 47.2
    },
    "session": {
     "start": 1788332400,
     "end": 1788363000
    },
-   "lastTrade": 1788341004
+   "lastTrade": 1788341894
   },
   {
    "id": "elin",
@@ -159,29 +163,30 @@
    "motto": "Tråkigt är det nya spännande.",
    "about": "Serieförvärvare av vertikal affärsmjukvara i Norden – köper små nischbolag med återkommande intäkter och behåller dem. Låg kundomsättning ger stabila kassaflöden och en klassiskt hög värdering.",
    "color": "#c9a7ff",
+   "benchmark": false,
    "ok": true,
    "baseline": null,
    "baselineDate": null,
-   "price": 271.4,
+   "price": 270,
    "currency": "SEK",
    "pct": null,
-   "dayChangePct": -1.093,
+   "dayChangePct": -1.603,
    "series": [],
    "stats": {
     "longName": "Vitec Software Group AB (publ)",
     "exchange": "Stockholm",
     "dayHigh": 276.8,
-    "dayLow": 270.2,
+    "dayLow": 268.8,
     "high52": 383.2,
     "low52": 212,
-    "volume": 14163,
+    "volume": 16628,
     "previousClose": 279.2
    },
    "session": {
     "start": 1788332400,
     "end": 1788363000
    },
-   "lastTrade": 1788340571
+   "lastTrade": 1788341894
   },
   {
    "id": "farid",
@@ -192,13 +197,14 @@
    "motto": "Vem ringer egentligen?",
    "about": "Appen som identifierar och blockerar oönskade samtal, med tyngdpunkten på Indien. Intäkterna kommer främst från annonser och prenumerationer, vilket gör bolaget känsligt för annonskonjunktur och regeländringar i Indien.",
    "color": "#b5e26b",
+   "benchmark": false,
    "ok": true,
    "baseline": null,
    "baselineDate": null,
-   "price": 23.91,
+   "price": 23.71,
    "currency": "SEK",
    "pct": null,
-   "dayChangePct": -1.564,
+   "dayChangePct": -2.388,
    "series": [],
    "stats": {
     "longName": "Truecaller AB (publ)",
@@ -207,14 +213,48 @@
     "dayLow": 23.6,
     "high52": 47,
     "low52": 9.27,
-    "volume": 770976,
+    "volume": 826739,
     "previousClose": 24.6
    },
    "session": {
     "start": 1788332400,
     "end": 1788363000
    },
-   "lastTrade": 1788340890
+   "lastTrade": 1788341890
+  },
+  {
+   "id": "moderskeppet",
+   "name": "Moderskeppet",
+   "company": "AcadeMedia",
+   "ticker": "ACAD.ST",
+   "avatar": "🛸",
+   "motto": "Jag tävlar inte. Jag mäter.",
+   "about": "Referensen i tävlingen, inte en deltagare. Moderskeppet följer AcadeMedia-aktien och kan varken vinna eller förlora — den finns där för att svara på den enda fråga som egentligen betyder något: gjorde du bättre ifrån dig än bolaget du redan går till varje dag? Slår du inte moderskeppet har du i praktiken inte tillfört någonting.",
+   "color": "#a9bcd8",
+   "benchmark": true,
+   "ok": true,
+   "baseline": null,
+   "baselineDate": null,
+   "price": 101.6,
+   "currency": "SEK",
+   "pct": null,
+   "dayChangePct": 3.252,
+   "series": [],
+   "stats": {
+    "longName": "AcadeMedia AB (publ)",
+    "exchange": "Stockholm",
+    "dayHigh": 102.4,
+    "dayLow": 98.4,
+    "high52": 109.4,
+    "low52": 85.5,
+    "volume": 69459,
+    "previousClose": 98
+   },
+   "session": {
+    "start": 1788332400,
+    "end": 1788363000
+   },
+   "lastTrade": 1788340912
   }
  ]
 }

@@ -1,8 +1,8 @@
 {
- "generatedAt": "2026-09-02T09:23:51.942Z",
+ "generatedAt": "2026-09-02T09:39:30.209Z",
  "byParticipant": {
   "david": {
-   "fetchedAt": "2026-09-02T09:23:50.339Z",
+   "fetchedAt": "2026-09-02T09:39:27.872Z",
    "items": [
     {
      "title": "Sinch kopplar Mailgun till Salesforce – ny AI-satsning mot företagskunder",
@@ -37,7 +37,7 @@
    ]
   },
   "elin": {
-   "fetchedAt": "2026-09-02T09:23:50.933Z",
+   "fetchedAt": "2026-09-02T09:39:28.476Z",
    "items": [
     {
      "title": "Blandad stängning i Stockholm – Boliden sänke i OMXS30",
@@ -72,7 +72,7 @@
    ]
   },
   "farid": {
-   "fetchedAt": "2026-09-02T09:23:51.540Z",
+   "fetchedAt": "2026-09-02T09:39:29.077Z",
    "items": [
     {
      "title": "Storbank: Truecallers aktie kan dubblas på nio månader",
@@ -107,7 +107,7 @@
    ]
   },
   "andreas": {
-   "fetchedAt": "2026-09-02T09:23:48.229Z",
+   "fetchedAt": "2026-09-02T09:39:25.825Z",
    "items": [
     {
      "title": "Börsen idag: Ericsson och ABB stiger i kölvattnet av Nvidias rapport",
@@ -142,7 +142,7 @@
    ]
   },
   "peter": {
-   "fetchedAt": "2026-09-02T09:23:48.905Z",
+   "fetchedAt": "2026-09-02T09:39:26.543Z",
    "items": [
     {
      "title": "Gernandt & Danielsson biträder Evolution i samband med budpliktserbjudande från Candle Lake",
@@ -177,7 +177,7 @@
    ]
   },
   "markus": {
-   "fetchedAt": "2026-09-02T09:23:49.523Z",
+   "fetchedAt": "2026-09-02T09:39:27.200Z",
    "items": [
     {
      "title": "Nu är Qviberg kung på börsen",
@@ -208,6 +208,41 @@
      "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTFBYajk3dEJSZGUxaDZka2Y1eWhzSlotbkptRUJmZUtJZzBmbHp0WElvb05USUNsUnNXTzhmbUFIcy1YMmJIY1lGQ0pabFA4ZHJFMXRGdXZUVmtDQXBVN3F0c0U5X3A5MnRf?oc=5",
      "source": "Dagens industri",
      "published": "2026-07-17T07:00:00.000Z"
+    }
+   ]
+  },
+  "moderskeppet": {
+   "fetchedAt": "2026-09-02T09:39:29.805Z",
+   "items": [
+    {
+     "title": "SEB skrotar säljstämpel på Academedia – här är dagens rekar",
+     "link": "https://news.google.com/rss/articles/CBMibkFVX3lxTE5HT1lZS0tSS2VWXzhKNVBpQVdFN2E5bG9CbUlDUXQ0WGprOVd2ZTQtTnVGQkdHVDFKMFVXak5saXd0cDdUSGZ6OWhrQTdYa2hIQU9IN3VoaEppNXBERHlVVVRtQjg2eTB2TEFZREJ3?oc=5",
+     "source": "Dagens industri",
+     "published": "2026-09-01T05:49:25.000Z"
+    },
+    {
+     "title": "Börsen på minus – Academedia mot strömmen",
+     "link": "https://news.google.com/rss/articles/CBMiggFBVV95cUxQMkJTQ3daOUhTcTBrb0tHZGZfQzg5QWhkUnp0TVpmczBSVTdFdWtkbDBsb2FPaWl4Y285akNCWVpiaVhIUWEtaUJXRjZGX29fTjJUb2otUzNpOEhQb1pDenEtMkZWMGtuSVVyTmo5emppLUFZMzlCbkdkM3JRN3p6aU93?oc=5",
+     "source": "Affärsvärlden",
+     "published": "2026-08-31T15:39:57.000Z"
+    },
+    {
+     "title": "Stockholmsbörsen inledde veckan med nedgång, OMS30-index backade 0,7 procent",
+     "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxNTEhKMGVQUnp2blE0dDdCelZPV3loUmIzbW9zaVNCUG5NMHJzWVh0OWlHTkFiOVowa2c4YWQ1V2E2WG55WkFjMzVid1U3U3lsbnV6RG45T2poYzdDTy1pNV9FMXhrWmFlU3BaWnlBaEdadHlLQzk2bUl6ZXFOdk9MWnROb0VkQ1prVVRaT1FSY0J3b3ZPUm9kVEFub0MtekVzUGtJNV9EUm1XRlU?oc=5",
+     "source": "Börsvärlden",
+     "published": "2026-08-31T15:35:00.000Z"
+    },
+    {
+     "title": "Academedia ska fortsätta växa i Polen - vd",
+     "link": "https://news.google.com/rss/articles/CBMiVEFVX3lxTE43TE1ab0lCZ0pKSGFnQmdQYzZNOTcwRDdCRkJDeWstOEtVdzNRcFJrQUlmOVMxWHhxdmlVeFdmSENvRW5MOFVJWVh2YUZ6bTFZYlo4eQ?oc=5",
+     "source": "Börsvärlden",
+     "published": "2026-08-31T12:18:00.000Z"
+    },
+    {
+     "title": "Academedia",
+     "link": "https://news.google.com/rss/articles/CBMiekFVX3lxTE8tc3BVdmNpU2xIWFgxcUI5a1FhU1BINVptczVLSWE1MU9kU09ZSWREWkdmWktGNmhBc0xiVC1JLW9XTy0yQjZUR0lHaERtVjlYaUxQUFN1bnlSZ29rNmRsVlNzUThoTTVfREIyUS0tc3Z5MzZ1djM5bW5B?oc=5",
+     "source": "Placera.se",
+     "published": "2026-08-31T10:38:10.000Z"
     }
    ]
   }

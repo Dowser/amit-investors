@@ -62,6 +62,18 @@
       "avatar": "📵",
       "motto": "Vem ringer egentligen?",
       "about": "Appen som identifierar och blockerar oönskade samtal, med tyngdpunkten på Indien. Intäkterna kommer främst från annonser och prenumerationer, vilket gör bolaget känsligt för annonskonjunktur och regeländringar i Indien."
+    },
+    {
+      "id": "moderskeppet",
+      "name": "Moderskeppet",
+      "ticker": "ACAD.ST",
+      "company": "AcadeMedia",
+      "avatar": "🛸",
+      "benchmark": true,
+      "motto": "Jag tävlar inte. Jag mäter.",
+      "about": "Referensen i tävlingen, inte en deltagare. Moderskeppet följer AcadeMedia-aktien och kan varken vinna eller förlora — den finns där för att svara på den enda fråga som egentligen betyder något: gjorde du bättre ifrån dig än bolaget du redan går till varje dag? Slår du inte moderskeppet har du i praktiken inte tillfört någonting.",
+      "color": "#a9bcd8"
     }
-  ]
+  ],
+  "_benchmarkkommentar": "En deltagare med \"benchmark\": true visas som referenslinje: räknas inte in i placeringarna, kan inte vinna, och ritas streckad i grafen. Ta bort raden för att göra den till en vanlig deltagare."
 }

@@ -22,7 +22,16 @@ const kr = (v) => (v == null ? '–' : nf(2).format(v));
 const bigNum = (v) => (v == null ? '–' : new Intl.NumberFormat('sv-SE', { notation: 'compact', maximumFractionDigits: 1 }).format(v));
 const dirClass = (v) => (v == null ? 'flat' : v > 0.005 ? 'up' : v < -0.005 ? 'down' : 'flat');
 
+/* Skillnad mot referensen mäts i procentenheter (pp), inte procent — att säga
+   att någon gick "10 % bättre" när båda mäts i procent är tvetydigt. */
+const ppFmt = (v) => (v == null ? '–' : (v >= 0 ? '+' : '−') + nf(1).format(Math.abs(v)) + '\u00A0pp');
+
 const state = { data: null, news: {}, range: 'all', sort: 'total', focus: null, hidden: new Set() };
+
+/* Referensdeltagaren tävlar inte: den rankas inte, kan inte leda och får
+   ingen medalj. Den finns för att besvara "slog jag moderbolaget?". */
+const competitors = () => state.data.participants.filter((p) => !p.benchmark);
+const benchmarkOf = () => state.data.participants.find((p) => p.benchmark) || null;
 
 /* --------------------------------------------------------- glasbelysning
    Ett enda dokumentlyssnare i stället för ett per panel, och koordinaterna
@@ -183,7 +192,7 @@ async function loadJson(path, optional = false) {
 /* Deltagare med giltig data, sorterade enligt aktuellt sorteringsval. */
 function ranked() {
   const key = state.sort === 'day' ? 'dayChangePct' : 'pct';
-  return [...state.data.participants].sort((a, b) => {
+  return competitors().sort((a, b) => {
     const av = a[key], bv = b[key];
     if (av == null && bv == null) return a.name.localeCompare(b.name, 'sv');
     if (av == null) return 1;
@@ -199,7 +208,7 @@ function previousRanks() {
   const dates = state.data.dates;
   if (dates.length < 2) return null;
   const prev = dates[dates.length - 2];
-  const order = state.data.participants
+  const order = competitors()
     .map((p) => ({ id: p.id, v: p.series.find((s) => s.d === prev)?.p }))
     .filter((r) => r.v != null)
     .sort((a, b) => b.v - a.v);
@@ -234,7 +243,7 @@ function renderTelemetry() {
   const end = new Date(d.competition.endDate + 'T17:30:00+01:00');
   const days = Math.ceil((end - Date.now()) / 86400000);
   $('#ro-remaining').textContent = d.state === 'ended' ? 'Avgjort' : days > 0 ? `${days} d` : 'Sista dagen';
-  $('#ro-count').textContent = d.participants.length;
+  $('#ro-count').textContent = competitors().length;
 }
 
 /* ------------------------------------------------------------------- hero */
@@ -402,12 +411,19 @@ function renderChart() {
     const line = mk('path', { d: dPath.trim(), stroke: p.color, class: `series-path ${cls}` });
     // Glöd via drop-shadow i stället för ett SVG-filter: körs på GPU:n och
     // suddar inte ut linjen som en feGaussianBlur-merge gör.
-    line.style.filter = `drop-shadow(0 0 5px ${p.color}66)`;
+    line.style.filter = `drop-shadow(0 0 ${p.benchmark ? 3 : 5}px ${p.color}${p.benchmark ? '40' : '66'})`;
+    if (p.benchmark) {
+      // Streckad och tunnare: referensen ska läsas som en måttstock bakom
+      // fältet, inte som ännu en tävlande.
+      line.classList.add('series-benchmark');
+      line.style.strokeDasharray = '6 6';
+    }
     svg.append(line);
 
     // Linjerna ritas in en gång, förskjutna i tid så att de läser som separata
-    // banor. Vid omritning (hover, sortering, resize) hoppas detta över.
-    if (!chartDrawn && !REDUCED) {
+    // banor. Referensen hoppas över — dess streckmönster använder samma
+    // stroke-dasharray som inritningen skulle ha skrivit över.
+    if (!chartDrawn && !REDUCED && !p.benchmark) {
       const len = line.getTotalLength();
       line.style.strokeDasharray = len;
       line.style.strokeDashoffset = len;
@@ -487,10 +503,13 @@ function attachHover(svg, ctx) {
 function renderLegend() {
   const ul = $('#legend');
   ul.innerHTML = '';
-  for (const p of ranked()) {
+  const bench = benchmarkOf();
+  for (const p of [...ranked(), ...(bench ? [bench] : [])]) {
     if (!p.ok) continue;
     const li = el('li');
-    const btn = el('button', 'legend-item' + (state.hidden.has(p.id) ? ' is-muted' : ''));
+    const btn = el('button', 'legend-item'
+      + (state.hidden.has(p.id) ? ' is-muted' : '')
+      + (p.benchmark ? ' is-benchmark' : ''));
     btn.type = 'button';
     btn.setAttribute('aria-pressed', String(!state.hidden.has(p.id)));
     const sw = el('span', 'legend-swatch'); sw.style.background = p.color;
@@ -573,11 +592,18 @@ function renderBoard() {
   const board = $('#board');
   board.innerHTML = '';
   const list = ranked();
+  const bench = benchmarkOf();
   const prevRanks = previousRanks();
-  const maxAbs = Math.max(1, ...list.map((p) => Math.abs(p.pct ?? 0)));
+  // Referensen räknas in i skalan så att staplarna är jämförbara med den.
+  const scaled = bench ? [...list, bench] : list;
+  const maxAbs = Math.max(1, ...scaled.map((p) => Math.abs(p.pct ?? 0)));
 
-  list.forEach((p, idx) => {
-    const li = el('li', 'row' + (idx === 0 && p.pct != null ? ' is-leader' : ''));
+  scaled.forEach((p, i) => {
+    const isBench = p.benchmark;
+    const idx = isBench ? -1 : i;   // -1 = utanför tävlan
+    const li = el('li', 'row'
+      + (idx === 0 && p.pct != null ? ' is-leader' : '')
+      + (isBench ? ' is-benchmark' : ''));
     li.dataset.id = p.id;
     li.style.setProperty('--row-color', p.color);
 
@@ -585,12 +611,14 @@ function renderBoard() {
     head.type = 'button';
     head.setAttribute('aria-expanded', 'false');
 
-    const rank = el('span', 'rank', p.pct == null ? '–' : String(idx + 1).padStart(2, '0'));
-    if (p.pct != null && idx < 3) rank.classList.add('rank-medal', `rank-${idx + 1}`);
+    const rank = el('span', 'rank',
+      isBench ? 'REF' : p.pct == null ? '–' : String(idx + 1).padStart(2, '0'));
+    if (isBench) rank.classList.add('rank-ref');
+    else if (p.pct != null && idx < 3) rank.classList.add('rank-medal', `rank-${idx + 1}`);
     head.append(rank);
 
     // Förändring sedan föregående stängning. Bara meningsfull i totalsortering.
-    if (prevRanks && state.sort === 'total' && prevRanks.has(p.id)) {
+    if (!isBench && prevRanks && state.sort === 'total' && prevRanks.has(p.id)) {
       const delta = prevRanks.get(p.id) - idx;
       const move = el('span', 'rank-move ' + (delta > 0 ? 'up' : delta < 0 ? 'down' : 'same'));
       move.textContent = delta > 0 ? `▲${delta}` : delta < 0 ? `▼${-delta}` : '·';
@@ -627,6 +655,7 @@ function renderBoard() {
     li.append(dossier(p));
     board.append(li);
 
+    if (isBench) fill.style.opacity = '.55';
     if (!REDUCED) requestAnimationFrame(() => { fill.style.width = `${frac}%`; });
 
     head.addEventListener('click', () => {
@@ -665,6 +694,12 @@ function dossier(p) {
   addStat('Baslinje', kr(p.baseline));
   addStat('Idag', pctFmt(p.dayChangePct));
   addStat('Volym', bigNum(s.volume));
+
+  // Tävlingens egentliga fråga: slog du moderbolaget?
+  const bench = benchmarkOf();
+  if (bench && !p.benchmark && bench.pct != null && p.pct != null) {
+    addStat(`Mot ${bench.name}`, ppFmt(p.pct - bench.pct));
+  }
   left.append(stats);
 
   /* 52-veckorsmätare: var i årsintervallet ligger kursen just nu? */

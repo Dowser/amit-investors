@@ -209,6 +209,8 @@ async function main() {
     const base = {
       id: p.id, name: p.name, company: p.company, ticker: p.ticker,
       avatar: p.avatar || '🚀', motto: p.motto || '', about: p.about || '', color,
+      // Referensdeltagare: hämtas som alla andra, men rankas inte av klienten.
+      benchmark: p.benchmark === true,
     };
 
     try {
