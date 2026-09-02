@@ -9,31 +9,31 @@
   "_datumkommentar": "startDate = första handelsdagen; baseline är öppningskursen den dagen. endDate = sista handelsdagen före julafton (Nasdaq Stockholm är stängt 24 dec).",
   "participants": [
     {
-      "id": "ada",
-      "name": "Ada",
+      "id": "andreas",
+      "name": "Andreas",
       "ticker": "ERIC-B.ST",
       "company": "Ericsson B",
       "avatar": "📡",
-      "motto": "Allt är radio till slut.",
+      "motto": "",
       "about": "Telekomjätten från Kista. Bygger mobilnät åt operatörer över hela världen och lever på 5G-utbyggnadens takt. Tung exponering mot Nordamerika, vilket gör aktien känslig för både dollarkurs och operatörernas investeringsbudgetar."
     },
     {
-      "id": "bosse",
-      "name": "Bosse",
+      "id": "peter",
+      "name": "Peter",
       "ticker": "EVO.ST",
       "company": "Evolution",
       "avatar": "🎲",
-      "motto": "Huset vinner alltid.",
+      "motto": "",
       "about": "Världsledande på live casino – de bygger studiorna där riktiga dealers streamas ut till onlinekasinon. Extremt höga marginaler, men aktien svänger kraftigt på regleringsnyheter från enskilda marknader."
     },
     {
-      "id": "cissi",
-      "name": "Cissi",
-      "ticker": "HEXA-B.ST",
-      "company": "Hexagon B",
-      "avatar": "📐",
-      "motto": "Mät två gånger, köp en gång.",
-      "about": "Mätteknik och industriell mjukvara: sensorer, geospatiala system och designverktyg. Bred konjunkturexponering mot bygg, tillverkning och fordonsindustri – en klassisk termometer på global industri."
+      "id": "markus",
+      "name": "Markus",
+      "ticker": "OVZON.ST",
+      "company": "Ovzon",
+      "avatar": "🛰️",
+      "motto": "",
+      "about": "Svenskt satellitkommunikationsbolag i Solna som säljer mobilt bredband via satellit, främst till försvar, myndigheter och hjälporganisationer. Sköt upp sin egen satellit Ovzon 3 i början av 2024 och gick därmed från att hyra kapacitet till att äga den. Litet bolag med tung investeringsprofil — kursen rör sig kraftigt på enskilda order och finansieringsbesked."
     },
     {
       "id": "david",

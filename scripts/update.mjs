@@ -287,7 +287,12 @@ async function main() {
   console.log(`\nSkrev ${OUT_FILE} (${state}, ${standings.dates.length} handelsdagar)`);
 
   if (WANT_NEWS && !PREVIEW) {
-    const byParticipant = { ...prevNews };
+    // Behall bara cachade nyheter for deltagare som fortfarande finns. Byts ett
+    // id ut i konfigurationen skulle den gamla posten annars ligga kvar for evigt.
+    const ids = new Set(cfg.participants.map((p) => p.id));
+    const byParticipant = Object.fromEntries(
+      Object.entries(prevNews).filter(([id]) => ids.has(id))
+    );
     for (const p of cfg.participants) {
       try {
         const items = await fetchNews(p);

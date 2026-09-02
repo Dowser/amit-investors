@@ -1,113 +1,8 @@
 {
- "generatedAt": "2026-09-02T09:12:16.336Z",
+ "generatedAt": "2026-09-02T09:23:51.942Z",
  "byParticipant": {
-  "ada": {
-   "fetchedAt": "2026-09-02T09:12:12.755Z",
-   "items": [
-    {
-     "title": "Börsen idag: Ericsson och ABB stiger i kölvattnet av Nvidias rapport",
-     "link": "https://news.google.com/rss/articles/CBMipwFBVV95cUxPSDNxSTBSeDR4cWlDR2QwME82VXRJZjFrLW1wWVJNQ0NFQ2wtRzVZcmY4Um44VXp2bG80RFI4Slh0cTdnakxEeWEtRm1PWWF0azFvMUYxSnNiOE0tUUIxUE14UFVZRmxuM3BoRWs5WlVDSE56WFJIRWszblRwdGxUYXhFbGpFSE5BcG1FbmlZUXo3cWttcUJsWDFidHV0VzFHaXltdjRsYw?oc=5",
-     "source": "Börskollen",
-     "published": "2026-08-27T07:40:00.000Z"
-    },
-    {
-     "title": "Kris, mod och miljarder: därför lyckades de",
-     "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPbTZrTmZrZGdWanFYU3ZtVzA0bGU0SG1RNTlsVG5kelVrTVRTMzJJbnUxSG41SFNjWnlYR0xHNkxDTkp3YnNZQS1DU2lXSmF2elFuYXJmZWFvcEpRSE82eDR2bWxRODZJTUUxM0xPX080Zzg2bGRCUEJIN2l6MGhIazNGVFZnTjJxWjRqWV94NlpUWXd5UFBub3A4TDMtMHJUX1dfQkNkOVBJY25s?oc=5",
-     "source": "travelnews-se",
-     "published": "2026-07-16T07:00:00.000Z"
-    },
-    {
-     "title": "Ericssons rapport: Stigande insatskostnader gör vändningen i företagssegmentet allt mer angelägen trots motståndskraftiga resultat",
-     "link": "https://news.google.com/rss/articles/CBMi-AFBVV95cUxPb3JfZTk2MVRGc3EwNGZKZnZWbmNLTGJwLWFzRUtFWXZiUjhMejkxZ1htVnVwUldMYzAxNzRBUE5FSTVtbWZFM1pJdzU1enItaU4xZWZ5LXdWTktnVmxwLXVTWFFCX2hsMlQ0TmU5Nms3UXkza0xERjF3VzJhbVZDZ2NLSGdIWElrcHZ5ZWdWa2QzNUJESEJwODJteEtGX3UzanZSbmlyT3Fmc2hub1h1VGxnQnhweTBMb24tbXZyWXkwS3pJQkUyNnUwajJsOTkxS044ZU55LWNKd0hBZ0Z1UWg4OTFqdVhucmpEa3N3MFlfOHEtLWx4Zg?oc=5",
-     "source": "Morningstar",
-     "published": "2026-07-15T07:00:00.000Z"
-    },
-    {
-     "title": "Ericsson sänke på Stockholmsbörsen, OMXS30-index backade 0,1 procent",
-     "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxNSzBwSnNvNGhzdGV6Q291MldCOUhPZE16bDZPVnJpTmt1ZGlfdTdIbHAyTE5oNlVIcHB1V2VRaEVad3NhdnR5d0xwWXY0SWlVMmhPV1N1ckRlY0d3dEJmR2JEZmVESG1ldFJ4dUJpTjIxVURRTVNjWkZWNklpeXUyUUl6TC1uZUh3VUZ6TnprZlY0RXFWUHJYRzd1ZHUyYjlM?oc=5",
-     "source": "Börsvärlden",
-     "published": "2026-07-14T15:40:00.000Z"
-    },
-    {
-     "title": "Börsen återhämtade sig – Ericssonraset blev tvåsiffrigt",
-     "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxQbXQyZTFDZVBqNGFmeXNiVWI2c3BFakxHS2tHTXFMY0VjenY3V0MtWHE5b0sxXzFQcUpuVHJZZHFBRVFYV3ViZHpOR2VhNzRTX01MWXBFOV9uZFlvQlRCV1RnUDB2YVc3VXlfNnZzdjQ1TVEzajM2Q0I4dmN6ZHJnR2VGRUNhTG42d3NLVWQwSXpIcXFKN1dhZGltRUF5RVV0OHJVX3ZJQkd1UlBUdS1z?oc=5",
-     "source": "privataaffarer.se",
-     "published": "2026-07-14T07:00:00.000Z"
-    }
-   ]
-  },
-  "bosse": {
-   "fetchedAt": "2026-09-02T09:12:13.414Z",
-   "items": [
-    {
-     "title": "Gernandt & Danielsson biträder Evolution i samband med budpliktserbjudande från Candle Lake",
-     "link": "https://news.google.com/rss/articles/CBMi3AJBVV95cUxNbmItVTlqZENsVkdMQVg0SWdCdmdUSGlmSEpQYnhqQ3R4amtjdVVzYmkwT1p5RnlBQXBOMnNfbHJPOFNmblY1S3JMN1FkQTV0QUxRMzJkZXctenB3dmVQdU1BOS1pejV4QVhtUVc5UzZTVjdzS2NaRHplbGQ5ZHpOclNLek9ReXdFNHM0WHptWjdKZFZmMUhoUmlYWU9QUGhmQl9wZUFCWUI1dndWUWN2SjlWamgzczQzR05OeDFVS1otck9zOUVHSUtQbGQ5aThuaTE5YmhpVmFLVEh0cjBFeE5VY1VNNlZ6ZEFobHBnRDFxMThZeVIxMUdQR1RPSjJiaFJYTUNmSkt1SnlxNVdYbHVfSmd5Y2VLM2JZcW5sM0I2OXFCMDdmN2FQaVBqd3VFMHBsdk10VERyYTBZVnZnd1l3cVVKc0lvTl9ELWhDSXFEQ19Ec1FYR09TNE4?oc=5",
-     "source": "Mynewsdesk",
-     "published": "2026-09-02T08:35:13.000Z"
-    },
-    {
-     "title": "Budstrid om Evolution – så nära är Kenneth Dart kontroll",
-     "link": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE1YVThKRHZQQlh2RkVHV2tCS0NBVlpEcE1kSkRTYmhBa0F4N2RpenNkZmpVTDk1UmJqd0M1TEFpTkdONmhoV3hoSFBkNlN2U2NQQkZIWHp1Z2Y?oc=5",
-     "source": "HurBra.se",
-     "published": "2026-08-31T21:40:24.000Z"
-    },
-    {
-     "title": "Evolution vill dra in återköpta aktier",
-     "link": "https://news.google.com/rss/articles/CBMigAFBVV95cUxOUVk5anhPNlRGZHR5cklMbEhUYzNhX3FyV0cyc1FKbFVsbEdJU0hySXRGaUwyckdWSDFXMVVjSXJ2WkpRLUhpYXF5aFlEYzNmcU05c0JNb0lfN09tcFo0bTNaTTZvMEktQ0tRNk5aLXFqRU5WWHVmMTRsWUk4bjRKTA?oc=5",
-     "source": "Affärsvärlden",
-     "published": "2026-08-31T12:37:08.000Z"
-    },
-    {
-     "title": "Mest köpta och sålda aktier augusti 2026 – Saab säljs",
-     "link": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE45YmFpSzBiTGRmVnZ2LVgxNWcxOHFNanVtUV9oWFFocnZFLTlYdkZiRW45N3JnbnBIQTBmRUp1akNTLUJ0MVFDRWxPM2t6YndZakE0U2xkMVJ1ZzRlRlN2VmhTbC1fdw?oc=5",
-     "source": "HurBra.se",
-     "published": "2026-08-31T07:40:51.000Z"
-    },
-    {
-     "title": "Varför stiger Evolution Petroleums aktie idag? av Investing.com",
-     "link": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxNNlFlbWp2MFNKMTdqRnpyRVExZ2JTMlZseGRPZW9tQnNyelV4UVdrMmQxcGFFX3BDY0NxaWJOZ0I0MDlMOXI4eDlGMldrejlGMHJWVm92TkszWEExc3p1SzZOTzNHclVnaW5HTFBaX0VLNEJHVnpUQzRPQzBQU3BGcVRJVlpvWlNseEtjbkhiVDh3VWllejNJV1dFX281T3ZwNHdzNWJPT3E?oc=5",
-     "source": "Investing.com Sverige",
-     "published": "2026-08-28T14:03:20.000Z"
-    }
-   ]
-  },
-  "cissi": {
-   "fetchedAt": "2026-09-02T09:12:14.096Z",
-   "items": [
-    {
-     "title": "Deutsche Bank höjer Hexagon – pekar ut tre sektorfavoriter",
-     "link": "https://news.google.com/rss/articles/CBMie0FVX3lxTE1PdXh0Tnp4SC1tTmtjN2JFOTVnSk54V1c3WS1JeWhhZUkxMHdFMVFRYk9QRUFPVGpfUE9laGZLVmNMcjA0OEMyLUJiSlZReVJSdDJoMkhZT0VVSnhPcFRSdEM4X09FY1dpTkFCUWQyZFVDVVB0dk9OREZSOA?oc=5",
-     "source": "EFN",
-     "published": "2026-09-01T14:00:15.000Z"
-    },
-    {
-     "title": "Bankbjässen höjer Hexagon – syns ingen AI-störning",
-     "link": "https://news.google.com/rss/articles/CBMifEFVX3lxTE1rVUJncnIwSXpRN1RuMTBuTms4a3Q5Mm5DQWlsNnFaUmVzLVZiV01Gc0RBc1JIQ3g4UWxKcVU4REc0YWtGbXRWRmZGMHp5N0d2d3RETVlQZzhpRG5DSnBRamdWUnAyZjJ4ZnNNX2x1dm1pT25EajVFc3NnQXU?oc=5",
-     "source": "Dagens industri",
-     "published": "2026-09-01T06:55:51.000Z"
-    },
-    {
-     "title": "Hexagon köper bolag inom marinmätning",
-     "link": "https://news.google.com/rss/articles/CBMif0FVX3lxTFAydGtlai1yMmlTOVhUUGg2RkZnQlNqY3lBV1JvN2tydE9wWWo1UHNsTjhQNWpqVmZ5V2N4RS1fQ1h4bi01SDF4TFoxZDc1ekVORzc5ZHQ5TE4tdzZna0RUM0tOWTN0N0NSUHFVa2ZRS2hUOGFpaHBqdmhlalFzS0U?oc=5",
-     "source": "Affärsvärlden",
-     "published": "2026-08-26T06:29:44.000Z"
-    },
-    {
-     "title": "Styrelseledamot miljonköper i Hexagon",
-     "link": "https://news.google.com/rss/articles/CBMif0FVX3lxTE1pVXQyQkdtbEtaUjJBMlcxcjBSUldhS3VHeEh5VDVrQ0JmYVhYdWxTSmNaNHl2TEpXc2hsQ0RnWFluYnRLbUZiUVZfU25VQkZ5MnRSdC00cTlkWEZnUXZ6Z05SVlVmYXdJemVoMGQ1OXNvejU0QWQ0Y29HNmNHT0k?oc=5",
-     "source": "Affärsvärlden",
-     "published": "2026-08-24T08:28:24.000Z"
-    },
-    {
-     "title": "Hexagon bekräftar kinesisk miljardvinst – aktien lyfte",
-     "link": "https://news.google.com/rss/articles/CBMid0FVX3lxTE9ETlBkZzRmdlJJbno1YzB1ZTNiRFlmRk5EV0ZlNXdJOFRqQ05uQTYtNWIxR2UwS1lYcy1YUndSQURKbW9KUjJSUzJ3X1pYLW4yc1luUW1teGNQOGFpNUlLQkdhTmNQOWo2aVp1NjdlQnNBYkxFNnZF?oc=5",
-     "source": "EFN",
-     "published": "2026-08-19T14:02:54.000Z"
-    }
-   ]
-  },
   "david": {
-   "fetchedAt": "2026-09-02T09:12:14.718Z",
+   "fetchedAt": "2026-09-02T09:23:50.339Z",
    "items": [
     {
      "title": "Sinch kopplar Mailgun till Salesforce – ny AI-satsning mot företagskunder",
@@ -142,7 +37,7 @@
    ]
   },
   "elin": {
-   "fetchedAt": "2026-09-02T09:12:15.333Z",
+   "fetchedAt": "2026-09-02T09:23:50.933Z",
    "items": [
     {
      "title": "Blandad stängning i Stockholm – Boliden sänke i OMXS30",
@@ -177,7 +72,7 @@
    ]
   },
   "farid": {
-   "fetchedAt": "2026-09-02T09:12:15.935Z",
+   "fetchedAt": "2026-09-02T09:23:51.540Z",
    "items": [
     {
      "title": "Storbank: Truecallers aktie kan dubblas på nio månader",
@@ -204,10 +99,115 @@
      "published": "2026-07-17T07:00:00.000Z"
     },
     {
-     "title": "Truecaller lånar 850 miljoner av SEB",
-     "link": "https://news.google.com/rss/articles/CBMifkFVX3lxTFB2TjlUZFMwREpwWW1ic0ZTS3NZaWhuU1gtZ3NkXzJCdGJKTXQ4ZVJWY3JDQW9MZEp3Z08wV20tS2lwMlE3YWw0VHpZZXRQcDZ4QWNqU1JRUWxTSVpXVU5fNy1RclFTWEFSSjdtZ3VYOXA3TnlqelAwZndaSUlqQQ?oc=5",
+     "title": "Truecaller bättre än väntat – ser annonslyft",
+     "link": "https://news.google.com/rss/articles/CBMihgFBVV95cUxNSDlsaWc3MnRWSjloWS02N2hsTTFwVHNFc19QU3NmdURIVHgyN0twQ2xDczFjczNyWUN6aE9jQi1RUUlaeTR2eWUxQzFUeEw1QkRfUW05RVcxcXpXU1FfZDVEcVlzUTB4cGFMRVVrT3NhSFZINmY2enBIQlNiaFQ4bk9hRUN6Zw?oc=5",
      "source": "Affärsvärlden",
-     "published": "2026-07-17T06:22:25.000Z"
+     "published": "2026-07-17T05:55:24.000Z"
+    }
+   ]
+  },
+  "andreas": {
+   "fetchedAt": "2026-09-02T09:23:48.229Z",
+   "items": [
+    {
+     "title": "Börsen idag: Ericsson och ABB stiger i kölvattnet av Nvidias rapport",
+     "link": "https://news.google.com/rss/articles/CBMipwFBVV95cUxPSDNxSTBSeDR4cWlDR2QwME82VXRJZjFrLW1wWVJNQ0NFQ2wtRzVZcmY4Um44VXp2bG80RFI4Slh0cTdnakxEeWEtRm1PWWF0azFvMUYxSnNiOE0tUUIxUE14UFVZRmxuM3BoRWs5WlVDSE56WFJIRWszblRwdGxUYXhFbGpFSE5BcG1FbmlZUXo3cWttcUJsWDFidHV0VzFHaXltdjRsYw?oc=5",
+     "source": "Börskollen",
+     "published": "2026-08-27T07:40:00.000Z"
+    },
+    {
+     "title": "Ericsson skruvade upp återköpen efter raset",
+     "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxQcUxWUksxcWhWenVNeHFjSjByd1hSMFZHZjB4eHZ3MjZxa19MMzEtMDZTS1dMc3dHUVRGYXRZWklTMl84c25LckNYNHZvOUlmWG83UWxVQWNFQWoyaTFhUk1oam16MnQ2UjlmeEF3eTVHS21lMGh6TmE0NFBydlQ1eXNVV2lQSERB?oc=5",
+     "source": "TradeVenue",
+     "published": "2026-07-20T07:00:00.000Z"
+    },
+    {
+     "title": "Kris, mod och miljarder: därför lyckades de",
+     "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPbTZrTmZrZGdWanFYU3ZtVzA0bGU0SG1RNTlsVG5kelVrTVRTMzJJbnUxSG41SFNjWnlYR0xHNkxDTkp3YnNZQS1DU2lXSmF2elFuYXJmZWFvcEpRSE82eDR2bWxRODZJTUUxM0xPX080Zzg2bGRCUEJIN2l6MGhIazNGVFZnTjJxWjRqWV94NlpUWXd5UFBub3A4TDMtMHJUX1dfQkNkOVBJY25s?oc=5",
+     "source": "travelnews-se",
+     "published": "2026-07-16T07:00:00.000Z"
+    },
+    {
+     "title": "Ericssons rapport: Stigande insatskostnader gör vändningen i företagssegmentet allt mer angelägen trots motståndskraftiga resultat",
+     "link": "https://news.google.com/rss/articles/CBMi-AFBVV95cUxPb3JfZTk2MVRGc3EwNGZKZnZWbmNLTGJwLWFzRUtFWXZiUjhMejkxZ1htVnVwUldMYzAxNzRBUE5FSTVtbWZFM1pJdzU1enItaU4xZWZ5LXdWTktnVmxwLXVTWFFCX2hsMlQ0TmU5Nms3UXkza0xERjF3VzJhbVZDZ2NLSGdIWElrcHZ5ZWdWa2QzNUJESEJwODJteEtGX3UzanZSbmlyT3Fmc2hub1h1VGxnQnhweTBMb24tbXZyWXkwS3pJQkUyNnUwajJsOTkxS044ZU55LWNKd0hBZ0Z1UWg4OTFqdVhucmpEa3N3MFlfOHEtLWx4Zg?oc=5",
+     "source": "global.morningstar.com",
+     "published": "2026-07-15T07:00:00.000Z"
+    },
+    {
+     "title": "Ericsson sänke på Stockholmsbörsen, OMXS30-index backade 0,1 procent",
+     "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxNSzBwSnNvNGhzdGV6Q291MldCOUhPZE16bDZPVnJpTmt1ZGlfdTdIbHAyTE5oNlVIcHB1V2VRaEVad3NhdnR5d0xwWXY0SWlVMmhPV1N1ckRlY0d3dEJmR2JEZmVESG1ldFJ4dUJpTjIxVURRTVNjWkZWNklpeXUyUUl6TC1uZUh3VUZ6TnprZlY0RXFWUHJYRzd1ZHUyYjlM?oc=5",
+     "source": "Börsvärlden",
+     "published": "2026-07-14T15:40:00.000Z"
+    }
+   ]
+  },
+  "peter": {
+   "fetchedAt": "2026-09-02T09:23:48.905Z",
+   "items": [
+    {
+     "title": "Gernandt & Danielsson biträder Evolution i samband med budpliktserbjudande från Candle Lake",
+     "link": "https://news.google.com/rss/articles/CBMi3AJBVV95cUxNbmItVTlqZENsVkdMQVg0SWdCdmdUSGlmSEpQYnhqQ3R4amtjdVVzYmkwT1p5RnlBQXBOMnNfbHJPOFNmblY1S3JMN1FkQTV0QUxRMzJkZXctenB3dmVQdU1BOS1pejV4QVhtUVc5UzZTVjdzS2NaRHplbGQ5ZHpOclNLek9ReXdFNHM0WHptWjdKZFZmMUhoUmlYWU9QUGhmQl9wZUFCWUI1dndWUWN2SjlWamgzczQzR05OeDFVS1otck9zOUVHSUtQbGQ5aThuaTE5YmhpVmFLVEh0cjBFeE5VY1VNNlZ6ZEFobHBnRDFxMThZeVIxMUdQR1RPSjJiaFJYTUNmSkt1SnlxNVdYbHVfSmd5Y2VLM2JZcW5sM0I2OXFCMDdmN2FQaVBqd3VFMHBsdk10VERyYTBZVnZnd1l3cVVKc0lvTl9ELWhDSXFEQ19Ec1FYR09TNE4?oc=5",
+     "source": "Mynewsdesk",
+     "published": "2026-09-02T08:35:13.000Z"
+    },
+    {
+     "title": "Budstrid om Evolution – så nära är Kenneth Dart kontroll",
+     "link": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE1YVThKRHZQQlh2RkVHV2tCS0NBVlpEcE1kSkRTYmhBa0F4N2RpenNkZmpVTDk1UmJqd0M1TEFpTkdONmhoV3hoSFBkNlN2U2NQQkZIWHp1Z2Y?oc=5",
+     "source": "HurBra.se",
+     "published": "2026-08-31T21:40:24.000Z"
+    },
+    {
+     "title": "Evolution vill dra in återköpta aktier",
+     "link": "https://news.google.com/rss/articles/CBMigAFBVV95cUxOUVk5anhPNlRGZHR5cklMbEhUYzNhX3FyV0cyc1FKbFVsbEdJU0hySXRGaUwyckdWSDFXMVVjSXJ2WkpRLUhpYXF5aFlEYzNmcU05c0JNb0lfN09tcFo0bTNaTTZvMEktQ0tRNk5aLXFqRU5WWHVmMTRsWUk4bjRKTA?oc=5",
+     "source": "Affärsvärlden",
+     "published": "2026-08-31T12:37:08.000Z"
+    },
+    {
+     "title": "Mest köpta och sålda aktier augusti 2026 – Saab säljs",
+     "link": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE45YmFpSzBiTGRmVnZ2LVgxNWcxOHFNanVtUV9oWFFocnZFLTlYdkZiRW45N3JnbnBIQTBmRUp1akNTLUJ0MVFDRWxPM2t6YndZakE0U2xkMVJ1ZzRlRlN2VmhTbC1fdw?oc=5",
+     "source": "HurBra.se",
+     "published": "2026-08-31T07:40:51.000Z"
+    },
+    {
+     "title": "Varför stiger Evolution Petroleums aktie idag? av Investing.com",
+     "link": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxNNlFlbWp2MFNKMTdqRnpyRVExZ2JTMlZseGRPZW9tQnNyelV4UVdrMmQxcGFFX3BDY0NxaWJOZ0I0MDlMOXI4eDlGMldrejlGMHJWVm92TkszWEExc3p1SzZOTzNHclVnaW5HTFBaX0VLNEJHVnpUQzRPQzBQU3BGcVRJVlpvWlNseEtjbkhiVDh3VWllejNJV1dFX281T3ZwNHdzNWJPT3E?oc=5",
+     "source": "Investing.com Sverige",
+     "published": "2026-08-28T14:03:20.000Z"
+    }
+   ]
+  },
+  "markus": {
+   "fetchedAt": "2026-09-02T09:23:49.523Z",
+   "items": [
+    {
+     "title": "Nu är Qviberg kung på börsen",
+     "link": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE1UelVDRUhaUnpRQzZRRlRWTjlneVdGY0xJdDJXNmRGbnRsTEdDUEpRMzdxcjBVVGI5cXByTTR3eHl0NWNFT3lPOWFnVkFIelhtZGx6VzhMaUdfUm1vRDFQVzZ4b1M?oc=5",
+     "source": "Dagens industri",
+     "published": "2026-08-24T07:00:00.000Z"
+    },
+    {
+     "title": "Ovzon får vite av Nasdaq",
+     "link": "https://news.google.com/rss/articles/CBMibkFVX3lxTE1YVVlKYzRZdnZZMUZSdUFvVGFQRFY3QjZFN1pnRGdRMWNwYW5VMGdpblpkV3c3dF9panVKSWZaYXhEX2RGZUZBa1kzTktnSVd3QjItQWpneC1URjR3ZkdPaEh4YkRfSy1XcXdHYTFn?oc=5",
+     "source": "Affärsvärlden",
+     "published": "2026-08-21T09:21:44.000Z"
+    },
+    {
+     "title": "Ovzon bötfälls – lade ut insiderinfo på Linkedin",
+     "link": "https://news.google.com/rss/articles/CBMiekFVX3lxTE5qcThSc1pwc1RsQjhjeXRsTUgxckJuTW8wbUJSOWxkTTI1bTlhZEpqZ0EySmdwYWVRZFYwenNmSGRXckEzWGNwZkUzRDFXbk1TbVJhRWhmeDlmWG50d0FQOEstUzg2VThYNGNIem5YdE5GWEk2VWhmYWVR?oc=5",
+     "source": "Dagens industri",
+     "published": "2026-08-21T07:00:00.000Z"
+    },
+    {
+     "title": "Hoist redovisar urstark vinst före skatt",
+     "link": "https://news.google.com/rss/articles/CBMiakFVX3lxTFAzQkNKQUR1eThwbTBMVl9aazRwTWx5Wk1iQVc4TmhlN1N2MDhkVVh3aVdGaUdFZWc0N3NBaHo4bXVNRTNUV0VPMGRVSzB3Zm5aeVZjMjFZV00yYjFzdlFJMUdTWVRKenJ4X0E?oc=5",
+     "source": "Affärsvärlden",
+     "published": "2026-07-24T05:13:20.000Z"
+    },
+    {
+     "title": "Detta händer fredag 17 juli",
+     "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTFBYajk3dEJSZGUxaDZka2Y1eWhzSlotbkptRUJmZUtJZzBmbHp0WElvb05USUNsUnNXTzhmbUFIcy1YMmJIY1lGQ0pabFA4ZHJFMXRGdXZUVmtDQXBVN3F0c0U5X3A5MnRf?oc=5",
+     "source": "Dagens industri",
+     "published": "2026-07-17T07:00:00.000Z"
     }
    ]
   }

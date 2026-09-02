@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-09-02T09:12:12.385Z",
+ "generatedAt": "2026-09-02T09:23:47.719Z",
  "state": "pre",
  "marketState": "REGULAR",
  "session": {
@@ -19,54 +19,54 @@
  "dates": [],
  "participants": [
   {
-   "id": "ada",
-   "name": "Ada",
+   "id": "andreas",
+   "name": "Andreas",
    "company": "Ericsson B",
    "ticker": "ERIC-B.ST",
    "avatar": "📡",
-   "motto": "Allt är radio till slut.",
+   "motto": "",
    "about": "Telekomjätten från Kista. Bygger mobilnät åt operatörer över hela världen och lever på 5G-utbyggnadens takt. Tung exponering mot Nordamerika, vilket gör aktien känslig för både dollarkurs och operatörernas investeringsbudgetar.",
    "color": "#ffb454",
    "ok": true,
    "baseline": null,
    "baselineDate": null,
-   "price": 96.7,
+   "price": 96.5,
    "currency": "SEK",
    "pct": null,
-   "dayChangePct": 0.228,
+   "dayChangePct": 0.021,
    "series": [],
    "stats": {
     "longName": "Telefonaktiebolaget LM Ericsson (publ)",
     "exchange": "Stockholm",
     "dayHigh": 97.6,
-    "dayLow": 96.6,
+    "dayLow": 96.5,
     "high52": 128.45,
     "low52": 72.52,
-    "volume": 1333855,
+    "volume": 1460286,
     "previousClose": 96.76
    },
    "session": {
     "start": 1788332400,
     "end": 1788363000
    },
-   "lastTrade": 1788340329
+   "lastTrade": 1788340975
   },
   {
-   "id": "bosse",
-   "name": "Bosse",
+   "id": "peter",
+   "name": "Peter",
    "company": "Evolution",
    "ticker": "EVO.ST",
    "avatar": "🎲",
-   "motto": "Huset vinner alltid.",
+   "motto": "",
    "about": "Världsledande på live casino – de bygger studiorna där riktiga dealers streamas ut till onlinekasinon. Extremt höga marginaler, men aktien svänger kraftigt på regleringsnyheter från enskilda marknader.",
    "color": "#5fe9d0",
    "ok": true,
    "baseline": null,
    "baselineDate": null,
-   "price": 827.6,
+   "price": 828.6,
    "currency": "SEK",
    "pct": null,
-   "dayChangePct": -0.265,
+   "dayChangePct": -0.145,
    "series": [],
    "stats": {
     "longName": "Evolution AB (publ)",
@@ -75,47 +75,47 @@
     "dayLow": 822.2,
     "high52": 841.8,
     "low52": 515.4,
-    "volume": 93397,
+    "volume": 97101,
     "previousClose": 836.8
    },
    "session": {
     "start": 1788332400,
     "end": 1788363000
    },
-   "lastTrade": 1788340259
+   "lastTrade": 1788340970
   },
   {
-   "id": "cissi",
-   "name": "Cissi",
-   "company": "Hexagon B",
-   "ticker": "HEXA-B.ST",
-   "avatar": "📐",
-   "motto": "Mät två gånger, köp en gång.",
-   "about": "Mätteknik och industriell mjukvara: sensorer, geospatiala system och designverktyg. Bred konjunkturexponering mot bygg, tillverkning och fordonsindustri – en klassisk termometer på global industri.",
+   "id": "markus",
+   "name": "Markus",
+   "company": "Ovzon",
+   "ticker": "OVZON.ST",
+   "avatar": "🛰️",
+   "motto": "",
+   "about": "Svenskt satellitkommunikationsbolag i Solna som säljer mobilt bredband via satellit, främst till försvar, myndigheter och hjälporganisationer. Sköt upp sin egen satellit Ovzon 3 i början av 2024 och gick därmed från att hyra kapacitet till att äga den. Litet bolag med tung investeringsprofil — kursen rör sig kraftigt på enskilda order och finansieringsbesked.",
    "color": "#ff7a8a",
    "ok": true,
    "baseline": null,
    "baselineDate": null,
-   "price": 96.78,
+   "price": 37.02,
    "currency": "SEK",
    "pct": null,
-   "dayChangePct": -1.566,
+   "dayChangePct": -1.28,
    "series": [],
    "stats": {
-    "longName": "Hexagon AB (publ)",
+    "longName": "Ovzon AB (publ)",
     "exchange": "Stockholm",
-    "dayHigh": 97.96,
-    "dayLow": 96.64,
-    "high52": 122.1,
-    "low52": 71.57,
-    "volume": 618461,
-    "previousClose": 100.45
+    "dayHigh": 37.52,
+    "dayLow": 36.9,
+    "high52": 69.75,
+    "low52": 29.7,
+    "volume": 187675,
+    "previousClose": 40.68
    },
    "session": {
     "start": 1788332400,
     "end": 1788363000
    },
-   "lastTrade": 1788340322
+   "lastTrade": 1788340954
   },
   {
    "id": "david",
@@ -129,10 +129,10 @@
    "ok": true,
    "baseline": null,
    "baselineDate": null,
-   "price": 44.5,
+   "price": 44.39,
    "currency": "SEK",
    "pct": null,
-   "dayChangePct": -1.067,
+   "dayChangePct": -1.312,
    "series": [],
    "stats": {
     "longName": "Sinch AB (publ)",
@@ -141,14 +141,14 @@
     "dayLow": 43.71,
     "high52": 48.3,
     "low52": 18.86,
-    "volume": 384521,
+    "volume": 392480,
     "previousClose": 47.2
    },
    "session": {
     "start": 1788332400,
     "end": 1788363000
    },
-   "lastTrade": 1788340259
+   "lastTrade": 1788341004
   },
   {
    "id": "elin",
@@ -162,10 +162,10 @@
    "ok": true,
    "baseline": null,
    "baselineDate": null,
-   "price": 270.8,
+   "price": 271.4,
    "currency": "SEK",
    "pct": null,
-   "dayChangePct": -1.312,
+   "dayChangePct": -1.093,
    "series": [],
    "stats": {
     "longName": "Vitec Software Group AB (publ)",
@@ -174,14 +174,14 @@
     "dayLow": 270.2,
     "high52": 383.2,
     "low52": 212,
-    "volume": 13607,
+    "volume": 14163,
     "previousClose": 279.2
    },
    "session": {
     "start": 1788332400,
     "end": 1788363000
    },
-   "lastTrade": 1788340007
+   "lastTrade": 1788340571
   },
   {
    "id": "farid",
@@ -207,14 +207,14 @@
     "dayLow": 23.6,
     "high52": 47,
     "low52": 9.27,
-    "volume": 742013,
+    "volume": 770976,
     "previousClose": 24.6
    },
    "session": {
     "start": 1788332400,
     "end": 1788363000
    },
-   "lastTrade": 1788340200
+   "lastTrade": 1788340890
   }
  ]
 }
