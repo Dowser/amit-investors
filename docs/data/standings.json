@@ -1,0 +1,220 @@
+{
+ "generatedAt": "2026-09-02T09:12:12.385Z",
+ "state": "pre",
+ "marketState": "REGULAR",
+ "session": {
+  "start": 1788332400,
+  "end": 1788363000
+ },
+ "today": "2026-09-02",
+ "preview": false,
+ "competition": {
+  "title": "AMIT Investors",
+  "subtitle": "Höstbörsen 2026",
+  "tagline": "Ingen insats. Bara äran — den enda valutan som inte går att köpa.",
+  "startDate": "2026-09-07",
+  "endDate": "2026-12-23",
+  "timezone": "Europe/Stockholm"
+ },
+ "dates": [],
+ "participants": [
+  {
+   "id": "ada",
+   "name": "Ada",
+   "company": "Ericsson B",
+   "ticker": "ERIC-B.ST",
+   "avatar": "📡",
+   "motto": "Allt är radio till slut.",
+   "about": "Telekomjätten från Kista. Bygger mobilnät åt operatörer över hela världen och lever på 5G-utbyggnadens takt. Tung exponering mot Nordamerika, vilket gör aktien känslig för både dollarkurs och operatörernas investeringsbudgetar.",
+   "color": "#ffb454",
+   "ok": true,
+   "baseline": null,
+   "baselineDate": null,
+   "price": 96.7,
+   "currency": "SEK",
+   "pct": null,
+   "dayChangePct": 0.228,
+   "series": [],
+   "stats": {
+    "longName": "Telefonaktiebolaget LM Ericsson (publ)",
+    "exchange": "Stockholm",
+    "dayHigh": 97.6,
+    "dayLow": 96.6,
+    "high52": 128.45,
+    "low52": 72.52,
+    "volume": 1333855,
+    "previousClose": 96.76
+   },
+   "session": {
+    "start": 1788332400,
+    "end": 1788363000
+   },
+   "lastTrade": 1788340329
+  },
+  {
+   "id": "bosse",
+   "name": "Bosse",
+   "company": "Evolution",
+   "ticker": "EVO.ST",
+   "avatar": "🎲",
+   "motto": "Huset vinner alltid.",
+   "about": "Världsledande på live casino – de bygger studiorna där riktiga dealers streamas ut till onlinekasinon. Extremt höga marginaler, men aktien svänger kraftigt på regleringsnyheter från enskilda marknader.",
+   "color": "#5fe9d0",
+   "ok": true,
+   "baseline": null,
+   "baselineDate": null,
+   "price": 827.6,
+   "currency": "SEK",
+   "pct": null,
+   "dayChangePct": -0.265,
+   "series": [],
+   "stats": {
+    "longName": "Evolution AB (publ)",
+    "exchange": "Stockholm",
+    "dayHigh": 831.4,
+    "dayLow": 822.2,
+    "high52": 841.8,
+    "low52": 515.4,
+    "volume": 93397,
+    "previousClose": 836.8
+   },
+   "session": {
+    "start": 1788332400,
+    "end": 1788363000
+   },
+   "lastTrade": 1788340259
+  },
+  {
+   "id": "cissi",
+   "name": "Cissi",
+   "company": "Hexagon B",
+   "ticker": "HEXA-B.ST",
+   "avatar": "📐",
+   "motto": "Mät två gånger, köp en gång.",
+   "about": "Mätteknik och industriell mjukvara: sensorer, geospatiala system och designverktyg. Bred konjunkturexponering mot bygg, tillverkning och fordonsindustri – en klassisk termometer på global industri.",
+   "color": "#ff7a8a",
+   "ok": true,
+   "baseline": null,
+   "baselineDate": null,
+   "price": 96.78,
+   "currency": "SEK",
+   "pct": null,
+   "dayChangePct": -1.566,
+   "series": [],
+   "stats": {
+    "longName": "Hexagon AB (publ)",
+    "exchange": "Stockholm",
+    "dayHigh": 97.96,
+    "dayLow": 96.64,
+    "high52": 122.1,
+    "low52": 71.57,
+    "volume": 618461,
+    "previousClose": 100.45
+   },
+   "session": {
+    "start": 1788332400,
+    "end": 1788363000
+   },
+   "lastTrade": 1788340322
+  },
+  {
+   "id": "david",
+   "name": "David",
+   "company": "Sinch",
+   "ticker": "SINCH.ST",
+   "avatar": "💬",
+   "motto": "Ett sms i taget.",
+   "about": "Molnplattform för kundkommunikation – sms, röst och video via API:er. Växte snabbt genom förvärv, vilket gett både skala och en skuldsättning som marknaden följer noga. Hög volatilitet.",
+   "color": "#8ab4ff",
+   "ok": true,
+   "baseline": null,
+   "baselineDate": null,
+   "price": 44.5,
+   "currency": "SEK",
+   "pct": null,
+   "dayChangePct": -1.067,
+   "series": [],
+   "stats": {
+    "longName": "Sinch AB (publ)",
+    "exchange": "Stockholm",
+    "dayHigh": 44.88,
+    "dayLow": 43.71,
+    "high52": 48.3,
+    "low52": 18.86,
+    "volume": 384521,
+    "previousClose": 47.2
+   },
+   "session": {
+    "start": 1788332400,
+    "end": 1788363000
+   },
+   "lastTrade": 1788340259
+  },
+  {
+   "id": "elin",
+   "name": "Elin",
+   "company": "Vitec Software B",
+   "ticker": "VIT-B.ST",
+   "avatar": "🧱",
+   "motto": "Tråkigt är det nya spännande.",
+   "about": "Serieförvärvare av vertikal affärsmjukvara i Norden – köper små nischbolag med återkommande intäkter och behåller dem. Låg kundomsättning ger stabila kassaflöden och en klassiskt hög värdering.",
+   "color": "#c9a7ff",
+   "ok": true,
+   "baseline": null,
+   "baselineDate": null,
+   "price": 270.8,
+   "currency": "SEK",
+   "pct": null,
+   "dayChangePct": -1.312,
+   "series": [],
+   "stats": {
+    "longName": "Vitec Software Group AB (publ)",
+    "exchange": "Stockholm",
+    "dayHigh": 276.8,
+    "dayLow": 270.2,
+    "high52": 383.2,
+    "low52": 212,
+    "volume": 13607,
+    "previousClose": 279.2
+   },
+   "session": {
+    "start": 1788332400,
+    "end": 1788363000
+   },
+   "lastTrade": 1788340007
+  },
+  {
+   "id": "farid",
+   "name": "Farid",
+   "company": "Truecaller B",
+   "ticker": "TRUE-B.ST",
+   "avatar": "📵",
+   "motto": "Vem ringer egentligen?",
+   "about": "Appen som identifierar och blockerar oönskade samtal, med tyngdpunkten på Indien. Intäkterna kommer främst från annonser och prenumerationer, vilket gör bolaget känsligt för annonskonjunktur och regeländringar i Indien.",
+   "color": "#b5e26b",
+   "ok": true,
+   "baseline": null,
+   "baselineDate": null,
+   "price": 23.91,
+   "currency": "SEK",
+   "pct": null,
+   "dayChangePct": -1.564,
+   "series": [],
+   "stats": {
+    "longName": "Truecaller AB (publ)",
+    "exchange": "Stockholm",
+    "dayHigh": 24.56,
+    "dayLow": 23.6,
+    "high52": 47,
+    "low52": 9.27,
+    "volume": 742013,
+    "previousClose": 24.6
+   },
+   "session": {
+    "start": 1788332400,
+    "end": 1788363000
+   },
+   "lastTrade": 1788340200
+  }
+ ]
+}

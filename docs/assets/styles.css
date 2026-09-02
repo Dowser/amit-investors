@@ -1,0 +1,619 @@
+/* ============================================================================
+   AMIT Investors — "mission control"
+   Mörk flygledarkonsol: bärnstensfärgad fosfor som krom, cyan/mint som data,
+   glas som hairline-inramade instrumentpaneler. Medvetet INTE lila gradient.
+   ========================================================================= */
+
+:root {
+  /* Grund — nästan svart med kall blåton, inte ren svart */
+  --void:        #05070c;
+  --void-2:      #080b13;
+
+  /* Fosfor-bärnsten: kromet i gränssnittet (etiketter, ticks, fokus) */
+  --amber:       #ffb454;
+  --amber-dim:   #a56f2c;
+  --amber-glow:  rgba(255, 180, 84, .28);
+
+  /* Data */
+  --cyan:        #5fe9d0;
+  --up:          #4ee39b;
+  --down:        #ff6b7d;
+
+  /* Text */
+  --ink:         #e9eef7;
+  --ink-2:       #93a6c0;
+  --ink-3:       #5b6f8d;
+
+  /* Glas */
+  --glass:       rgba(126, 160, 200, .045);
+  --glass-2:     rgba(126, 160, 200, .075);
+  --hairline:    rgba(150, 190, 230, .13);
+  --hairline-hi: rgba(190, 220, 255, .30);
+
+  --r-lg: 18px;
+  --r-md: 12px;
+  --r-sm: 8px;
+
+  --shadow: 0 24px 60px -20px rgba(0, 0, 0, .85);
+
+  --font-display: 'Familjen Grotesk', 'Helvetica Neue', Helvetica, sans-serif;
+  --font-mono: 'Azeret Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  --gutter: clamp(16px, 4vw, 44px);
+  --maxw: 1240px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  min-height: 100svh;
+  font-family: var(--font-display);
+  color: var(--ink);
+  background: var(--void);
+  /* Nebulosor: låg mättnad, stora radier — atmosfär, inte färgklick */
+  background-image:
+    radial-gradient(1200px 700px at 12% -8%,  rgba(16, 56, 66, .30), transparent 64%),
+    radial-gradient(1000px 800px at 92% 4%,   rgba(28, 26, 72, .28), transparent 62%);
+  background-attachment: fixed;
+  overflow-x: hidden;
+  font-synthesis-weight: none;
+}
+
+/* --- Atmosfärslager ------------------------------------------------------ */
+
+#starfield { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+
+/* Aurora: två mycket långsamt drivande färgmoln. Perioderna (48 s / 67 s) är
+   avsiktligt inte multiplar av varandra, så mönstret aldrig repeterar synbart. */
+.aurora { position: fixed; inset: -25%; z-index: 0; pointer-events: none; filter: blur(80px); opacity: 1; }
+.aurora span { position: absolute; border-radius: 50%; mix-blend-mode: screen; }
+.aurora span:nth-child(1) {
+  width: 52vw; height: 52vw; left: 2%; top: 4%;
+  background: radial-gradient(circle, rgba(34, 168, 184, .52), transparent 66%);
+  animation: drift-a 48s ease-in-out infinite alternate;
+}
+.aurora span:nth-child(2) {
+  width: 46vw; height: 46vw; right: 4%; top: -6%;
+  background: radial-gradient(circle, rgba(104, 74, 232, .46), transparent 66%);
+  animation: drift-b 67s ease-in-out infinite alternate;
+}
+.aurora span:nth-child(3) {
+  width: 60vw; height: 40vw; left: 24%; bottom: -14%;
+  background: radial-gradient(circle, rgba(226, 122, 44, .34), transparent 68%);
+  animation: drift-a 59s ease-in-out infinite alternate-reverse;
+}
+@keyframes drift-a { to { transform: translate3d(7vw, -5vh, 0) scale(1.16); } }
+@keyframes drift-b { to { transform: translate3d(-9vw, 6vh, 0) scale(.88); } }
+
+/* Filmkorn via SVG-brus: bryter upp de stora gradienterna så de inte bandar */
+.grain {
+  position: fixed; inset: 0; z-index: 1; pointer-events: none;
+  opacity: .40; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+}
+
+.vignette {
+  position: fixed; inset: 0; z-index: 1; pointer-events: none;
+  background: radial-gradient(130% 100% at 50% 42%, transparent 48%, rgba(0,0,0,.66) 100%);
+}
+
+main { position: relative; z-index: 2; }
+
+/* --- Glas ---------------------------------------------------------------- */
+
+.glass {
+  position: relative;
+  background: linear-gradient(180deg, var(--glass-2), var(--glass));
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-lg);
+  /* Kraftigare oskärpa + brightness: panelen ska läsa som en fysisk skiva
+     framför rymden, inte som en tonad ruta ovanpå den. */
+  backdrop-filter: blur(26px) saturate(150%) brightness(1.12);
+  -webkit-backdrop-filter: blur(26px) saturate(150%) brightness(1.12);
+  box-shadow: var(--shadow);
+}
+/* Kantbelysning: en 1 px ram vars ljus följer pekaren. Masken skär ut allt
+   utom ramen, så gradienten syns bara i kanten. Detta — inte oskärpan — är
+   det som får ytan att läsa som glas i stället för som en grå ruta. */
+.glass::before {
+  content: ''; position: absolute; inset: 0; border-radius: inherit;
+  padding: 1px; pointer-events: none; z-index: 1;
+  background:
+    radial-gradient(260px circle at var(--mx, 50%) var(--my, -30%),
+      rgba(255, 224, 178, .95), rgba(140, 210, 255, .40) 40%, transparent 64%),
+    linear-gradient(180deg, rgba(200, 228, 255, .45), rgba(150, 190, 230, .10) 55%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  transition: opacity .4s;
+}
+
+/* Ytreflex: den diffusa ljuspölen innanför glaset. */
+.glass::after {
+  content: ''; position: absolute; inset: 0; border-radius: inherit;
+  pointer-events: none; z-index: 0; opacity: 0; transition: opacity .5s ease;
+  background: radial-gradient(460px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(200, 232, 255, .13), transparent 60%);
+}
+.glass:hover::after { opacity: 1; }
+
+/* Innehållet måste ligga över reflexlagren. */
+.panel > *, .capsule > * { position: relative; z-index: 2; }
+
+/* Hörnmarkörer: fyra vinkelhakar som ramar in varje panel. Ren CSS — åtta
+   1 px-gradienter placerade i hörnen, inga extra element eller bilder. */
+.corners {
+  position: absolute; inset: 11px; pointer-events: none; z-index: 3;
+  opacity: .40;
+  --c: var(--amber);
+  background:
+    linear-gradient(var(--c), var(--c)) 0 0 / 11px 1px no-repeat,
+    linear-gradient(var(--c), var(--c)) 0 0 / 1px 11px no-repeat,
+    linear-gradient(var(--c), var(--c)) 100% 0 / 11px 1px no-repeat,
+    linear-gradient(var(--c), var(--c)) 100% 0 / 1px 11px no-repeat,
+    linear-gradient(var(--c), var(--c)) 0 100% / 11px 1px no-repeat,
+    linear-gradient(var(--c), var(--c)) 0 100% / 1px 11px no-repeat,
+    linear-gradient(var(--c), var(--c)) 100% 100% / 11px 1px no-repeat,
+    linear-gradient(var(--c), var(--c)) 100% 100% / 1px 11px no-repeat;
+}
+
+/* --- Telemetriremsa ------------------------------------------------------ */
+
+.telemetry {
+  position: sticky; top: 0; z-index: 20;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px; flex-wrap: wrap;
+  padding: 9px var(--gutter);
+  font-family: var(--font-mono);
+  font-size: 10.5px; font-weight: 400;
+  letter-spacing: .13em; text-transform: uppercase;
+  color: var(--ink-2);
+  background: rgba(5, 7, 12, .72);
+  border-bottom: 1px solid var(--hairline);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+.tele-brand { display: flex; align-items: center; gap: 9px; color: var(--ink); font-weight: 500; }
+.tele-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--amber); box-shadow: 0 0 0 0 var(--amber-glow);
+  animation: pulse 2.6s ease-out infinite;
+}
+@keyframes pulse {
+  0%   { box-shadow: 0 0 0 0 var(--amber-glow); }
+  70%  { box-shadow: 0 0 0 9px rgba(255,180,84,0); }
+  100% { box-shadow: 0 0 0 0 rgba(255,180,84,0); }
+}
+
+.tele-readouts { display: flex; gap: clamp(14px, 3vw, 34px); margin: 0; flex-wrap: wrap; }
+.readout { display: flex; align-items: baseline; gap: 7px; }
+.readout dt { color: var(--ink-3); }
+.readout dd { margin: 0; color: var(--amber); font-variant-numeric: tabular-nums; }
+.readout dd.is-open  { color: var(--up); }
+.readout dd.is-shut  { color: var(--ink-2); }
+
+/* --- Hero ---------------------------------------------------------------- */
+
+.hero {
+  max-width: var(--maxw); margin: 0 auto;
+  padding: clamp(46px, 9vw, 104px) var(--gutter) clamp(26px, 4vw, 40px);
+  display: grid; gap: clamp(26px, 4vw, 52px);
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, .9fr);
+  align-items: end;
+}
+@media (max-width: 880px) { .hero { grid-template-columns: 1fr; align-items: start; } }
+
+.eyebrow {
+  margin: 0 0 18px; font-family: var(--font-mono);
+  font-size: 11px; letter-spacing: .3em; text-transform: uppercase;
+  color: var(--amber); display: flex; align-items: center; gap: 12px;
+}
+.eyebrow::after {
+  content: ''; height: 1px; flex: 1;
+  background: linear-gradient(90deg, var(--amber-dim), transparent);
+}
+
+.hero-title {
+  margin: 0; font-weight: 700;
+  font-size: clamp(46px, 9.2vw, 108px);
+  line-height: .88; letter-spacing: -.035em;
+  text-wrap: balance;
+}
+/* Skimret vandrar genom gradienten i stället för att gradienten flyttas —
+   en vit topp vid 44 % ger reflexen som drar över bokstäverna. */
+.ht-accent {
+  background: linear-gradient(96deg,
+    var(--amber) 6%, #ffd9a0 26%, #fffaf0 44%, var(--cyan) 64%, #7ea6ff 82%, var(--amber) 98%);
+  background-size: 260% 100%;
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  animation: shimmer 9s ease-in-out infinite;
+}
+@keyframes shimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50%      { background-position: 100% 50%; }
+}
+.hero-tagline {
+  margin: 22px 0 0; font-size: clamp(16px, 2vw, 21px);
+  color: var(--ink-2); max-width: 42ch;
+}
+.hero-window {
+  margin: 14px 0 0; font-family: var(--font-mono);
+  font-size: 11.5px; letter-spacing: .1em; color: var(--ink-3);
+  text-transform: uppercase;
+}
+
+/* Ledarkapsel: roterande iriserande ram ovanpå den vanliga kantbelysningen.
+   conic-gradient + mask ger regnbågsskimret utan en enda bildfil. */
+.capsule {
+  padding: 22px 24px 24px; isolation: isolate;
+  /* Lutningen sätts av pekaren i JS. will-change håller den på GPU:n. */
+  transform: perspective(900px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+  transform-style: preserve-3d; will-change: transform;
+  transition: transform .5s cubic-bezier(.22, 1, .36, 1);
+}
+.capsule.is-tilting { transition: transform .08s linear; }
+.capsule .iris {
+  position: absolute; inset: -1px; border-radius: inherit; pointer-events: none; z-index: 1;
+  padding: 1.5px; opacity: 1;
+  filter: drop-shadow(0 0 10px rgba(255, 180, 84, .30));
+  background: conic-gradient(from var(--spin, 0deg),
+    transparent 0deg, rgba(255,190,100,1) 38deg, rgba(120,245,225,.95) 108deg,
+    rgba(150,190,255,.35) 150deg, transparent 190deg, transparent 232deg,
+    rgba(214,178,255,.95) 292deg, rgba(255,190,100,.45) 330deg, transparent 356deg);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  animation: spin-iris 9s linear infinite;
+}
+@property --spin { syntax: '<angle>'; initial-value: 0deg; inherits: false; }
+@keyframes spin-iris { to { --spin: 360deg; } }
+.capsule-label {
+  margin: 0 0 16px; font-family: var(--font-mono); font-size: 10.5px;
+  letter-spacing: .26em; text-transform: uppercase; color: var(--ink-3);
+}
+.capsule-name { display: flex; align-items: center; gap: 13px; margin-bottom: 4px; }
+.capsule-avatar { font-size: 30px; line-height: 1; filter: saturate(.9); }
+.capsule-who { font-size: 25px; font-weight: 600; letter-spacing: -.02em; }
+.capsule-co { font-family: var(--font-mono); font-size: 11.5px; color: var(--ink-2); letter-spacing: .05em; }
+.capsule-pct {
+  font-family: var(--font-mono); font-weight: 700;
+  font-size: clamp(38px, 6vw, 56px); line-height: 1.05;
+  margin-top: 14px; font-variant-numeric: tabular-nums; letter-spacing: -.03em;
+  white-space: nowrap;
+}
+.capsule-foot { margin-top: 10px; font-size: 13.5px; color: var(--ink-3); font-style: italic; }
+
+/* Nedräkning (före start) */
+.countdown { display: flex; gap: 18px; margin-top: 6px; }
+.cd-unit { text-align: left; }
+.cd-num {
+  font-family: var(--font-mono); font-weight: 700; font-size: clamp(30px, 5vw, 44px);
+  color: var(--amber); font-variant-numeric: tabular-nums; line-height: 1;
+}
+.cd-lab {
+  font-family: var(--font-mono); font-size: 9.5px; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--ink-3); margin-top: 7px;
+}
+
+/* --- Paneler ------------------------------------------------------------- */
+
+.panel {
+  max-width: var(--maxw);
+  margin: 0 auto clamp(22px, 3.4vw, 38px);
+  padding: clamp(20px, 3vw, 30px);
+  width: calc(100% - var(--gutter) * 2);
+}
+
+.panel-head {
+  display: flex; align-items: baseline; gap: 14px 20px; flex-wrap: wrap;
+  margin-bottom: 22px; padding-bottom: 16px;
+  border-bottom: 1px solid var(--hairline);
+}
+.panel-title {
+  margin: 0; font-size: clamp(21px, 2.7vw, 28px); font-weight: 600; letter-spacing: -.02em;
+}
+.panel-sub { margin: 0; color: var(--ink-3); font-size: 13.5px; flex: 1 1 240px; }
+.panel-tools { display: flex; gap: 7px; }
+
+.chip {
+  font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .13em;
+  text-transform: uppercase; color: var(--ink-2);
+  background: transparent; border: 1px solid var(--hairline);
+  border-radius: 100px; padding: 7px 13px; cursor: pointer;
+  transition: color .18s, border-color .18s, background .18s;
+}
+.chip:hover { color: var(--ink); border-color: var(--hairline-hi); }
+.chip[aria-pressed="true"] {
+  color: var(--void); background: var(--amber); border-color: var(--amber);
+  font-weight: 500;
+}
+.chip:focus-visible, .row-head:focus-visible, .legend-item:focus-visible {
+  outline: 2px solid var(--amber); outline-offset: 2px;
+}
+
+/* --- Diagram ------------------------------------------------------------- */
+
+.chart-wrap { position: relative; }
+#chart { width: 100%; height: clamp(280px, 42vw, 420px); display: block; overflow: visible; }
+
+.grid-line { stroke: var(--hairline); stroke-width: 1; }
+.zero-line { stroke: var(--amber-dim); stroke-width: 1; stroke-dasharray: 3 5; }
+.axis-text {
+  font-family: var(--font-mono); font-size: 10px; fill: var(--ink-3);
+  letter-spacing: .08em;
+}
+.series-path { fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+  transition: opacity .2s, stroke-width .2s; }
+/* Ritas in med stroke-dashoffset vid forsta renderingen. */
+.series-path.is-drawing { animation: draw 1.5s cubic-bezier(.33, 1, .68, 1) forwards; }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+
+/* Andpunkten pulserar sa att blicken hittar var varje linje slutar. */
+.series-cap { animation: cap-pulse 2.8s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+@keyframes cap-pulse { 0%, 100% { opacity: 1; } 50% { opacity: .55; } }
+.series-area { transition: opacity .2s; }
+.series-cap  { transition: opacity .2s, r .2s; }
+.chart.is-focused .series-path:not(.is-active) { opacity: .13; }
+.chart.is-focused .series-area:not(.is-active) { opacity: 0; }
+.chart.is-focused .series-cap:not(.is-active)  { opacity: .18; }
+.chart.is-focused .series-path.is-active { stroke-width: 3; }
+
+.cursor-line { stroke: var(--hairline-hi); stroke-width: 1; }
+
+.chart-tip {
+  position: absolute; top: 0; left: 0; pointer-events: none;
+  padding: 12px 14px; border-radius: var(--r-md); min-width: 190px;
+  font-family: var(--font-mono); font-size: 11.5px;
+  transform: translate(-50%, 0); z-index: 5;
+}
+.tip-date { color: var(--ink-3); letter-spacing: .12em; text-transform: uppercase;
+  font-size: 9.5px; margin-bottom: 9px; }
+.tip-row { display: flex; align-items: center; gap: 8px; margin-top: 4px; }
+.tip-swatch { width: 7px; height: 7px; border-radius: 2px; flex: none; }
+.tip-name { color: var(--ink-2); flex: 1; white-space: nowrap; }
+.tip-val { font-variant-numeric: tabular-nums; font-weight: 500; }
+
+.legend { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; margin: 18px 0 0; padding: 0; }
+.legend-item {
+  display: flex; align-items: center; gap: 8px;
+  padding: 6px 12px 6px 9px; border-radius: 100px;
+  border: 1px solid var(--hairline); background: transparent;
+  font-family: var(--font-mono); font-size: 11px; color: var(--ink-2);
+  cursor: pointer; transition: border-color .18s, color .18s, opacity .18s;
+}
+.legend-item:hover { color: var(--ink); border-color: var(--hairline-hi); }
+.legend-item.is-muted { opacity: .38; }
+.legend-swatch { width: 9px; height: 9px; border-radius: 3px; flex: none; }
+.legend-pct { font-variant-numeric: tabular-nums; color: var(--ink); }
+
+/* --- Ställningen --------------------------------------------------------- */
+
+.board { list-style: none; margin: 0; padding: 0; display: grid; gap: 9px; }
+
+.row {
+  position: relative;
+  border: 1px solid var(--hairline); border-radius: var(--r-md);
+  background: rgba(126, 160, 200, .028);
+  backdrop-filter: blur(10px) saturate(130%);
+  -webkit-backdrop-filter: blur(10px) saturate(130%);
+  overflow: hidden;
+  transition: border-color .2s, background .2s, box-shadow .3s;
+}
+
+/* Varje rad får en kantbelysning i sin egen deltagarfärg. Samma teknik som
+   panelernas, men färgen kopplar raden till rätt linje i diagrammet. */
+.row::before {
+  content: ''; position: absolute; inset: 0; border-radius: inherit;
+  padding: 1px; pointer-events: none; z-index: 1;
+  opacity: 0; transition: opacity .35s;
+  background: radial-gradient(200px circle at var(--mx, 50%) var(--my, 50%),
+    color-mix(in srgb, var(--row-color, #9cf) 80%, white), transparent 62%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+}
+.row:hover::before { opacity: .95; }
+/* Raden lånar deltagarens färg vid hover — kopplingen till grafen blir direkt. */
+.row:hover {
+  border-color: color-mix(in srgb, var(--row-color, #9cf) 42%, transparent);
+  background: rgba(126, 160, 200, .058);
+  box-shadow: 0 12px 44px -18px var(--row-color, transparent),
+              inset 0 0 60px -40px var(--row-color, transparent);
+}
+
+/* Ljussvep över ledarraden — långsamt nog att kännas som reflex, inte som blink. */
+.row.is-leader::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(102deg, transparent 42%,
+    rgba(255, 226, 180, .085) 49%, rgba(255, 226, 180, .085) 51%, transparent 58%);
+  transform: translateX(-120%);
+  animation: sweep 7s cubic-bezier(.5, 0, .2, 1) infinite;
+}
+@keyframes sweep { 0%, 62% { transform: translateX(-120%); } 100% { transform: translateX(120%); } }
+.row.is-open { border-color: var(--amber-dim); background: rgba(126, 160, 200, .07); }
+.row.is-leader { border-color: rgba(255, 180, 84, .34); }
+
+.row-head {
+  display: grid; align-items: center; gap: clamp(10px, 1.6vw, 20px);
+  grid-template-columns: 40px 36px minmax(150px, 1.25fr) minmax(0, 1.1fr) 106px 72px 24px;
+  width: 100%; padding: 14px clamp(12px, 1.8vw, 18px);
+  background: none; border: 0; color: inherit; font: inherit;
+  cursor: pointer; text-align: left;
+  position: relative; z-index: 2;   /* över radens kantbelysning */
+}
+
+.rank {
+  font-family: var(--font-mono); font-weight: 700; font-size: 15px;
+  color: var(--ink-3); font-variant-numeric: tabular-nums;
+  display: flex; align-items: center; gap: 4px;
+}
+/* Guld/silver/brons via background-clip på texten — ger metallens
+   ljusgradient, som en flat färg inte kan återge. */
+.rank-medal { color: transparent; -webkit-background-clip: text; background-clip: text; }
+.rank-1 { background-image: linear-gradient(160deg, #fff1c4 4%, #ffc061 40%, #b87a2a 96%); }
+.rank-2 { background-image: linear-gradient(160deg, #f4f9ff 4%, #c3d4e6 42%, #7d8ea3 96%); }
+.rank-3 { background-image: linear-gradient(160deg, #ffd9b8 4%, #d9945a 44%, #8a5326 96%); }
+.rank-move {
+  font-size: 9px; letter-spacing: 0; font-weight: 700;
+  transform: translateY(-1px);
+}
+.rank-move.up   { color: var(--up); }
+.rank-move.down { color: var(--down); }
+.rank-move.same { color: #3f5068; }
+
+.avatar { font-size: 24px; line-height: 1; }
+
+.who { min-width: 0; }
+.who-name { font-size: 17px; font-weight: 600; letter-spacing: -.01em; }
+.who-co {
+  font-family: var(--font-mono); font-size: 10.5px; color: var(--ink-3);
+  letter-spacing: .07em; margin-top: 3px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+/* Divergerande stapel: nollan i mitten, vinst åt höger, förlust åt vänster */
+.bar { position: relative; height: 24px; }
+.bar-axis { position: absolute; top: 0; bottom: 0; left: 50%; width: 1px; background: var(--hairline); }
+.bar-fill {
+  position: absolute; top: 5px; height: 14px; border-radius: 3px;
+  transition: width .7s cubic-bezier(.22,1,.36,1), left .7s cubic-bezier(.22,1,.36,1);
+}
+@media (max-width: 780px) { .bar { display: none; } }
+
+.pct {
+  font-family: var(--font-mono); font-weight: 700; font-size: 19px;
+  font-variant-numeric: tabular-nums; text-align: right; letter-spacing: -.02em;
+  white-space: nowrap;
+}
+.pct.up { color: var(--up); } .pct.down { color: var(--down); } .pct.flat { color: var(--ink-2); }
+
+.spark { width: 72px; height: 26px; display: block; }
+@media (max-width: 620px) { .spark { display: none; } }
+
+.caret {
+  color: var(--ink-3); font-size: 11px; text-align: center;
+  transition: transform .25s ease, color .2s;
+}
+.row.is-open .caret { transform: rotate(180deg); color: var(--amber); }
+
+/* Dossier */
+.dossier {
+  display: grid; grid-template-rows: 0fr;
+  transition: grid-template-rows .38s cubic-bezier(.4,0,.2,1);
+}
+.row.is-open .dossier { grid-template-rows: 1fr; }
+.dossier-inner { overflow: hidden; }
+.dossier-pad {
+  padding: 4px clamp(12px, 1.8vw, 18px) 20px;
+  display: grid; gap: 22px;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  border-top: 1px solid var(--hairline); margin-top: 4px; padding-top: 18px;
+}
+@media (max-width: 780px) { .dossier-pad { grid-template-columns: 1fr; } }
+
+.dossier h3 {
+  margin: 0 0 10px; font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: .24em; text-transform: uppercase; color: var(--amber);
+  font-weight: 400;
+}
+.about { margin: 0 0 18px; color: var(--ink-2); font-size: 14.5px; line-height: 1.62; max-width: 62ch; }
+.motto {
+  margin: 0 0 20px; padding-left: 14px; border-left: 2px solid var(--amber-dim);
+  font-style: italic; color: var(--ink-2); font-size: 14px;
+}
+
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(96px, 1fr)); gap: 1px;
+  background: var(--hairline); border: 1px solid var(--hairline); border-radius: var(--r-sm);
+  overflow: hidden; margin-bottom: 18px; }
+.stat { background: var(--void-2); padding: 11px 12px; }
+.stat dt { font-family: var(--font-mono); font-size: 9px; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--ink-3); }
+.stat dd { margin: 5px 0 0; font-family: var(--font-mono); font-size: 14px;
+  font-variant-numeric: tabular-nums; color: var(--ink); }
+
+/* 52-veckorsmätare */
+.meter { margin-bottom: 4px; }
+.meter-track {
+  position: relative; height: 5px; border-radius: 3px; margin: 10px 0 7px;
+  background: linear-gradient(90deg, rgba(255,107,125,.35), rgba(150,190,230,.18), rgba(78,227,155,.35));
+}
+.meter-pin {
+  position: absolute; top: 50%; width: 2px; height: 14px; border-radius: 2px;
+  background: var(--ink); transform: translate(-50%, -50%);
+  box-shadow: 0 0 0 3px var(--void-2);
+}
+.meter-ends { display: flex; justify-content: space-between;
+  font-family: var(--font-mono); font-size: 10px; color: var(--ink-3); }
+
+.news { list-style: none; margin: 0; padding: 0; display: grid; gap: 1px;
+  background: var(--hairline); border: 1px solid var(--hairline);
+  border-radius: var(--r-sm); overflow: hidden; }
+.news li { background: var(--void-2); }
+.news a {
+  display: block; padding: 11px 13px; color: var(--ink); text-decoration: none;
+  font-size: 13.5px; line-height: 1.45; transition: background .16s;
+}
+.news a:hover { background: rgba(126,160,200,.07); }
+.news a:focus-visible { outline: 2px solid var(--amber); outline-offset: -2px; }
+.news-meta {
+  display: block; margin-top: 6px; font-family: var(--font-mono);
+  font-size: 9.5px; letter-spacing: .11em; text-transform: uppercase; color: var(--ink-3);
+}
+.news-empty { color: var(--ink-3); font-size: 13.5px; margin: 0; }
+
+.row-error {
+  padding: 0 18px 16px; color: var(--down); font-family: var(--font-mono); font-size: 11.5px;
+}
+
+/* --- Footer -------------------------------------------------------------- */
+
+.foot {
+  max-width: var(--maxw); margin: 0 auto;
+  padding: 30px var(--gutter) 70px;
+  color: var(--ink-3); font-size: 12.5px; line-height: 1.7;
+  border-top: 1px solid var(--hairline);
+  width: calc(100% - var(--gutter) * 2);
+}
+.foot p { margin: 0 0 8px; max-width: 78ch; }
+.foot strong { color: var(--ink-2); font-weight: 500; }
+.foot-fine { font-family: var(--font-mono); font-size: 10px; letter-spacing: .1em;
+  text-transform: uppercase; color: #3f5068; margin-top: 16px; }
+
+/* --- Uppstart ------------------------------------------------------------ */
+
+.boot {
+  position: fixed; inset: 0; z-index: 40; display: grid; place-items: center;
+  background: var(--void); transition: opacity .5s ease, visibility .5s;
+}
+.boot.is-done { opacity: 0; visibility: hidden; }
+.boot-inner { text-align: center; font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: .22em; text-transform: uppercase; color: var(--ink-3); }
+.boot-ring {
+  display: block; width: 30px; height: 30px; margin: 0 auto 18px;
+  border: 1px solid var(--hairline); border-top-color: var(--amber);
+  border-radius: 50%; animation: spin 1s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Etappvis avtäckning vid inladdning */
+.reveal { opacity: 0; transform: translateY(14px); animation: rise .7s cubic-bezier(.22,1,.36,1) forwards; }
+@keyframes rise { to { opacity: 1; transform: none; } }
+
+/* Prestandaspärr: sex lager backdrop-filter i en scrollande lista kostar
+   för mycket på äldre telefoner. På smal skärm ligger raderna ändå mot en
+   nästan enfärgad bakgrund, så oskärpan tillför inget synbart. */
+@media (max-width: 780px) {
+  .row { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(126, 160, 200, .05); }
+  .aurora { filter: blur(60px); opacity: .75; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .001ms !important; animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+  }
+  .reveal { opacity: 1; transform: none; }
+  /* Molnen stannar i utgångsläget i stället för att hoppa till slutpositionen. */
+  .aurora span { animation: none !important; }
+  .row.is-leader::after { display: none; }
+}

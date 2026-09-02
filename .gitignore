@@ -1,0 +1,7 @@
+node_modules/
+.DS_Store
+*.log
+
+# Förhandsvisningsdata är ett lokalt hjälpmedel. Workflowen genererar inte om
+# den, så en committad version skulle bli inaktuell på den publicerade sidan.
+docs/data/standings.preview.json

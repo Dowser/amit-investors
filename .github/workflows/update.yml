@@ -1,0 +1,71 @@
+name: Uppdatera ställning
+
+on:
+  schedule:
+    # Var 30:e minut, vardagar, 06:00–17:59 UTC. Fönstret täcker Stockholmsbörsens
+    # 09:00–17:30 både under sommartid (UTC+2) och vintertid (UTC+1), så cron
+    # behöver inte ändras vid tidsomställningen i oktober.
+    - cron: '*/30 6-17 * * 1-5'
+    # En sen körning så att slutkursen garanterat fångas efter stängning.
+    - cron: '15 18 * * 1-5'
+  workflow_dispatch:        # manuell knapp i Actions-fliken
+  push:
+    branches: [main]
+    paths:
+      - 'config/**'
+      - 'docs/**'
+      - 'scripts/**'
+      - '.github/workflows/update.yml'
+
+# Publicering till GitHub Pages kräver dessa rättigheter.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Låt en pågående publicering bli klar; köa högst en till.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # Nyheter cachas mellan körningar. Om Google News fallerar en gång
+      # behåller sidan gårdagens rubriker i stället för att visa tom panel.
+      - name: Återställ nyhetscache
+        uses: actions/cache/restore@v4
+        with:
+          path: docs/data
+          key: amit-data-${{ github.run_id }}
+          restore-keys: amit-data-
+
+      - name: Hämta kurser och nyheter
+        run: node scripts/update.mjs
+
+      - name: Spara nyhetscache
+        uses: actions/cache/save@v4
+        if: always()
+        with:
+          path: docs/data
+          key: amit-data-${{ github.run_id }}
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs
+
+      - id: deploy
+        uses: actions/deploy-pages@v4

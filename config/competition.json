@@ -1,0 +1,67 @@
+{
+  "_kommentar": "Detta är enda filen du behöver redigera för att ändra tävlingen. Se README.md.",
+  "title": "AMIT Investors",
+  "subtitle": "Höstbörsen 2026",
+  "tagline": "Ingen insats. Bara äran — den enda valutan som inte går att köpa.",
+  "startDate": "2026-09-07",
+  "endDate": "2026-12-23",
+  "timezone": "Europe/Stockholm",
+  "_datumkommentar": "startDate = första handelsdagen; baseline är öppningskursen den dagen. endDate = sista handelsdagen före julafton (Nasdaq Stockholm är stängt 24 dec).",
+  "participants": [
+    {
+      "id": "ada",
+      "name": "Ada",
+      "ticker": "ERIC-B.ST",
+      "company": "Ericsson B",
+      "avatar": "📡",
+      "motto": "Allt är radio till slut.",
+      "about": "Telekomjätten från Kista. Bygger mobilnät åt operatörer över hela världen och lever på 5G-utbyggnadens takt. Tung exponering mot Nordamerika, vilket gör aktien känslig för både dollarkurs och operatörernas investeringsbudgetar."
+    },
+    {
+      "id": "bosse",
+      "name": "Bosse",
+      "ticker": "EVO.ST",
+      "company": "Evolution",
+      "avatar": "🎲",
+      "motto": "Huset vinner alltid.",
+      "about": "Världsledande på live casino – de bygger studiorna där riktiga dealers streamas ut till onlinekasinon. Extremt höga marginaler, men aktien svänger kraftigt på regleringsnyheter från enskilda marknader."
+    },
+    {
+      "id": "cissi",
+      "name": "Cissi",
+      "ticker": "HEXA-B.ST",
+      "company": "Hexagon B",
+      "avatar": "📐",
+      "motto": "Mät två gånger, köp en gång.",
+      "about": "Mätteknik och industriell mjukvara: sensorer, geospatiala system och designverktyg. Bred konjunkturexponering mot bygg, tillverkning och fordonsindustri – en klassisk termometer på global industri."
+    },
+    {
+      "id": "david",
+      "name": "David",
+      "ticker": "SINCH.ST",
+      "company": "Sinch",
+      "avatar": "💬",
+      "motto": "Ett sms i taget.",
+      "about": "Molnplattform för kundkommunikation – sms, röst och video via API:er. Växte snabbt genom förvärv, vilket gett både skala och en skuldsättning som marknaden följer noga. Hög volatilitet."
+    },
+    {
+      "id": "elin",
+      "name": "Elin",
+      "ticker": "VIT-B.ST",
+      "company": "Vitec Software B",
+      "avatar": "🧱",
+      "motto": "Tråkigt är det nya spännande.",
+      "about": "Serieförvärvare av vertikal affärsmjukvara i Norden – köper små nischbolag med återkommande intäkter och behåller dem. Låg kundomsättning ger stabila kassaflöden och en klassiskt hög värdering.",
+      "newsQuery": "Vitec"
+    },
+    {
+      "id": "farid",
+      "name": "Farid",
+      "ticker": "TRUE-B.ST",
+      "company": "Truecaller B",
+      "avatar": "📵",
+      "motto": "Vem ringer egentligen?",
+      "about": "Appen som identifierar och blockerar oönskade samtal, med tyngdpunkten på Indien. Intäkterna kommer främst från annonser och prenumerationer, vilket gör bolaget känsligt för annonskonjunktur och regeländringar i Indien."
+    }
+  ]
+}
