@@ -361,6 +361,13 @@ main { position: relative; z-index: 2; }
 
 .cursor-line { stroke: var(--hairline-hi); stroke-width: 1; }
 
+.chart-empty {
+  margin: 0; padding: clamp(40px, 9vw, 78px) 4px; text-align: center;
+  font-family: var(--font-mono); font-size: clamp(10px, 2.4vw, 11.5px);
+  letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3);
+  line-height: 2; text-wrap: balance;
+}
+
 .chart-tip {
   position: absolute; top: 0; left: 0; pointer-events: none;
   padding: 12px 14px; border-radius: var(--r-md); min-width: 190px;

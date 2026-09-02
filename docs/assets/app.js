@@ -309,17 +309,21 @@ function renderChart() {
   const panel = $('#chart-panel');
   svg.innerHTML = '';
 
+  const wrap = panel.querySelector('.chart-wrap');
+  let empty = wrap.querySelector('.chart-empty');
+
   if (state.data.state === 'pre' || !state.data.dates.length) {
-    panel.querySelector('.chart-wrap').style.minHeight = '0';
-    svg.style.height = '150px';
-    const t = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-    t.setAttribute('x', '50%'); t.setAttribute('y', '50%');
-    t.setAttribute('text-anchor', 'middle'); t.setAttribute('class', 'axis-text');
-    t.textContent = 'Inga handelsdagar ännu — grafen tänds vid startskottet.';
-    svg.append(t);
+    // SVG-text kan inte radbrytas och skärs av på smal skärm. Tomma läget
+    // renderas därför som vanlig HTML, som bryter rad av sig själv.
+    svg.style.display = 'none';
+    if (!empty) { empty = el('p', 'chart-empty'); wrap.append(empty); }
+    empty.textContent = 'Inga handelsdagar ännu — grafen tänds vid startskottet.';
+    empty.hidden = false;
     $('#legend').innerHTML = '';
     return;
   }
+  svg.style.display = '';
+  if (empty) empty.hidden = true;
 
   const rect = svg.getBoundingClientRect();
   const W = Math.max(320, rect.width), H = Math.max(220, rect.height);
