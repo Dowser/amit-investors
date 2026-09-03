@@ -13,6 +13,7 @@
  *   node scripts/update.mjs             # kurser + nyheter
  *   node scripts/update.mjs --no-news   # bara kurser (snabbare)
  *   node scripts/update.mjs --validate  # kontrollera att alla tickers finns
+ *   node scripts/update.mjs --force-news # hamta nyheter aven om cachen ar farsk
  *   node scripts/update.mjs --preview   # forhandsvisning: kor tavlingen som
  *                                       # om den startat for 90 dagar sedan och
  *                                       # skriver standings.preview.json.
@@ -37,14 +38,21 @@ const UA = 'AMITInvestors/1.0 (intern aktietavling; +https://github.com/)';
    Färgen följer deltagaren genom graf, tabell och dossier. */
 const PALETTE = [
   '#ffb454', '#5fe9d0', '#ff7a8a', '#8ab4ff',
-  '#c9a7ff', '#b5e26b', '#ff9f6e', '#7fd1ff',
-  '#f4a3d0', '#6ee7a8', '#d9c2a0', '#ffe08a',
+  '#c9a7ff', '#b5e26b', '#f4a3d0', '#6ee7a8',
+  '#ff9f6e', '#7fd1ff', '#d9c2a0', '#ffe08a',
 ];
 
 const args = process.argv.slice(2);
 const WANT_NEWS = !args.includes('--no-news');
 const VALIDATE_ONLY = args.includes('--validate');
 const PREVIEW = args.includes('--preview');
+const FORCE_NEWS = args.includes('--force-news');
+
+/* Kurser hämtas var 30:e minut, men nyheter behöver inte det. Att hämta åtta
+   RSS-flöden varje körning blir ~380 anrop per dygn till Google News, vilket
+   är precis vad som utlöser strypningen. Med fyra timmars hållbarhet blir det
+   ~50 — och rubriker som är några timmar gamla är ändå färska nog. */
+const NEWS_MAX_AGE_MS = 4 * 60 * 60 * 1000;
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -125,16 +133,8 @@ const decodeEntities = (s) =>
    Kan överstyras per deltagare med fältet newsQuery i konfigurationen. */
 const newsName = (p) => p.newsQuery || p.company.replace(/\s+[A-C]$/, '').trim();
 
-/** Google News RSS. Vi lagrar rubrik + länk tillbaka till källan, aldrig artikeltext. */
-async function fetchNews(participant, limit = 5) {
-  // 90 dagars fönster: småbolag som Vitec bevakas för glest för 45 dagar.
-  // Vi sorterar ändå nyast först, så välbevakade bolag tappar inget.
-  const q = encodeURIComponent(
-    `"${newsName(participant)}" (aktie OR bolaget OR rapport OR analys OR kvartal) when:90d`
-  );
-  const url = `https://news.google.com/rss/search?q=${q}&hl=sv&gl=SE&ceid=SE:sv`;
-  const xml = await (await fetchWithRetry(url)).text();
-
+/** Plockar isär ett RSS-svar till artiklar. */
+function parseRss(xml) {
   const items = [];
   for (const m of xml.matchAll(/<item>([\s\S]*?)<\/item>/g)) {
     const block = m[1];
@@ -158,7 +158,29 @@ async function fetchNews(participant, limit = 5) {
     });
   }
   items.sort((a, b) => (b.published || '').localeCompare(a.published || ''));
-  return items.slice(0, limit);
+  return items;
+}
+
+/** Google News RSS. Vi lagrar rubrik + länk tillbaka till källan, aldrig artikeltext. */
+async function fetchNews(participant, limit = 5) {
+  // 90 dagars fönster: småbolag som Vitec bevakas för glest för 45 dagar.
+  // Vi sorterar ändå nyast först, så välbevakade bolag tappar inget.
+  const q = encodeURIComponent(
+    `"${newsName(participant)}" (aktie OR bolaget OR rapport OR analys OR kvartal) when:90d`
+  );
+  const url = `https://news.google.com/rss/search?q=${q}&hl=sv&gl=SE&ceid=SE:sv`;
+
+  /* Google strypter anrop genom att svara HTTP 200 med ett giltigt men TOMT
+     flöde — inte med 429. Ett tomt resultat är därför tvetydigt: det kan
+     betyda "inga nyheter" eller "du frågar för ofta". Vi behandlar det som
+     det senare och försöker igen med växande paus. Exakt samma fråga kan ge
+     60 träffar i ett anrop och 0 i nästa. */
+  for (let attempt = 0; attempt < 3; attempt++) {
+    if (attempt) await sleep(3000 * attempt);
+    const items = parseRss(await (await fetchWithRetry(url)).text());
+    if (items.length) return items.slice(0, limit);
+  }
+  return [];
 }
 
 async function readJsonIfExists(p) {
@@ -296,15 +318,27 @@ async function main() {
       Object.entries(prevNews).filter(([id]) => ids.has(id))
     );
     for (const p of cfg.participants) {
+      const cached = byParticipant[p.id];
+      const age = cached?.fetchedAt ? Date.now() - Date.parse(cached.fetchedAt) : Infinity;
+      if (!FORCE_NEWS && age < NEWS_MAX_AGE_MS) {
+        process.stdout.write(`  nyhet ${p.company.padEnd(20)} cachad (${Math.round(age / 60000)} min)\n`);
+        continue;
+      }
       try {
         const items = await fetchNews(p);
-        if (items.length) byParticipant[p.id] = { fetchedAt: new Date().toISOString(), items };
-        process.stdout.write(`  nyhet ${p.company.padEnd(20)} ${items.length} st\n`);
+        if (items.length) {
+          byParticipant[p.id] = { fetchedAt: new Date().toISOString(), items };
+          process.stdout.write(`  nyhet ${p.company.padEnd(20)} ${items.length} st\n`);
+        } else {
+          // Behåll cachade rubriker hellre än att tömma panelen.
+          const kept = byParticipant[p.id]?.items?.length ?? 0;
+          process.stdout.write(`  nyhet ${p.company.padEnd(20)} tomt svar — behåller ${kept} cachade\n`);
+        }
       } catch (err) {
         // Behåll föregående nyheter hellre än att tömma panelen.
         console.error(`  FEL   nyheter ${p.company}: ${err.message} (behåller cachade)`);
       }
-      await sleep(400);
+      await sleep(1400);
     }
     await writeFile(
       path.join(OUT_DIR, 'news.json'),

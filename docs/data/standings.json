@@ -1,12 +1,12 @@
 {
- "generatedAt": "2026-09-02T11:11:23.365Z",
+ "generatedAt": "2026-09-03T13:13:59.521Z",
  "state": "pre",
  "marketState": "REGULAR",
  "session": {
-  "start": 1788332400,
-  "end": 1788363000
+  "start": 1788418800,
+  "end": 1788449400
  },
- "today": "2026-09-02",
+ "today": "2026-09-03",
  "preview": false,
  "competition": {
   "title": "AMIT Investors",
@@ -31,26 +31,26 @@
    "ok": true,
    "baseline": null,
    "baselineDate": null,
-   "price": 96.46,
+   "price": 97.18,
    "currency": "SEK",
    "pct": null,
-   "dayChangePct": -0.021,
+   "dayChangePct": 0.559,
    "series": [],
    "stats": {
     "longName": "Telefonaktiebolaget LM Ericsson (publ)",
     "exchange": "Stockholm",
-    "dayHigh": 97.6,
-    "dayLow": 96.22,
+    "dayHigh": 97.74,
+    "dayLow": 96.62,
     "high52": 128.45,
     "low52": 72.52,
-    "volume": 1824210,
+    "volume": 2869043,
     "previousClose": 96.76
    },
    "session": {
-    "start": 1788332400,
-    "end": 1788363000
+    "start": 1788418800,
+    "end": 1788449400
    },
-   "lastTrade": 1788347470
+   "lastTrade": 1788441169
   },
   {
    "id": "peter",
@@ -65,26 +65,26 @@
    "ok": true,
    "baseline": null,
    "baselineDate": null,
-   "price": 825.6,
+   "price": 849.4,
    "currency": "SEK",
    "pct": null,
-   "dayChangePct": -0.506,
+   "dayChangePct": 2.411,
    "series": [],
    "stats": {
     "longName": "Evolution AB (publ)",
     "exchange": "Stockholm",
-    "dayHigh": 831.4,
-    "dayLow": 822.2,
-    "high52": 841.8,
+    "dayHigh": 849.4,
+    "dayLow": 825.8,
+    "high52": 849.4,
     "low52": 515.4,
-    "volume": 137677,
+    "volume": 368160,
     "previousClose": 836.8
    },
    "session": {
-    "start": 1788332400,
-    "end": 1788363000
+    "start": 1788418800,
+    "end": 1788449400
    },
-   "lastTrade": 1788347402
+   "lastTrade": 1788441235
   },
   {
    "id": "markus",
@@ -99,26 +99,26 @@
    "ok": true,
    "baseline": null,
    "baselineDate": null,
-   "price": 37.78,
+   "price": 39.52,
    "currency": "SEK",
    "pct": null,
-   "dayChangePct": 0.747,
+   "dayChangePct": 1.646,
    "series": [],
    "stats": {
     "longName": "Ovzon AB (publ)",
     "exchange": "Stockholm",
-    "dayHigh": 37.9,
-    "dayLow": 36.84,
+    "dayHigh": 39.98,
+    "dayLow": 38.78,
     "high52": 69.75,
     "low52": 29.7,
-    "volume": 301624,
+    "volume": 255205,
     "previousClose": 40.68
    },
    "session": {
-    "start": 1788332400,
-    "end": 1788363000
+    "start": 1788418800,
+    "end": 1788449400
    },
-   "lastTrade": 1788347470
+   "lastTrade": 1788440994
   },
   {
    "id": "oscar",
@@ -133,26 +133,26 @@
    "ok": true,
    "baseline": null,
    "baselineDate": null,
-   "price": 44.11,
+   "price": 45,
    "currency": "SEK",
    "pct": null,
-   "dayChangePct": -1.934,
+   "dayChangePct": 2.157,
    "series": [],
    "stats": {
     "longName": "Sinch AB (publ)",
     "exchange": "Stockholm",
-    "dayHigh": 44.88,
-    "dayLow": 43.71,
+    "dayHigh": 45.13,
+    "dayLow": 43.8,
     "high52": 48.3,
     "low52": 18.86,
-    "volume": 604901,
+    "volume": 433736,
     "previousClose": 47.2
    },
    "session": {
-    "start": 1788332400,
-    "end": 1788363000
+    "start": 1788418800,
+    "end": 1788449400
    },
-   "lastTrade": 1788347431
+   "lastTrade": 1788441085
   },
   {
    "id": "elin",
@@ -167,26 +167,26 @@
    "ok": true,
    "baseline": null,
    "baselineDate": null,
-   "price": 270.4,
+   "price": 278.2,
    "currency": "SEK",
    "pct": null,
-   "dayChangePct": -1.458,
+   "dayChangePct": 1.311,
    "series": [],
    "stats": {
     "longName": "Vitec Software Group AB (publ)",
     "exchange": "Stockholm",
-    "dayHigh": 276.8,
-    "dayLow": 268.8,
+    "dayHigh": 283.4,
+    "dayLow": 273.4,
     "high52": 383.2,
     "low52": 212,
-    "volume": 20576,
+    "volume": 166643,
     "previousClose": 279.2
    },
    "session": {
-    "start": 1788332400,
-    "end": 1788363000
+    "start": 1788418800,
+    "end": 1788449400
    },
-   "lastTrade": 1788347399
+   "lastTrade": 1788440793
   },
   {
    "id": "farid",
@@ -201,26 +201,60 @@
    "ok": true,
    "baseline": null,
    "baselineDate": null,
-   "price": 23.6,
+   "price": 24.17,
    "currency": "SEK",
    "pct": null,
-   "dayChangePct": -2.841,
+   "dayChangePct": 1.811,
    "series": [],
    "stats": {
     "longName": "Truecaller AB (publ)",
     "exchange": "Stockholm",
-    "dayHigh": 24.56,
-    "dayLow": 23.53,
+    "dayHigh": 24.32,
+    "dayLow": 23.69,
     "high52": 47,
     "low52": 9.27,
-    "volume": 1030187,
+    "volume": 666277,
     "previousClose": 24.6
    },
    "session": {
-    "start": 1788332400,
-    "end": 1788363000
+    "start": 1788418800,
+    "end": 1788449400
    },
-   "lastTrade": 1788347449
+   "lastTrade": 1788441182
+  },
+  {
+   "id": "joakim",
+   "name": "Joakim",
+   "company": "Yubico",
+   "ticker": "YUBICO.ST",
+   "avatar": "🔑",
+   "motto": "",
+   "about": "Tillverkar YubiKey — de fysiska säkerhetsnycklarna som ersätter sms-koder och lösenord med inloggning som inte går att nätfiska. Bolaget sitter i Stockholm och Santa Clara och lever på att stora företag och myndigheter går över till lösenordsfri inloggning. Fältets klart rörligaste aktie: 52-veckorsspannet är brett nog att avgöra hela tävlingen i endera riktningen.",
+   "color": "#f4a3d0",
+   "benchmark": false,
+   "ok": true,
+   "baseline": null,
+   "baselineDate": null,
+   "price": 90.45,
+   "currency": "SEK",
+   "pct": null,
+   "dayChangePct": 3.49,
+   "series": [],
+   "stats": {
+    "longName": "Yubico AB",
+    "exchange": "Stockholm",
+    "dayHigh": 91.65,
+    "dayLow": 87.2,
+    "high52": 136.4,
+    "low52": 29.55,
+    "volume": 525617,
+    "previousClose": 90.85
+   },
+   "session": {
+    "start": 1788418800,
+    "end": 1788449400
+   },
+   "lastTrade": 1788441192
   },
   {
    "id": "moderskeppet",
@@ -235,26 +269,26 @@
    "ok": true,
    "baseline": null,
    "baselineDate": null,
-   "price": 102.8,
+   "price": 101.8,
    "currency": "SEK",
    "pct": null,
-   "dayChangePct": 4.472,
+   "dayChangePct": 0.792,
    "series": [],
    "stats": {
     "longName": "AcadeMedia AB (publ)",
     "exchange": "Stockholm",
-    "dayHigh": 103,
-    "dayLow": 98.4,
+    "dayHigh": 103.6,
+    "dayLow": 101.4,
     "high52": 109.4,
     "low52": 85.5,
-    "volume": 86879,
+    "volume": 34133,
     "previousClose": 98
    },
    "session": {
-    "start": 1788332400,
-    "end": 1788363000
+    "start": 1788418800,
+    "end": 1788449400
    },
-   "lastTrade": 1788347469
+   "lastTrade": 1788440331
   }
  ]
 }

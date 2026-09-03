@@ -64,6 +64,15 @@
       "about": "Appen som identifierar och blockerar oönskade samtal, med tyngdpunkten på Indien. Intäkterna kommer främst från annonser och prenumerationer, vilket gör bolaget känsligt för annonskonjunktur och regeländringar i Indien."
     },
     {
+      "id": "joakim",
+      "name": "Joakim",
+      "ticker": "YUBICO.ST",
+      "company": "Yubico",
+      "avatar": "🔑",
+      "motto": "",
+      "about": "Tillverkar YubiKey — de fysiska säkerhetsnycklarna som ersätter sms-koder och lösenord med inloggning som inte går att nätfiska. Bolaget sitter i Stockholm och Santa Clara och lever på att stora företag och myndigheter går över till lösenordsfri inloggning. Fältets klart rörligaste aktie: 52-veckorsspannet är brett nog att avgöra hela tävlingen i endera riktningen."
+    },
+    {
       "id": "moderskeppet",
       "name": "Moderskeppet",
       "ticker": "ACAD.ST",
