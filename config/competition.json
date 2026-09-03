@@ -45,25 +45,6 @@
       "about": "Molnplattform för kundkommunikation – sms, röst och video via API:er. Växte snabbt genom förvärv, vilket gett både skala och en skuldsättning som marknaden följer noga. Hög volatilitet."
     },
     {
-      "id": "elin",
-      "name": "Elin",
-      "ticker": "VIT-B.ST",
-      "company": "Vitec Software B",
-      "avatar": "🧱",
-      "motto": "Tråkigt är det nya spännande.",
-      "about": "Serieförvärvare av vertikal affärsmjukvara i Norden – köper små nischbolag med återkommande intäkter och behåller dem. Låg kundomsättning ger stabila kassaflöden och en klassiskt hög värdering.",
-      "newsQuery": "Vitec"
-    },
-    {
-      "id": "farid",
-      "name": "Farid",
-      "ticker": "TRUE-B.ST",
-      "company": "Truecaller B",
-      "avatar": "📵",
-      "motto": "Vem ringer egentligen?",
-      "about": "Appen som identifierar och blockerar oönskade samtal, med tyngdpunkten på Indien. Intäkterna kommer främst från annonser och prenumerationer, vilket gör bolaget känsligt för annonskonjunktur och regeländringar i Indien."
-    },
-    {
       "id": "joakim",
       "name": "Joakim",
       "ticker": "YUBICO.ST",
