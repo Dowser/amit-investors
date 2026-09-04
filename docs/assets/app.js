@@ -18,7 +18,9 @@ const nf = (dp) => new Intl.NumberFormat('sv-SE', { minimumFractionDigits: dp, m
 /* Hardmellanslag (U+00A0) fore procenttecknet: annars bryter "+89,29 %" rad
    i smala kolumner och talet hamnar pa tva rader. */
 const pctFmt = (v) => (v == null ? '–' : (v >= 0 ? '+' : '−') + nf(2).format(Math.abs(v)) + '\u00A0%');
-const kr = (v) => (v == null ? '–' : nf(2).format(v));
+/* Tre decimaler under en krona: en penny stock på 0,753 ska inte visas som
+   0,75 — tredje siffran är en meningsfull del av kursen där. */
+const kr = (v) => (v == null ? '–' : nf(Math.abs(v) < 1 ? 3 : 2).format(v));
 const bigNum = (v) => (v == null ? '–' : new Intl.NumberFormat('sv-SE', { notation: 'compact', maximumFractionDigits: 1 }).format(v));
 const dirClass = (v) => (v == null ? 'flat' : v > 0.005 ? 'up' : v < -0.005 ? 'down' : 'flat');
 

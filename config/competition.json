@@ -63,6 +63,15 @@
       "about": "Linköpingsbolag med två ben som sällan nämns i samma mening: IT-system för medicinsk bildhantering — röntgen, patologi och radiologi åt sjukhus världen över — och krypterad kommunikation åt försvar och myndigheter. Långsam, stabil tillväxt med återkommande intäkter och en värdering som marknaden länge ansett hög. Fältets lugnaste aktie, vilket i den här tävlingen är både styrka och svaghet."
     },
     {
+      "id": "marcus",
+      "name": "Marcus",
+      "ticker": "ISOFOL.ST",
+      "company": "Isofol Medical",
+      "avatar": "🧬",
+      "motto": "",
+      "about": "Göteborgsbiotech vars enda läkemedelskandidat, arfolitixorin mot spridd tjocktarmscancer, missade sitt primära mål i fas 3 år 2022. Aktien rasade och handlas sedan dess under en krona medan bolaget söker nya vägar för substansen. Fältets mest spekulativa val: en penny stock där en enda nyhet kan ge tresiffrig procentrörelse — åt vilket håll som helst."
+    },
+    {
       "id": "moderskeppet",
       "name": "Moderskeppet",
       "ticker": "ACAD.ST",

@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-09-04T07:38:18.557Z",
+ "generatedAt": "2026-09-04T14:48:18.098Z",
  "state": "pre",
  "marketState": "REGULAR",
  "session": {
@@ -31,26 +31,26 @@
    "ok": true,
    "baseline": null,
    "baselineDate": null,
-   "price": 97.16,
+   "price": 97.32,
    "currency": "SEK",
    "pct": null,
-   "dayChangePct": 0.372,
+   "dayChangePct": 0.537,
    "series": [],
    "stats": {
     "longName": "Telefonaktiebolaget LM Ericsson (publ)",
     "exchange": "Stockholm",
-    "dayHigh": 97.58,
+    "dayHigh": 97.82,
     "dayLow": 96.52,
     "high52": 128.45,
     "low52": 72.52,
-    "volume": 442283,
+    "volume": 2262057,
     "previousClose": 96.76
    },
    "session": {
     "start": 1788505200,
     "end": 1788535800
    },
-   "lastTrade": 1788507479
+   "lastTrade": 1788533276
   },
   {
    "id": "peter",
@@ -65,26 +65,26 @@
    "ok": true,
    "baseline": null,
    "baselineDate": null,
-   "price": 845.4,
+   "price": 845.8,
    "currency": "SEK",
    "pct": null,
-   "dayChangePct": 0,
+   "dayChangePct": 0.047,
    "series": [],
    "stats": {
     "longName": "Evolution AB (publ)",
     "exchange": "Stockholm",
     "dayHigh": 851,
-    "dayLow": 845.4,
+    "dayLow": 840.2,
     "high52": 851,
     "low52": 515.4,
-    "volume": 51446,
+    "volume": 298462,
     "previousClose": 836.8
    },
    "session": {
     "start": 1788505200,
     "end": 1788535800
    },
-   "lastTrade": 1788507456
+   "lastTrade": 1788533280
   },
   {
    "id": "markus",
@@ -99,26 +99,26 @@
    "ok": true,
    "baseline": null,
    "baselineDate": null,
-   "price": 39.76,
+   "price": 40.14,
    "currency": "SEK",
    "pct": null,
-   "dayChangePct": 1.792,
+   "dayChangePct": 2.765,
    "series": [],
    "stats": {
     "longName": "Ovzon AB (publ)",
     "exchange": "Stockholm",
-    "dayHigh": 39.96,
+    "dayHigh": 40.52,
     "dayLow": 39.08,
     "high52": 69.75,
     "low52": 29.7,
-    "volume": 26459,
+    "volume": 243370,
     "previousClose": 40.68
    },
    "session": {
     "start": 1788505200,
     "end": 1788535800
    },
-   "lastTrade": 1788507479
+   "lastTrade": 1788533279
   },
   {
    "id": "oscar",
@@ -133,26 +133,26 @@
    "ok": true,
    "baseline": null,
    "baselineDate": null,
-   "price": 45.1,
+   "price": 44.59,
    "currency": "SEK",
    "pct": null,
-   "dayChangePct": 0.647,
+   "dayChangePct": -0.491,
    "series": [],
    "stats": {
     "longName": "Sinch AB (publ)",
     "exchange": "Stockholm",
-    "dayHigh": 45.25,
-    "dayLow": 44.89,
+    "dayHigh": 45.45,
+    "dayLow": 44.5,
     "high52": 48.3,
     "low52": 18.86,
-    "volume": 106011,
+    "volume": 559665,
     "previousClose": 47.2
    },
    "session": {
     "start": 1788505200,
     "end": 1788535800
    },
-   "lastTrade": 1788507404
+   "lastTrade": 1788533123
   },
   {
    "id": "joakim",
@@ -167,26 +167,26 @@
    "ok": true,
    "baseline": null,
    "baselineDate": null,
-   "price": 92.7,
+   "price": 92.05,
    "currency": "SEK",
    "pct": null,
-   "dayChangePct": 0,
+   "dayChangePct": -0.701,
    "series": [],
    "stats": {
     "longName": "Yubico AB",
     "exchange": "Stockholm",
-    "dayHigh": 93.45,
-    "dayLow": 92.15,
+    "dayHigh": 93.65,
+    "dayLow": 90.55,
     "high52": 136.4,
     "low52": 29.55,
-    "volume": 52761,
+    "volume": 191752,
     "previousClose": 90.85
    },
    "session": {
     "start": 1788505200,
     "end": 1788535800
    },
-   "lastTrade": 1788507444
+   "lastTrade": 1788533287
   },
   {
    "id": "camilla",
@@ -201,26 +201,60 @@
    "ok": true,
    "baseline": null,
    "baselineDate": null,
-   "price": 294.6,
+   "price": 286.6,
    "currency": "SEK",
    "pct": null,
-   "dayChangePct": 1.307,
+   "dayChangePct": -1.444,
    "series": [],
    "stats": {
     "longName": "Sectra AB (publ)",
     "exchange": "Stockholm",
     "dayHigh": 308.2,
-    "dayLow": 287.4,
-    "high52": 343,
+    "dayLow": 285.4,
+    "high52": 333.6,
     "low52": 173.3,
-    "volume": 123938,
+    "volume": 249278,
     "previousClose": 287.6
    },
    "session": {
     "start": 1788505200,
     "end": 1788535800
    },
-   "lastTrade": 1788507493
+   "lastTrade": 1788533286
+  },
+  {
+   "id": "marcus",
+   "name": "Marcus",
+   "company": "Isofol Medical",
+   "ticker": "ISOFOL.ST",
+   "avatar": "🧬",
+   "motto": "",
+   "about": "Göteborgsbiotech vars enda läkemedelskandidat, arfolitixorin mot spridd tjocktarmscancer, missade sitt primära mål i fas 3 år 2022. Aktien rasade och handlas sedan dess under en krona medan bolaget söker nya vägar för substansen. Fältets mest spekulativa val: en penny stock där en enda nyhet kan ge tresiffrig procentrörelse — åt vilket håll som helst.",
+   "color": "#f4a3d0",
+   "benchmark": false,
+   "ok": true,
+   "baseline": null,
+   "baselineDate": null,
+   "price": 0.753,
+   "currency": "SEK",
+   "pct": null,
+   "dayChangePct": 0,
+   "series": [],
+   "stats": {
+    "longName": "Isofol Medical AB (publ)",
+    "exchange": "Stockholm",
+    "dayHigh": 0.77,
+    "dayLow": 0.74,
+    "high52": 0.99,
+    "low52": 0.55,
+    "volume": 653192,
+    "previousClose": 0.78
+   },
+   "session": {
+    "start": 1788505200,
+    "end": 1788535800
+   },
+   "lastTrade": 1788532361
   },
   {
    "id": "moderskeppet",
@@ -235,26 +269,26 @@
    "ok": true,
    "baseline": null,
    "baselineDate": null,
-   "price": 99.7,
+   "price": 100.2,
    "currency": "SEK",
    "pct": null,
-   "dayChangePct": -1.091,
+   "dayChangePct": -0.595,
    "series": [],
    "stats": {
     "longName": "AcadeMedia AB (publ)",
     "exchange": "Stockholm",
     "dayHigh": 101.6,
-    "dayLow": 99.7,
+    "dayLow": 98.5,
     "high52": 109.4,
     "low52": 85.5,
-    "volume": 176671,
+    "volume": 240234,
     "previousClose": 98
    },
    "session": {
     "start": 1788505200,
     "end": 1788535800
    },
-   "lastTrade": 1788507179
+   "lastTrade": 1788533016
   }
  ]
 }
