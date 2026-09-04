@@ -1,12 +1,12 @@
 {
- "generatedAt": "2026-09-03T14:46:38.295Z",
+ "generatedAt": "2026-09-04T07:38:18.557Z",
  "state": "pre",
  "marketState": "REGULAR",
  "session": {
-  "start": 1788418800,
-  "end": 1788449400
+  "start": 1788505200,
+  "end": 1788535800
  },
- "today": "2026-09-03",
+ "today": "2026-09-04",
  "preview": false,
  "competition": {
   "title": "AMIT Investors",
@@ -31,26 +31,26 @@
    "ok": true,
    "baseline": null,
    "baselineDate": null,
-   "price": 96.6,
+   "price": 97.16,
    "currency": "SEK",
    "pct": null,
-   "dayChangePct": -0.041,
+   "dayChangePct": 0.372,
    "series": [],
    "stats": {
     "longName": "Telefonaktiebolaget LM Ericsson (publ)",
     "exchange": "Stockholm",
-    "dayHigh": 97.74,
+    "dayHigh": 97.58,
     "dayLow": 96.52,
     "high52": 128.45,
     "low52": 72.52,
-    "volume": 4997453,
+    "volume": 442283,
     "previousClose": 96.76
    },
    "session": {
-    "start": 1788418800,
-    "end": 1788449400
+    "start": 1788505200,
+    "end": 1788535800
    },
-   "lastTrade": 1788446786
+   "lastTrade": 1788507479
   },
   {
    "id": "peter",
@@ -65,26 +65,26 @@
    "ok": true,
    "baseline": null,
    "baselineDate": null,
-   "price": 845,
+   "price": 845.4,
    "currency": "SEK",
    "pct": null,
-   "dayChangePct": 1.881,
+   "dayChangePct": 0,
    "series": [],
    "stats": {
     "longName": "Evolution AB (publ)",
     "exchange": "Stockholm",
-    "dayHigh": 853.8,
-    "dayLow": 825.8,
-    "high52": 853.8,
+    "dayHigh": 851,
+    "dayLow": 845.4,
+    "high52": 851,
     "low52": 515.4,
-    "volume": 492858,
+    "volume": 51446,
     "previousClose": 836.8
    },
    "session": {
-    "start": 1788418800,
-    "end": 1788449400
+    "start": 1788505200,
+    "end": 1788535800
    },
-   "lastTrade": 1788446743
+   "lastTrade": 1788507456
   },
   {
    "id": "markus",
@@ -99,26 +99,26 @@
    "ok": true,
    "baseline": null,
    "baselineDate": null,
-   "price": 39.08,
+   "price": 39.76,
    "currency": "SEK",
    "pct": null,
-   "dayChangePct": 0.514,
+   "dayChangePct": 1.792,
    "series": [],
    "stats": {
     "longName": "Ovzon AB (publ)",
     "exchange": "Stockholm",
-    "dayHigh": 39.98,
-    "dayLow": 38.78,
+    "dayHigh": 39.96,
+    "dayLow": 39.08,
     "high52": 69.75,
     "low52": 29.7,
-    "volume": 292820,
+    "volume": 26459,
     "previousClose": 40.68
    },
    "session": {
-    "start": 1788418800,
-    "end": 1788449400
+    "start": 1788505200,
+    "end": 1788535800
    },
-   "lastTrade": 1788446779
+   "lastTrade": 1788507479
   },
   {
    "id": "oscar",
@@ -133,26 +133,26 @@
    "ok": true,
    "baseline": null,
    "baselineDate": null,
-   "price": 44.91,
+   "price": 45.1,
    "currency": "SEK",
    "pct": null,
-   "dayChangePct": 1.952,
+   "dayChangePct": 0.647,
    "series": [],
    "stats": {
     "longName": "Sinch AB (publ)",
     "exchange": "Stockholm",
-    "dayHigh": 45.34,
-    "dayLow": 43.8,
+    "dayHigh": 45.25,
+    "dayLow": 44.89,
     "high52": 48.3,
     "low52": 18.86,
-    "volume": 581373,
+    "volume": 106011,
     "previousClose": 47.2
    },
    "session": {
-    "start": 1788418800,
-    "end": 1788449400
+    "start": 1788505200,
+    "end": 1788535800
    },
-   "lastTrade": 1788446710
+   "lastTrade": 1788507404
   },
   {
    "id": "joakim",
@@ -167,26 +167,60 @@
    "ok": true,
    "baseline": null,
    "baselineDate": null,
-   "price": 91.3,
+   "price": 92.7,
    "currency": "SEK",
    "pct": null,
-   "dayChangePct": 4.462,
+   "dayChangePct": 0,
    "series": [],
    "stats": {
     "longName": "Yubico AB",
     "exchange": "Stockholm",
-    "dayHigh": 92,
-    "dayLow": 87.2,
+    "dayHigh": 93.45,
+    "dayLow": 92.15,
     "high52": 136.4,
     "low52": 29.55,
-    "volume": 621796,
+    "volume": 52761,
     "previousClose": 90.85
    },
    "session": {
-    "start": 1788418800,
-    "end": 1788449400
+    "start": 1788505200,
+    "end": 1788535800
    },
-   "lastTrade": 1788446779
+   "lastTrade": 1788507444
+  },
+  {
+   "id": "camilla",
+   "name": "Camilla",
+   "company": "Sectra B",
+   "ticker": "SECT-B.ST",
+   "avatar": "🩻",
+   "motto": "",
+   "about": "Linköpingsbolag med två ben som sällan nämns i samma mening: IT-system för medicinsk bildhantering — röntgen, patologi och radiologi åt sjukhus världen över — och krypterad kommunikation åt försvar och myndigheter. Långsam, stabil tillväxt med återkommande intäkter och en värdering som marknaden länge ansett hög. Fältets lugnaste aktie, vilket i den här tävlingen är både styrka och svaghet.",
+   "color": "#b5e26b",
+   "benchmark": false,
+   "ok": true,
+   "baseline": null,
+   "baselineDate": null,
+   "price": 294.6,
+   "currency": "SEK",
+   "pct": null,
+   "dayChangePct": 1.307,
+   "series": [],
+   "stats": {
+    "longName": "Sectra AB (publ)",
+    "exchange": "Stockholm",
+    "dayHigh": 308.2,
+    "dayLow": 287.4,
+    "high52": 343,
+    "low52": 173.3,
+    "volume": 123938,
+    "previousClose": 287.6
+   },
+   "session": {
+    "start": 1788505200,
+    "end": 1788535800
+   },
+   "lastTrade": 1788507493
   },
   {
    "id": "moderskeppet",
@@ -201,26 +235,26 @@
    "ok": true,
    "baseline": null,
    "baselineDate": null,
-   "price": 101.4,
+   "price": 99.7,
    "currency": "SEK",
    "pct": null,
-   "dayChangePct": 0.396,
+   "dayChangePct": -1.091,
    "series": [],
    "stats": {
     "longName": "AcadeMedia AB (publ)",
     "exchange": "Stockholm",
-    "dayHigh": 103.6,
-    "dayLow": 101.4,
+    "dayHigh": 101.6,
+    "dayLow": 99.7,
     "high52": 109.4,
     "low52": 85.5,
-    "volume": 40106,
+    "volume": 176671,
     "previousClose": 98
    },
    "session": {
-    "start": 1788418800,
-    "end": 1788449400
+    "start": 1788505200,
+    "end": 1788535800
    },
-   "lastTrade": 1788446685
+   "lastTrade": 1788507179
   }
  ]
 }

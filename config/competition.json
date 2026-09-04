@@ -54,6 +54,15 @@
       "about": "Tillverkar YubiKey — de fysiska säkerhetsnycklarna som ersätter sms-koder och lösenord med inloggning som inte går att nätfiska. Bolaget sitter i Stockholm och Santa Clara och lever på att stora företag och myndigheter går över till lösenordsfri inloggning. Fältets klart rörligaste aktie: 52-veckorsspannet är brett nog att avgöra hela tävlingen i endera riktningen."
     },
     {
+      "id": "camilla",
+      "name": "Camilla",
+      "ticker": "SECT-B.ST",
+      "company": "Sectra B",
+      "avatar": "🩻",
+      "motto": "",
+      "about": "Linköpingsbolag med två ben som sällan nämns i samma mening: IT-system för medicinsk bildhantering — röntgen, patologi och radiologi åt sjukhus världen över — och krypterad kommunikation åt försvar och myndigheter. Långsam, stabil tillväxt med återkommande intäkter och en värdering som marknaden länge ansett hög. Fältets lugnaste aktie, vilket i den här tävlingen är både styrka och svaghet."
+    },
+    {
       "id": "moderskeppet",
       "name": "Moderskeppet",
       "ticker": "ACAD.ST",
