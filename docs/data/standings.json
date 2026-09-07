@@ -1,12 +1,12 @@
 {
- "generatedAt": "2026-09-04T14:48:18.098Z",
- "state": "pre",
- "marketState": "REGULAR",
+ "generatedAt": "2026-09-07T06:38:18.544Z",
+ "state": "live",
+ "marketState": "CLOSED",
  "session": {
-  "start": 1788505200,
-  "end": 1788535800
+  "start": 1788764400,
+  "end": 1788795000
  },
- "today": "2026-09-04",
+ "today": "2026-09-07",
  "preview": false,
  "competition": {
   "title": "AMIT Investors",
@@ -21,70 +21,70 @@
   {
    "id": "andreas",
    "name": "Andreas",
-   "company": "Ericsson B",
-   "ticker": "ERIC-B.ST",
-   "avatar": "📡",
+   "company": "Embracer Group B",
+   "ticker": "EMBRAC-B.ST",
+   "avatar": "🎮",
    "motto": "",
-   "about": "Telekomjätten från Kista. Bygger mobilnät åt operatörer över hela världen och lever på 5G-utbyggnadens takt. Tung exponering mot Nordamerika, vilket gör aktien känslig för både dollarkurs och operatörernas investeringsbudgetar.",
+   "about": "Karlstadskoncernen som köpte spelstudior i rasande takt, sprack när finansieringen försvann 2023 och har sedan dess styckats: Asmodee avknoppat, fler delar på väg ut. Det som återstår är en spelutgivare med tung skuldhistorik och en marknad som fortfarande försöker bestämma sig för vad kvarvarande bolag egentligen är värt.",
    "color": "#ffb454",
    "benchmark": false,
    "ok": true,
    "baseline": null,
    "baselineDate": null,
-   "price": 97.32,
+   "price": 74.04,
    "currency": "SEK",
    "pct": null,
-   "dayChangePct": 0.537,
+   "dayChangePct": -1.28,
    "series": [],
    "stats": {
-    "longName": "Telefonaktiebolaget LM Ericsson (publ)",
+    "longName": "Embracer Group AB (publ)",
     "exchange": "Stockholm",
-    "dayHigh": 97.82,
-    "dayLow": 96.52,
-    "high52": 128.45,
-    "low52": 72.52,
-    "volume": 2262057,
-    "previousClose": 96.76
+    "dayHigh": 75.36,
+    "dayLow": 73.48,
+    "high52": 112.36,
+    "low52": 43,
+    "volume": 606257,
+    "previousClose": 73.38
    },
    "session": {
-    "start": 1788505200,
-    "end": 1788535800
+    "start": 1788764400,
+    "end": 1788795000
    },
-   "lastTrade": 1788533276
+   "lastTrade": 1788535790
   },
   {
    "id": "peter",
    "name": "Peter",
-   "company": "Evolution",
-   "ticker": "EVO.ST",
-   "avatar": "🎲",
+   "company": "Hansa Biopharma",
+   "ticker": "HNSA.ST",
+   "avatar": "🧪",
    "motto": "",
-   "about": "Världsledande på live casino – de bygger studiorna där riktiga dealers streamas ut till onlinekasinon. Extremt höga marginaler, men aktien svänger kraftigt på regleringsnyheter från enskilda marknader.",
+   "about": "Lundbolag med ett godkänt läkemedel: imlifidase, som klipper sönder antikroppar så att patienter med hög immunisering kan få en njurtransplantation de annars aldrig skulle matchas till. Godkänt i EU, med USA-beslut som den stora kurskatalysatorn. Klassisk biotech-profil — långa tysta perioder brutna av enskilda dagar som flyttar allt.",
    "color": "#5fe9d0",
    "benchmark": false,
    "ok": true,
    "baseline": null,
    "baselineDate": null,
-   "price": 845.8,
+   "price": 46.26,
    "currency": "SEK",
    "pct": null,
-   "dayChangePct": 0.047,
+   "dayChangePct": 3.955,
    "series": [],
    "stats": {
-    "longName": "Evolution AB (publ)",
+    "longName": "Hansa Biopharma AB (publ)",
     "exchange": "Stockholm",
-    "dayHigh": 851,
-    "dayLow": 840.2,
-    "high52": 851,
-    "low52": 515.4,
-    "volume": 298462,
-    "previousClose": 836.8
+    "dayHigh": 46.48,
+    "dayLow": 43.8,
+    "high52": 48.22,
+    "low52": 23.52,
+    "volume": 785354,
+    "previousClose": 44.54
    },
    "session": {
-    "start": 1788505200,
-    "end": 1788535800
+    "start": 1788764400,
+    "end": 1788795000
    },
-   "lastTrade": 1788533280
+   "lastTrade": 1788535797
   },
   {
    "id": "markus",
@@ -99,10 +99,10 @@
    "ok": true,
    "baseline": null,
    "baselineDate": null,
-   "price": 40.14,
+   "price": 40.18,
    "currency": "SEK",
    "pct": null,
-   "dayChangePct": 2.765,
+   "dayChangePct": 2.867,
    "series": [],
    "stats": {
     "longName": "Ovzon AB (publ)",
@@ -111,14 +111,14 @@
     "dayLow": 39.08,
     "high52": 69.75,
     "low52": 29.7,
-    "volume": 243370,
+    "volume": 324974,
     "previousClose": 40.68
    },
    "session": {
-    "start": 1788505200,
-    "end": 1788535800
+    "start": 1788764400,
+    "end": 1788795000
    },
-   "lastTrade": 1788533279
+   "lastTrade": 1788535797
   },
   {
    "id": "oscar",
@@ -133,26 +133,26 @@
    "ok": true,
    "baseline": null,
    "baselineDate": null,
-   "price": 44.59,
+   "price": 44.42,
    "currency": "SEK",
    "pct": null,
-   "dayChangePct": -0.491,
+   "dayChangePct": -0.87,
    "series": [],
    "stats": {
     "longName": "Sinch AB (publ)",
     "exchange": "Stockholm",
     "dayHigh": 45.45,
-    "dayLow": 44.5,
+    "dayLow": 44.42,
     "high52": 48.3,
     "low52": 18.86,
-    "volume": 559665,
+    "volume": 1141595,
     "previousClose": 47.2
    },
    "session": {
-    "start": 1788505200,
-    "end": 1788535800
+    "start": 1788764400,
+    "end": 1788795000
    },
-   "lastTrade": 1788533123
+   "lastTrade": 1788535791
   },
   {
    "id": "joakim",
@@ -167,10 +167,10 @@
    "ok": true,
    "baseline": null,
    "baselineDate": null,
-   "price": 92.05,
+   "price": 92.75,
    "currency": "SEK",
    "pct": null,
-   "dayChangePct": -0.701,
+   "dayChangePct": 0.054,
    "series": [],
    "stats": {
     "longName": "Yubico AB",
@@ -179,14 +179,14 @@
     "dayLow": 90.55,
     "high52": 136.4,
     "low52": 29.55,
-    "volume": 191752,
+    "volume": 225724,
     "previousClose": 90.85
    },
    "session": {
-    "start": 1788505200,
-    "end": 1788535800
+    "start": 1788764400,
+    "end": 1788795000
    },
-   "lastTrade": 1788533287
+   "lastTrade": 1788535774
   },
   {
    "id": "camilla",
@@ -201,26 +201,26 @@
    "ok": true,
    "baseline": null,
    "baselineDate": null,
-   "price": 286.6,
+   "price": 290.4,
    "currency": "SEK",
    "pct": null,
-   "dayChangePct": -1.444,
+   "dayChangePct": -0.138,
    "series": [],
    "stats": {
     "longName": "Sectra AB (publ)",
     "exchange": "Stockholm",
     "dayHigh": 308.2,
     "dayLow": 285.4,
-    "high52": 333.6,
+    "high52": 332.2,
     "low52": 173.3,
-    "volume": 249278,
+    "volume": 400770,
     "previousClose": 287.6
    },
    "session": {
-    "start": 1788505200,
-    "end": 1788535800
+    "start": 1788764400,
+    "end": 1788795000
    },
-   "lastTrade": 1788533286
+   "lastTrade": 1788535770
   },
   {
    "id": "marcus",
@@ -247,14 +247,48 @@
     "dayLow": 0.74,
     "high52": 0.99,
     "low52": 0.55,
-    "volume": 653192,
+    "volume": 654234,
     "previousClose": 0.78
    },
    "session": {
-    "start": 1788505200,
-    "end": 1788535800
+    "start": 1788764400,
+    "end": 1788795000
    },
-   "lastTrade": 1788532361
+   "lastTrade": 1788535189
+  },
+  {
+   "id": "jeanette",
+   "name": "Jeanette",
+   "company": "Sivers Semiconductors",
+   "ticker": "SIVE.ST",
+   "avatar": "📶",
+   "motto": "",
+   "about": "Kistabolag som designar chip för millimetervågsradio — 5G, satellit­länkar och trådlösa nät — samt fotonik för datacenter och lidar. Säljer till systembyggare snarare än slutkunder, så orderflödet är klumpigt och aktien rör sig på enskilda avtal. Liten, forskningstung och volatil.",
+   "color": "#7ee592",
+   "benchmark": false,
+   "ok": true,
+   "baseline": null,
+   "baselineDate": null,
+   "price": 27.26,
+   "currency": "SEK",
+   "pct": null,
+   "dayChangePct": 7.07,
+   "series": [],
+   "stats": {
+    "longName": "Sivers Semiconductors AB (publ)",
+    "exchange": "Stockholm",
+    "dayHigh": 27.7,
+    "dayLow": 25.82,
+    "high52": 110,
+    "low52": 2.85,
+    "volume": 7652552,
+    "previousClose": 27.32
+   },
+   "session": {
+    "start": 1788764400,
+    "end": 1788795000
+   },
+   "lastTrade": 1788535799
   },
   {
    "id": "moderskeppet",
@@ -269,10 +303,10 @@
    "ok": true,
    "baseline": null,
    "baselineDate": null,
-   "price": 100.2,
+   "price": 100.4,
    "currency": "SEK",
    "pct": null,
-   "dayChangePct": -0.595,
+   "dayChangePct": -0.397,
    "series": [],
    "stats": {
     "longName": "AcadeMedia AB (publ)",
@@ -281,14 +315,14 @@
     "dayLow": 98.5,
     "high52": 109.4,
     "low52": 85.5,
-    "volume": 240234,
+    "volume": 274974,
     "previousClose": 98
    },
    "session": {
-    "start": 1788505200,
-    "end": 1788535800
+    "start": 1788764400,
+    "end": 1788795000
    },
-   "lastTrade": 1788533016
+   "lastTrade": 1788535796
   }
  ]
 }

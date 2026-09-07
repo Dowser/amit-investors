@@ -38,7 +38,7 @@ const UA = 'AMITInvestors/1.0 (intern aktietavling; +https://github.com/)';
    Färgen följer deltagaren genom graf, tabell och dossier. */
 const PALETTE = [
   '#ffb454', '#5fe9d0', '#ff7a8a', '#8ab4ff',
-  '#c9a7ff', '#b5e26b', '#f4a3d0', '#6ee7a8',
+  '#c9a7ff', '#b5e26b', '#f4a3d0', '#7ee592',
   '#ff9f6e', '#7fd1ff', '#d9c2a0', '#ffe08a',
 ];
 
@@ -318,7 +318,12 @@ async function main() {
       Object.entries(prevNews).filter(([id]) => ids.has(id))
     );
     for (const p of cfg.participants) {
-      const cached = byParticipant[p.id];
+      let cached = byParticipant[p.id];
+      if (cached && cached.query !== newsName(p)) {
+        // Deltagaren har bytt bolag: förra bolagets rubriker är fel oavsett ålder.
+        delete byParticipant[p.id];
+        cached = undefined;
+      }
       const age = cached?.fetchedAt ? Date.now() - Date.parse(cached.fetchedAt) : Infinity;
       if (!FORCE_NEWS && age < NEWS_MAX_AGE_MS) {
         process.stdout.write(`  nyhet ${p.company.padEnd(20)} cachad (${Math.round(age / 60000)} min)\n`);
@@ -327,7 +332,7 @@ async function main() {
       try {
         const items = await fetchNews(p);
         if (items.length) {
-          byParticipant[p.id] = { fetchedAt: new Date().toISOString(), items };
+          byParticipant[p.id] = { fetchedAt: new Date().toISOString(), query: newsName(p), items };
           process.stdout.write(`  nyhet ${p.company.padEnd(20)} ${items.length} st\n`);
         } else {
           // Behåll cachade rubriker hellre än att tömma panelen.

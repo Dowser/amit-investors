@@ -286,6 +286,19 @@ function renderHero() {
 
   const top = ranked()[0];
   if (!top) return;
+
+  // Startdagens morgon: tävlingen är igång men ingen har en baslinje förrän
+  // börsen öppnat. Utan detta skulle kapseln visa "I ledning: <alfabetiskt
+  // första namnet> –", vilket är fel på ett sätt som ser ut som en bugg.
+  if (top.pct == null) {
+    eyebrow.textContent = 'Startskott i dag';
+    $('#capsule-label').textContent = 'Väntar på öppning';
+    body.append(
+      el('div', 'capsule-who', 'Börsen öppnar 09:00'),
+      el('p', 'capsule-foot', 'Baslinjen sätts vid dagens öppningskurs. Första ställningen syns strax efter.'),
+    );
+    return;
+  }
   eyebrow.textContent = d.state === 'ended' ? 'Uppdrag slutfört' : 'Uppdrag pågår';
   $('#capsule-label').textContent = d.state === 'ended' ? 'Segrare' : 'I ledning';
 

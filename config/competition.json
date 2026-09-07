@@ -11,20 +11,20 @@
     {
       "id": "andreas",
       "name": "Andreas",
-      "ticker": "ERIC-B.ST",
-      "company": "Ericsson B",
-      "avatar": "📡",
+      "ticker": "EMBRAC-B.ST",
+      "company": "Embracer Group B",
+      "avatar": "🎮",
       "motto": "",
-      "about": "Telekomjätten från Kista. Bygger mobilnät åt operatörer över hela världen och lever på 5G-utbyggnadens takt. Tung exponering mot Nordamerika, vilket gör aktien känslig för både dollarkurs och operatörernas investeringsbudgetar."
+      "about": "Karlstadskoncernen som köpte spelstudior i rasande takt, sprack när finansieringen försvann 2023 och har sedan dess styckats: Asmodee avknoppat, fler delar på väg ut. Det som återstår är en spelutgivare med tung skuldhistorik och en marknad som fortfarande försöker bestämma sig för vad kvarvarande bolag egentligen är värt."
     },
     {
       "id": "peter",
       "name": "Peter",
-      "ticker": "EVO.ST",
-      "company": "Evolution",
-      "avatar": "🎲",
+      "ticker": "HNSA.ST",
+      "company": "Hansa Biopharma",
+      "avatar": "🧪",
       "motto": "",
-      "about": "Världsledande på live casino – de bygger studiorna där riktiga dealers streamas ut till onlinekasinon. Extremt höga marginaler, men aktien svänger kraftigt på regleringsnyheter från enskilda marknader."
+      "about": "Lundbolag med ett godkänt läkemedel: imlifidase, som klipper sönder antikroppar så att patienter med hög immunisering kan få en njurtransplantation de annars aldrig skulle matchas till. Godkänt i EU, med USA-beslut som den stora kurskatalysatorn. Klassisk biotech-profil — långa tysta perioder brutna av enskilda dagar som flyttar allt."
     },
     {
       "id": "markus",
@@ -70,6 +70,15 @@
       "avatar": "🧬",
       "motto": "",
       "about": "Göteborgsbiotech vars enda läkemedelskandidat, arfolitixorin mot spridd tjocktarmscancer, missade sitt primära mål i fas 3 år 2022. Aktien rasade och handlas sedan dess under en krona medan bolaget söker nya vägar för substansen. Fältets mest spekulativa val: en penny stock där en enda nyhet kan ge tresiffrig procentrörelse — åt vilket håll som helst."
+    },
+    {
+      "id": "jeanette",
+      "name": "Jeanette",
+      "ticker": "SIVE.ST",
+      "company": "Sivers Semiconductors",
+      "avatar": "📶",
+      "motto": "",
+      "about": "Kistabolag som designar chip för millimetervågsradio — 5G, satellit­länkar och trådlösa nät — samt fotonik för datacenter och lidar. Säljer till systembyggare snarare än slutkunder, så orderflödet är klumpigt och aktien rör sig på enskilda avtal. Liten, forskningstung och volatil."
     },
     {
       "id": "moderskeppet",
