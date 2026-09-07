@@ -520,7 +520,7 @@ function renderLegend() {
   ul.innerHTML = '';
   const bench = benchmarkOf();
   for (const p of [...ranked(), ...(bench ? [bench] : [])]) {
-    if (!p.ok) continue;
+    if (!p.ok || p.pending) continue;
     const li = el('li');
     const btn = el('button', 'legend-item'
       + (state.hidden.has(p.id) ? ' is-muted' : '')
@@ -618,7 +618,8 @@ function renderBoard() {
     const idx = isBench ? -1 : i;   // -1 = utanför tävlan
     const li = el('li', 'row'
       + (idx === 0 && p.pct != null ? ' is-leader' : '')
-      + (isBench ? ' is-benchmark' : ''));
+      + (isBench ? ' is-benchmark' : '')
+      + (p.pending ? ' is-pending' : ''));
     li.dataset.id = p.id;
     li.style.setProperty('--row-color', p.color);
 
@@ -643,7 +644,9 @@ function renderBoard() {
     head.append(el('span', 'avatar', p.avatar));
 
     const who = el('div', 'who');
-    who.append(el('div', 'who-name', p.name), el('div', 'who-co', `${p.company} · ${p.ticker}`));
+    who.append(el('div', 'who-name', p.name),
+      el('div', 'who-co' + (p.pending ? ' is-pending' : ''),
+        p.pending ? 'Aktie ej vald ännu' : `${p.company} · ${p.ticker}`));
     head.append(who);
 
     // Divergerande stapel kring nollan
@@ -685,6 +688,15 @@ function dossier(p) {
   const wrap = el('div', 'dossier');
   const inner = el('div', 'dossier-inner');
   const pad = el('div', 'dossier-pad');
+
+  if (p.pending) {
+    const msg = el('div', 'row-pending');
+    msg.append(el('h3', null, 'Väntar på val'));
+    msg.append(el('p', 'about',
+      `${p.name} har inte lagt sitt val än. Ingen baslinje sätts förrän aktien är vald — ` +
+      'då blir den öppningskursen den dag valet läggs in.'));
+    inner.append(msg); wrap.append(inner); return wrap;
+  }
 
   if (!p.ok) {
     const err = el('div', 'row-error', `Kunde inte hämta kursdata: ${p.error || 'okänt fel'}. Kontrollera tickern i config/competition.json.`);

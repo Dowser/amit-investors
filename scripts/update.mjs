@@ -183,6 +183,12 @@ async function fetchNews(participant, limit = 5) {
   return [];
 }
 
+/* Sen deltagare: valfritt startDate per person ger baslinje från den dagens
+   öppning i stället för tävlingens start. Ett datum före tävlingsstarten
+   ignoreras — ingen kan gå in tidigare än alla andra. */
+const participantStart = (p, competitionStart) =>
+  p.startDate && p.startDate > competitionStart ? p.startDate : competitionStart;
+
 async function readJsonIfExists(p) {
   try { return existsSync(p) ? JSON.parse(await readFile(p, 'utf8')) : null; } catch { return null; }
 }
@@ -203,8 +209,9 @@ async function main() {
   if (VALIDATE_ONLY) {
     let bad = 0;
     for (const p of cfg.participants) {
+      if (!p.ticker) { console.log(`  VÄNTAR ${p.name.padEnd(12)} ingen aktie vald ännu`); continue; }
       try {
-        const { meta } = await fetchChart(p.ticker, startDate, endDate, tz);
+        const { meta } = await fetchChart(p.ticker, participantStart(p, startDate), endDate, tz);
         console.log(`  OK   ${p.ticker.padEnd(12)} ${meta.longName} — ${meta.regularMarketPrice} ${meta.currency}`);
       } catch (e) {
         bad++;
@@ -229,14 +236,26 @@ async function main() {
   for (const [i, p] of cfg.participants.entries()) {
     const color = p.color || PALETTE[i % PALETTE.length];
     const base = {
-      id: p.id, name: p.name, company: p.company, ticker: p.ticker,
+      id: p.id, name: p.name, company: p.company || null, ticker: p.ticker || null,
       avatar: p.avatar || '🚀', motto: p.motto || '', about: p.about || '', color,
       // Referensdeltagare: hämtas som alla andra, men rankas inte av klienten.
       benchmark: p.benchmark === true,
+      startDate: participantStart(p, startDate),
     };
 
+    // Ingen aktie vald: deltagaren står med, men utan kurs, baslinje eller serie.
+    if (!p.ticker) {
+      participants.push({
+        ...base, ok: true, pending: true, baseline: null, baselineDate: null,
+        price: null, currency: 'SEK', pct: null, dayChangePct: null,
+        series: [], stats: {}, session: null, lastTrade: null,
+      });
+      process.stdout.write(`  väntar ${p.name.padEnd(12)} ingen aktie vald ännu\n`);
+      continue;
+    }
+
     try {
-      const { meta, candles } = await fetchChart(p.ticker, startDate, endDate, tz);
+      const { meta, candles } = await fetchChart(p.ticker, base.startDate, endDate, tz);
 
       // Baslinje = öppningskursen första handelsdagen på eller efter startDate.
       const baseline = candles.length ? candles[0].o : null;
@@ -313,11 +332,14 @@ async function main() {
   if (WANT_NEWS && !PREVIEW) {
     // Behall bara cachade nyheter for deltagare som fortfarande finns. Byts ett
     // id ut i konfigurationen skulle den gamla posten annars ligga kvar for evigt.
-    const ids = new Set(cfg.participants.map((p) => p.id));
+    // Bara deltagare MED aktie behåller cache — den som tagit bort sitt val
+    // ska inte visa förra bolagets rubriker.
+    const ids = new Set(cfg.participants.filter((p) => p.ticker).map((p) => p.id));
     const byParticipant = Object.fromEntries(
       Object.entries(prevNews).filter(([id]) => ids.has(id))
     );
     for (const p of cfg.participants) {
+      if (!p.ticker) continue;
       let cached = byParticipant[p.id];
       if (cached && cached.query !== newsName(p)) {
         // Deltagaren har bytt bolag: förra bolagets rubriker är fel oavsett ålder.

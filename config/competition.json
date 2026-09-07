@@ -38,11 +38,11 @@
     {
       "id": "oscar",
       "name": "Oscar",
-      "ticker": "SINCH.ST",
-      "company": "Sinch",
-      "avatar": "💬",
+      "ticker": null,
+      "company": null,
+      "avatar": "⏳",
       "motto": "",
-      "about": "Molnplattform för kundkommunikation – sms, röst och video via API:er. Växte snabbt genom förvärv, vilket gett både skala och en skuldsättning som marknaden följer noga. Hög volatilitet."
+      "about": "Har inte lagt sitt val än. Ingen baslinje sätts förrän aktien är vald."
     },
     {
       "id": "joakim",
@@ -92,5 +92,6 @@
       "color": "#a9bcd8"
     }
   ],
-  "_benchmarkkommentar": "En deltagare med \"benchmark\": true visas som referenslinje: räknas inte in i placeringarna, kan inte vinna, och ritas streckad i grafen. Ta bort raden för att göra den till en vanlig deltagare."
+  "_benchmarkkommentar": "En deltagare med \"benchmark\": true visas som referenslinje: räknas inte in i placeringarna, kan inte vinna, och ritas streckad i grafen. Ta bort raden för att göra den till en vanlig deltagare.",
+  "_vantekommentar": "En deltagare med \"ticker\": null står med i tabellen men utan aktie, baslinje eller graf. Sätt \"ticker\" och \"company\" när valet är klart. Valfritt \"startDate\" (YYYY-MM-DD) per deltagare ger baslinje från den dagens öppning i stället för tävlingens start — rimligt för sena val."
 }

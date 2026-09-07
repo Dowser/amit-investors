@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-09-07T06:38:33.513Z",
+ "generatedAt": "2026-09-07T06:56:04.899Z",
  "byParticipant": {
   "andreas": {
    "fetchedAt": "2026-09-07T06:38:18.782Z",
@@ -106,42 +106,6 @@
      "link": "https://news.google.com/rss/articles/CBMie0FVX3lxTE9INE9ZWm0ycERoOWpsdFFPNWdDRUJraGlvcnJQX0R5WTQ5TUlGWWlwdUFZZnY3d1RxRjA0YUVFWW13RWVWVHpNVGRSUXczQ2FCNXVtRGxfODVOeDZuY2FnYkJZeE51Q0F2TmhmeGdyRlJacEhJb1ZMWWFBRQ?oc=5",
      "source": "Dagens industri",
      "published": "2026-07-07T07:00:00.000Z"
-    }
-   ]
-  },
-  "oscar": {
-   "fetchedAt": "2026-09-07T06:38:23.724Z",
-   "query": "Sinch",
-   "items": [
-    {
-     "title": "Höjd riktkurs för Sinch – här är dagens rekar",
-     "link": "https://news.google.com/rss/articles/CBMiakFVX3lxTE1Sc1FBSnhZYVJva0R5cEZ3Nk9XWDVuSUpZeVJSQWlMNDRJOXRYcUZ1RTBCcV8wYXc4Z3VESW9kRVU2aDRCN0RiM2xyemJvaEx3N0c2RHVIVVdaWFdsZ1BJU2RVNXBsMElvZ2c?oc=5",
-     "source": "EFN",
-     "published": "2026-09-07T05:15:00.000Z"
-    },
-    {
-     "title": "Aktierna där analytiker ser störst fallhöjd – Sivers ohotad etta",
-     "link": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxQc0JoZk45OG9rcnMzOExfNHF4RXQ0aU1mb3ZUQkV3WGdUQjFUWUNOWWREX1lGbmxPRmxoejB2RTdfUjNzZUJYXzM1dkR6Z3pvZHByS1RQQXB2T2hITW5mbE15dWZ4cTNXbzV1N0s0SnF1MVVFYXlrRUNwbkd4VkJLTkViN3gxVVRKYlNwdzBielVyblRrekJXVDJjM2ItcWNCOHlQdG5IcFc?oc=5",
-     "source": "Placera.se",
-     "published": "2026-09-02T15:05:20.000Z"
-    },
-    {
-     "title": "Bäst och sämst presterande svenska aktier",
-     "link": "https://news.google.com/rss/articles/CBMifEFVX3lxTFBfV0hTVW1LczBkQ2RLQzRCdFRudVBwOXhtdDBQb2VJT3RDSmFPY0ZmbTJYRElCWm9EYmhIQjVkN3NZNWRYR0NFWi1PYWowMksyaWZJblBpTXc3LTEwYWhWV2Fqa2FvUDFYVWNrdjd5ZGdhNVppSzN5V2ZBYUw?oc=5",
-     "source": "Morningstar",
-     "published": "2026-09-02T07:00:00.000Z"
-    },
-    {
-     "title": "Sinch kopplar Mailgun till Salesforce – ny AI-satsning mot företagskunder",
-     "link": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE9DREROYi1YQ0g2QUJ0N1V5Q3g3TkpEaW9ZRl9rZmZVTWx5bXlkeVNrTC0wUk9kN1ZkOGdTRV9mNjdGN0xLWkRtalhhd2Y1ZFQtdzUzMDBB?oc=5",
-     "source": "HurBra.se",
-     "published": "2026-09-01T15:57:59.000Z"
-    },
-    {
-     "title": "Brakförlust för Klarnas japanska storägare",
-     "link": "https://news.google.com/rss/articles/CBMieEFVX3lxTE05V290bHVKb3J6SmctR1pZMkV5WFdOSXQ4TnluaXQ5aE4yX2NvX1dEVzI2MXRXbWNRNnNNdVZ2VktKQktGdVFIZmdDWUhfdkcxRUU1UTlTRGJSYnA3YzZfYXd0UDZzV3EyVkJmMWFFZjd4VmpPc0FSUg?oc=5",
-     "source": "Dagens industri",
-     "published": "2026-09-01T08:32:41.000Z"
     }
    ]
   },

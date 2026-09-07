@@ -65,6 +65,23 @@ skillnaden mot den i procentenheter.
 
 Ta bort raden `"benchmark": true` för att göra den till en vanlig deltagare.
 
+### Deltagare som inte valt än
+
+Sätt `"ticker": null` så står deltagaren med i tabellen men utan aktie,
+baslinje eller linje i grafen. Fyll i `ticker` och `company` när valet är klart.
+
+### Sen deltagare
+
+Baslinjen är normalt öppningskursen på tävlingens `startDate`. Den som går in
+sent kan få baslinje från sin egen inträdesdag i stället:
+
+```jsonc
+{ "id": "oscar", "name": "Oscar", "ticker": "…", "startDate": "2026-10-01" }
+```
+
+Ett `startDate` före tävlingens start ignoreras. Utan fältet räknas baslinjen
+retroaktivt från tävlingsstarten — vilket ger den som väljer sent facit i hand.
+
 ### Hitta rätt ticker
 
 Sök bolaget på [finance.yahoo.com](https://finance.yahoo.com) och använd symbolen

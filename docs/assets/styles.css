@@ -528,6 +528,15 @@ main { position: relative; z-index: 2; }
 .legend-item.is-benchmark { border-style: dashed; }
 .legend-item.is-benchmark .legend-swatch { border-radius: 1px; height: 3px; }
 
+/* --- Deltagare utan aktie ------------------------------------------------ */
+
+.row.is-pending { opacity: .78; }
+.row.is-pending .avatar { filter: grayscale(.4); }
+.who-co.is-pending { color: var(--amber); font-style: italic; letter-spacing: .04em; }
+.row-pending { padding: 4px clamp(12px, 1.8vw, 18px) 18px; border-top: 1px solid var(--hairline); margin-top: 4px; padding-top: 16px; }
+.row-pending h3 { margin: 0 0 8px; font-family: var(--font-mono); font-size: 10px; letter-spacing: .24em; text-transform: uppercase; color: var(--amber); font-weight: 400; }
+.row-pending .about { margin: 0; }
+
 /* Dossier */
 .dossier {
   display: grid; grid-template-rows: 0fr;
