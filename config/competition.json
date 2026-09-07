@@ -38,11 +38,11 @@
     {
       "id": "oscar",
       "name": "Oscar",
-      "ticker": null,
-      "company": null,
-      "avatar": "⏳",
+      "ticker": "PREV-B.ST",
+      "company": "Prevas B",
+      "avatar": "⚙️",
       "motto": "",
-      "about": "Har inte lagt sitt val än. Ingen baslinje sätts förrän aktien är vald."
+      "about": "Teknikkonsult från Västerås inom inbyggda system, produktutveckling och industriell IT — ingenjörer som hyrs ut till fordons-, försvars- och energibolag. Ett litet, lönsamt bolag med lång historik och en aktie som rör sig med industrikonjunkturen snarare än med enskilda nyheter. Fältets mest jordnära val."
     },
     {
       "id": "joakim",

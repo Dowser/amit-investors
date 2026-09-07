@@ -1,7 +1,7 @@
 {
- "generatedAt": "2026-09-07T06:56:04.896Z",
+ "generatedAt": "2026-09-07T07:01:32.388Z",
  "state": "live",
- "marketState": "CLOSED",
+ "marketState": "REGULAR",
  "session": {
   "start": 1788764400,
   "end": 1788795000
@@ -16,7 +16,9 @@
   "endDate": "2026-12-23",
   "timezone": "Europe/Stockholm"
  },
- "dates": [],
+ "dates": [
+  "2026-09-07"
+ ],
  "participants": [
   {
    "id": "andreas",
@@ -30,28 +32,34 @@
    "benchmark": false,
    "startDate": "2026-09-07",
    "ok": true,
-   "baseline": null,
-   "baselineDate": null,
-   "price": 74.04,
+   "baseline": 73.56,
+   "baselineDate": "2026-09-07",
+   "price": 73.62,
    "currency": "SEK",
-   "pct": null,
-   "dayChangePct": -1.28,
-   "series": [],
+   "pct": 0.082,
+   "dayChangePct": -0.567,
+   "series": [
+    {
+     "d": "2026-09-07",
+     "c": 73.62,
+     "p": 0.082
+    }
+   ],
    "stats": {
     "longName": "Embracer Group AB (publ)",
     "exchange": "Stockholm",
-    "dayHigh": 75.36,
-    "dayLow": 73.48,
+    "dayHigh": 73.62,
+    "dayLow": 73.56,
     "high52": 112.36,
     "low52": 43,
-    "volume": 606257,
+    "volume": 2184,
     "previousClose": 73.38
    },
    "session": {
     "start": 1788764400,
     "end": 1788795000
    },
-   "lastTrade": 1788535790
+   "lastTrade": 1788764464
   },
   {
    "id": "peter",
@@ -65,28 +73,34 @@
    "benchmark": false,
    "startDate": "2026-09-07",
    "ok": true,
-   "baseline": null,
-   "baselineDate": null,
-   "price": 46.26,
+   "baseline": 45.72,
+   "baselineDate": "2026-09-07",
+   "price": 45.78,
    "currency": "SEK",
-   "pct": null,
-   "dayChangePct": 3.955,
-   "series": [],
+   "pct": 0.131,
+   "dayChangePct": -1.038,
+   "series": [
+    {
+     "d": "2026-09-07",
+     "c": 45.78,
+     "p": 0.131
+    }
+   ],
    "stats": {
     "longName": "Hansa Biopharma AB (publ)",
     "exchange": "Stockholm",
-    "dayHigh": 46.48,
-    "dayLow": 43.8,
+    "dayHigh": 45.78,
+    "dayLow": 45.52,
     "high52": 48.22,
     "low52": 23.52,
-    "volume": 785354,
+    "volume": 14328,
     "previousClose": 44.54
    },
    "session": {
     "start": 1788764400,
     "end": 1788795000
    },
-   "lastTrade": 1788535797
+   "lastTrade": 1788764471
   },
   {
    "id": "markus",
@@ -100,52 +114,75 @@
    "benchmark": false,
    "startDate": "2026-09-07",
    "ok": true,
-   "baseline": null,
-   "baselineDate": null,
+   "baseline": 40.18,
+   "baselineDate": "2026-09-07",
    "price": 40.18,
    "currency": "SEK",
-   "pct": null,
-   "dayChangePct": 2.867,
-   "series": [],
+   "pct": 0,
+   "dayChangePct": 0,
+   "series": [
+    {
+     "d": "2026-09-07",
+     "c": 40.18,
+     "p": 0
+    }
+   ],
    "stats": {
     "longName": "Ovzon AB (publ)",
     "exchange": "Stockholm",
-    "dayHigh": 40.52,
-    "dayLow": 39.08,
+    "dayHigh": 40.18,
+    "dayLow": 40,
     "high52": 69.75,
     "low52": 29.7,
-    "volume": 324974,
+    "volume": 8156,
     "previousClose": 40.68
    },
    "session": {
     "start": 1788764400,
     "end": 1788795000
    },
-   "lastTrade": 1788535797
+   "lastTrade": 1788764466
   },
   {
    "id": "oscar",
    "name": "Oscar",
-   "company": null,
-   "ticker": null,
-   "avatar": "⏳",
+   "company": "Prevas B",
+   "ticker": "PREV-B.ST",
+   "avatar": "⚙️",
    "motto": "",
-   "about": "Har inte lagt sitt val än. Ingen baslinje sätts förrän aktien är vald.",
+   "about": "Teknikkonsult från Västerås inom inbyggda system, produktutveckling och industriell IT — ingenjörer som hyrs ut till fordons-, försvars- och energibolag. Ett litet, lönsamt bolag med lång historik och en aktie som rör sig med industrikonjunkturen snarare än med enskilda nyheter. Fältets mest jordnära val.",
    "color": "#8ab4ff",
    "benchmark": false,
    "startDate": "2026-09-07",
    "ok": true,
-   "pending": true,
-   "baseline": null,
-   "baselineDate": null,
-   "price": null,
+   "baseline": 67.3,
+   "baselineDate": "2026-09-07",
+   "price": 67.3,
    "currency": "SEK",
-   "pct": null,
-   "dayChangePct": null,
-   "series": [],
-   "stats": {},
-   "session": null,
-   "lastTrade": null
+   "pct": 0,
+   "dayChangePct": -0.148,
+   "series": [
+    {
+     "d": "2026-09-07",
+     "c": 67.3,
+     "p": 0
+    }
+   ],
+   "stats": {
+    "longName": "Prevas AB",
+    "exchange": "Stockholm",
+    "dayHigh": 67.3,
+    "dayLow": 67.3,
+    "high52": 100,
+    "low52": 63,
+    "volume": 182,
+    "previousClose": 69.9
+   },
+   "session": {
+    "start": 1788764400,
+    "end": 1788795000
+   },
+   "lastTrade": 1788764403
   },
   {
    "id": "joakim",
@@ -159,28 +196,34 @@
    "benchmark": false,
    "startDate": "2026-09-07",
    "ok": true,
-   "baseline": null,
-   "baselineDate": null,
-   "price": 92.75,
+   "baseline": 92.8,
+   "baselineDate": "2026-09-07",
+   "price": 93.25,
    "currency": "SEK",
-   "pct": null,
-   "dayChangePct": 0.054,
-   "series": [],
+   "pct": 0.485,
+   "dayChangePct": 0.539,
+   "series": [
+    {
+     "d": "2026-09-07",
+     "c": 93.25,
+     "p": 0.485
+    }
+   ],
    "stats": {
     "longName": "Yubico AB",
     "exchange": "Stockholm",
-    "dayHigh": 93.65,
-    "dayLow": 90.55,
+    "dayHigh": 93.25,
+    "dayLow": 92.75,
     "high52": 136.4,
     "low52": 29.55,
-    "volume": 225724,
+    "volume": 3583,
     "previousClose": 90.85
    },
    "session": {
     "start": 1788764400,
     "end": 1788795000
    },
-   "lastTrade": 1788535774
+   "lastTrade": 1788764484
   },
   {
    "id": "camilla",
@@ -194,28 +237,34 @@
    "benchmark": false,
    "startDate": "2026-09-07",
    "ok": true,
-   "baseline": null,
-   "baselineDate": null,
-   "price": 290.4,
+   "baseline": 290.4,
+   "baselineDate": "2026-09-07",
+   "price": 290.6,
    "currency": "SEK",
-   "pct": null,
-   "dayChangePct": -0.138,
-   "series": [],
+   "pct": 0.069,
+   "dayChangePct": 0.069,
+   "series": [
+    {
+     "d": "2026-09-07",
+     "c": 290.6,
+     "p": 0.069
+    }
+   ],
    "stats": {
     "longName": "Sectra AB (publ)",
     "exchange": "Stockholm",
-    "dayHigh": 308.2,
-    "dayLow": 285.4,
+    "dayHigh": 290.6,
+    "dayLow": 290,
     "high52": 332.2,
     "low52": 173.3,
-    "volume": 400770,
+    "volume": 2603,
     "previousClose": 287.6
    },
    "session": {
     "start": 1788764400,
     "end": 1788795000
    },
-   "lastTrade": 1788535770
+   "lastTrade": 1788764415
   },
   {
    "id": "marcus",
@@ -229,28 +278,34 @@
    "benchmark": false,
    "startDate": "2026-09-07",
    "ok": true,
-   "baseline": null,
-   "baselineDate": null,
+   "baseline": 0.753,
+   "baselineDate": "2026-09-07",
    "price": 0.753,
    "currency": "SEK",
-   "pct": null,
+   "pct": 0,
    "dayChangePct": 0,
-   "series": [],
+   "series": [
+    {
+     "d": "2026-09-07",
+     "c": 0.753,
+     "p": 0
+    }
+   ],
    "stats": {
     "longName": "Isofol Medical AB (publ)",
     "exchange": "Stockholm",
-    "dayHigh": 0.77,
-    "dayLow": 0.74,
+    "dayHigh": 0.75,
+    "dayLow": 0.75,
     "high52": 0.99,
     "low52": 0.55,
-    "volume": 654234,
+    "volume": 102,
     "previousClose": 0.78
    },
    "session": {
     "start": 1788764400,
     "end": 1788795000
    },
-   "lastTrade": 1788535189
+   "lastTrade": 1788764401
   },
   {
    "id": "jeanette",
@@ -264,28 +319,34 @@
    "benchmark": false,
    "startDate": "2026-09-07",
    "ok": true,
-   "baseline": null,
-   "baselineDate": null,
-   "price": 27.26,
+   "baseline": 27.52,
+   "baselineDate": "2026-09-07",
+   "price": 28.62,
    "currency": "SEK",
-   "pct": null,
-   "dayChangePct": 7.07,
-   "series": [],
+   "pct": 3.997,
+   "dayChangePct": 4.989,
+   "series": [
+    {
+     "d": "2026-09-07",
+     "c": 28.62,
+     "p": 3.997
+    }
+   ],
    "stats": {
     "longName": "Sivers Semiconductors AB (publ)",
     "exchange": "Stockholm",
-    "dayHigh": 27.7,
-    "dayLow": 25.82,
+    "dayHigh": 28.62,
+    "dayLow": 27.52,
     "high52": 110,
     "low52": 2.85,
-    "volume": 7652552,
+    "volume": 166198,
     "previousClose": 27.32
    },
    "session": {
     "start": 1788764400,
     "end": 1788795000
    },
-   "lastTrade": 1788535799
+   "lastTrade": 1788764488
   },
   {
    "id": "moderskeppet",
@@ -299,28 +360,34 @@
    "benchmark": true,
    "startDate": "2026-09-07",
    "ok": true,
-   "baseline": null,
-   "baselineDate": null,
-   "price": 100.4,
+   "baseline": 101.2,
+   "baselineDate": "2026-09-07",
+   "price": 101.4,
    "currency": "SEK",
-   "pct": null,
-   "dayChangePct": -0.397,
-   "series": [],
+   "pct": 0.198,
+   "dayChangePct": 0.996,
+   "series": [
+    {
+     "d": "2026-09-07",
+     "c": 101.4,
+     "p": 0.198
+    }
+   ],
    "stats": {
     "longName": "AcadeMedia AB (publ)",
     "exchange": "Stockholm",
-    "dayHigh": 101.6,
-    "dayLow": 98.5,
+    "dayHigh": 101.4,
+    "dayLow": 101.2,
     "high52": 109.4,
     "low52": 85.5,
-    "volume": 274974,
+    "volume": 4949,
     "previousClose": 98
    },
    "session": {
     "start": 1788764400,
     "end": 1788795000
    },
-   "lastTrade": 1788535796
+   "lastTrade": 1788764402
   }
  ]
 }

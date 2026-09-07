@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-09-07T06:56:04.899Z",
+ "generatedAt": "2026-09-07T07:01:34.037Z",
  "byParticipant": {
   "andreas": {
    "fetchedAt": "2026-09-07T06:38:18.782Z",
@@ -280,6 +280,42 @@
      "link": "https://news.google.com/rss/articles/CBMigAFBVV95cUxNX283MkR0RU5WZjdqUnNhQ2Y3bHZUdUJyUUpDMS1VNzdyZDJvYnQ5dFpLQ0tCcm8tMUxrS3B0NnhKa01aNWVZV3hKSmR1S0gwWVF0XzItalhQWkNoV21SWFp4SjMxclZUY0VoTTV5U0pSa0xKZlJveGdCZnk4TzV3MA?oc=5",
      "source": "Omni – Alla nyheter. Alla perspektiv.",
      "published": "2026-08-31T09:31:58.000Z"
+    }
+   ]
+  },
+  "oscar": {
+   "fetchedAt": "2026-09-07T07:01:32.634Z",
+   "query": "Prevas",
+   "items": [
+    {
+     "title": "Prevas gör dansk drönarteknik redo för serieproduktion",
+     "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxQUlZDSDBxdFFRLXp6Umh3ZUlWTURHTWJYUk0wUzZCRVF3MFhVU3lJUzNRQXhDZWJ2dllMVWU1RF9keVUwZEJSejlVUHRobVF4ME9ZV3lyczY3NW5tSEY2VDRCQjM1T2ZacmdGVjBvRmVHano5b1g1eHhKYk80TVZOeE9ZUW9ON1ZMQXJQQXMyMDFrSGhTUjJUbE0wMVRaUU9jeUNj?oc=5",
+     "source": "Elektroniktidningen",
+     "published": "2026-08-27T07:00:00.000Z"
+    },
+    {
+     "title": "Västeråsföretag backar – trots flera storaffärer",
+     "link": "https://news.google.com/rss/articles/CBMigAFBVV95cUxNTUhfWmNCTmJqV2dLMURfc3MxdjNCYkpFN3VCVkJQdkpDNzYzcEhtWFNTNndnQzNST3lhRVk5TGZtR2gyT2FQTGt4YnV0ZjAtcjMwcG8zcjN1eHB0anhLODJTelBjdm12SXBTbmFxamVMWTVRUEE4UElKck9XZ3N0Sg?oc=5",
+     "source": "VLT",
+     "published": "2026-07-20T07:00:00.000Z"
+    },
+    {
+     "title": "Prevas publicerar delårsrapport januari-juni för 2026",
+     "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxNNldTb1RoWXNYbFowYUZuSVd0d2FZX1FGNzdvSmZaZXB0LUZSeWh6VlE2dnllY3FUaDVrN1Vhei1IOTk1aklQT3QtQ2JIcl9YRjZweE5tQi04NDd0cGhlUTFlTmJnUS15NGdVUkhrMks4RkRaNFFlVTFJRmlnWGZEODNRcnVWNUxpV0hYRHVGMFhWT1FUc21Yc1hOaXozQk0?oc=5",
+     "source": "Cision News",
+     "published": "2026-07-17T07:00:00.000Z"
+    },
+    {
+     "title": "Efter budregnet – ABG listar fler uppköpskandidater",
+     "link": "https://news.google.com/rss/articles/CBMiggFBVV95cUxNRV8yWTJYNGE4ZjNnQ1VzbnpLOGduQlplTy1EajJjcWtYRmxkUjlldVNueF9IbXRPUFo0VWRVMDlHaTN6akRDS3d4dDBwbllmbUgzYjNiVmQ0VHIxY2Vja3ZtLW1oNmQyemVCZFdaMEdRbE9uTGE2UzNSZHVQUlZuLVZR?oc=5",
+     "source": "Dagens industri",
+     "published": "2026-07-01T07:00:00.000Z"
+    },
+    {
+     "title": "Prevas: Försvarar marginalerna",
+     "link": "https://news.google.com/rss/articles/CBMiekFVX3lxTE55R2tJNjBfSFRpQzhLTUJmdjJoaTM4MlZBeUdVdzAtWm9mNUd1Ym1JalRuNzVTZjhfcHltZlVHaE5lWFJ0bWc4ekh1dHVHcGh3M2lwU0VNeDlrdy1EQTBCRjV3bDZXSVV4ZDZSd3R4UVZQd1BsTFA2M2dn?oc=5",
+     "source": "Placera.se",
+     "published": "2026-06-23T07:00:00.000Z"
     }
    ]
   }
