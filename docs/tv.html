@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AMIT Investors — TV</title>
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#05070c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@400;500;600;700&family=Azeret+Mono:wght@300;400;500;700&display=swap">
+<link rel="stylesheet" href="assets/styles.css">
+<link rel="stylesheet" href="assets/tv.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📺</text></svg>">
+</head>
+<body class="is-tv">
+
+<canvas id="starfield" aria-hidden="true"></canvas>
+<div class="aurora" aria-hidden="true"><span></span><span></span><span></span></div>
+<div class="grain" aria-hidden="true"></div>
+<div class="vignette" aria-hidden="true"></div>
+
+<div class="tv" id="tv" hidden>
+
+  <header class="tv-head">
+    <div class="tv-brand">
+      <span class="tele-dot" aria-hidden="true"></span>
+      <span class="tv-title">AMIT <em>Investors</em></span>
+      <span class="tv-sub" id="tv-sub"></span>
+    </div>
+
+    <div class="tv-lead glass" id="tv-lead"></div>
+
+    <dl class="tv-readouts">
+      <div class="readout"><dt>Marknad</dt><dd id="tv-market">–</dd></div>
+      <div class="readout"><dt>Handelsdag</dt><dd id="tv-day">–</dd></div>
+      <div class="readout"><dt>Kvar</dt><dd id="tv-left">–</dd></div>
+      <div class="readout"><dt>Synkad</dt><dd id="tv-synced">–</dd></div>
+    </dl>
+  </header>
+
+  <main class="tv-main">
+    <section class="tv-panel glass">
+      <i class="corners" aria-hidden="true"></i>
+      <h2 class="tv-h">Trajektorier <span>procent sedan startskottet</span></h2>
+      <svg id="tv-chart" role="img" aria-label="Deltagarnas utveckling"></svg>
+    </section>
+
+    <section class="tv-panel glass">
+      <i class="corners" aria-hidden="true"></i>
+      <h2 class="tv-h">Ställningen <span id="tv-count"></span></h2>
+      <ol class="tv-board" id="tv-board"></ol>
+    </section>
+  </main>
+
+  <footer class="tv-ticker" aria-label="Bolagsinformation och nyheter">
+    <div class="tv-track" id="tv-track"></div>
+  </footer>
+
+</div>
+
+<div class="boot" id="boot"><div class="boot-inner"><span class="boot-ring" aria-hidden="true"></span><p>Etablerar telemetri…</p></div></div>
+
+<script src="assets/tv.js" type="module"></script>
+</body>
+</html>

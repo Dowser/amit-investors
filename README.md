@@ -120,6 +120,16 @@ börsens öppettider, plus en avslutande körning efter stängning.
 
 ---
 
+## TV-läge
+
+`tv.html` visar allt på en 16:9-yta utan scroll, för en skärm i ett roterande
+signage-flöde: graf, ställning och ett band längst ned med bolagsfakta och
+nyheter per deltagare. Bandets position är en ren funktion av klockan, så
+sidan tål att laddas om hur ofta som helst utan att bandet börjar om.
+Hastigheten sätts i `docs/assets/tv.js` som sekunder per skärmbredd
+(`TICKER_SCREEN_S`). Data hämtas om var femte minut. `?preview=1` fungerar
+även här.
+
 ## Köra lokalt
 
 ```bash

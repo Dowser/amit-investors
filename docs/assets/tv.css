@@ -1,0 +1,101 @@
+/* ============================================================================
+   TV-läge: allt på en 16:9-yta, läsbart på tre meters håll, inga hover-krav.
+   Alla mått i vw så att 1080p och 4K ger samma komposition.
+   ========================================================================= */
+
+html, body.is-tv { height: 100%; overflow: hidden; }
+body.is-tv { font-size: 1.15vw; }
+
+.tv {
+  position: relative; z-index: 2;
+  height: 100vh; box-sizing: border-box;
+  padding: 1.1vw 1.4vw; gap: 1vw;
+  display: grid; grid-template-rows: auto minmax(0, 1fr) auto;
+}
+
+/* --- Huvud ---------------------------------------------------------------- */
+
+.tv-head { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 1.5vw; }
+.tv-lead { justify-self: center; }
+.tv-brand { display: flex; align-items: center; gap: .8vw; }
+.tv-brand .tele-dot { width: .5vw; height: .5vw; }
+.tv-title { font-weight: 700; font-size: 2vw; letter-spacing: -.03em; line-height: 1; }
+.tv-title em {
+  font-style: normal;
+  background: linear-gradient(96deg, var(--amber) 6%, #ffd9a0 30%, var(--cyan) 70%, #7ea6ff 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.tv-sub { font-family: var(--font-mono); font-size: .8vw; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-3); margin-left: .6vw; }
+
+.tv-lead { padding: .5vw 1.4vw; display: flex; align-items: center; gap: 1vw; border-radius: 100px; white-space: nowrap; }
+.tv-lead .lab { font-family: var(--font-mono); font-size: .75vw; letter-spacing: .22em; text-transform: uppercase; color: var(--ink-3); }
+.tv-lead .who { font-size: 1.4vw; font-weight: 600; letter-spacing: -.01em; }
+.tv-lead .co  { font-family: var(--font-mono); font-size: .85vw; color: var(--ink-2); }
+.tv-lead .pct { font-family: var(--font-mono); font-weight: 700; font-size: 1.6vw; font-variant-numeric: tabular-nums; }
+
+.tv-readouts { display: flex; justify-content: flex-end; gap: 1.6vw; margin: 0; font-family: var(--font-mono); font-size: .85vw; letter-spacing: .14em; text-transform: uppercase; white-space: nowrap; }
+.tv-readouts .readout { flex: none; }
+.tv-readouts .readout dd { font-size: 1vw; }
+
+/* --- Paneler -------------------------------------------------------------- */
+
+.tv-main { display: grid; grid-template-columns: 1.55fr 1fr; gap: 1vw; min-height: 0; }
+.tv-panel { padding: 1.1vw 1.3vw; display: flex; flex-direction: column; min-height: 0; }
+.tv-panel > * { position: relative; z-index: 2; }
+.tv-h { margin: 0 0 .7vw; font-size: 1.35vw; font-weight: 600; letter-spacing: -.02em; display: flex; align-items: baseline; gap: .8vw; }
+.tv-h span { font-family: var(--font-mono); font-size: .75vw; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-3); font-weight: 400; }
+
+#tv-chart { flex: 1; width: 100%; min-height: 0; display: block; overflow: visible; }
+#tv-chart .axis-text { font-size: .8vw; }
+#tv-chart .end-label { font-family: var(--font-mono); font-size: .95vw; font-weight: 500; }
+#tv-chart .end-pct   { font-family: var(--font-mono); font-size: .95vw; font-weight: 700; font-variant-numeric: tabular-nums; }
+#tv-chart .series-benchmark { stroke-width: 1.6; opacity: .6; }
+#tv-chart .series-path { stroke-width: 2.6; }
+
+/* --- Ställningen ----------------------------------------------------------- */
+
+.tv-board { list-style: none; margin: 0; padding: 0; flex: 1; min-height: 0; display: grid; grid-auto-rows: minmax(0, 1fr); gap: .45vw; }
+.tv-row {
+  display: grid; grid-template-columns: 2.3vw 2.4vw minmax(0, 1fr) auto 6.5vw;
+  align-items: center; gap: .9vw; padding: 0 1vw; border-radius: .7vw;
+  border: 1px solid var(--hairline); background: rgba(126,160,200,.035); min-height: 0;
+}
+.tv-row.is-leader { border-color: rgba(255,180,84,.45); background: rgba(255,180,84,.06); }
+.tv-row.is-benchmark { border-style: dashed; background: transparent; opacity: .8; }
+.tv-row.is-pending { opacity: .6; }
+.tv-row .rank { font-size: 1.2vw; }
+.tv-row .avatar { font-size: 1.5vw; line-height: 1; }
+.tv-row .who-name { font-size: 1.35vw; font-weight: 600; line-height: 1.05; }
+.tv-row .who-co { font-size: .78vw; margin-top: .2vw; }
+.tv-row .pct { font-size: 1.55vw; }
+.tv-row .day { font-family: var(--font-mono); font-size: .75vw; color: var(--ink-3); text-align: right; letter-spacing: .04em; }
+.tv-row .spark { width: 6.5vw; height: 2vw; display: block; }
+
+/* --- Ticker ---------------------------------------------------------------- */
+
+.tv-ticker {
+  height: 4.6vw; overflow: hidden; position: relative;
+  border-top: 1px solid var(--hairline); border-bottom: 1px solid var(--hairline);
+  background: rgba(5,7,12,.55); display: flex; align-items: center;
+  mask-image: linear-gradient(90deg, transparent 0, #000 3%, #000 97%, transparent 100%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 3%, #000 97%, transparent 100%);
+}
+.tv-track { display: flex; white-space: nowrap; will-change: transform; }
+.tv-strip { display: flex; align-items: center; }
+.tk-item { display: inline-flex; align-items: center; gap: .9vw; padding: 0 2.2vw; font-size: 1.35vw; line-height: 1; }
+.tk-sw { width: .7vw; height: .7vw; border-radius: .2vw; flex: none; }
+.tk-name { font-weight: 700; letter-spacing: -.01em; }
+.tk-co { font-family: var(--font-mono); font-size: .95vw; color: var(--ink-2); letter-spacing: .05em; }
+.tk-pct { font-family: var(--font-mono); font-weight: 700; font-variant-numeric: tabular-nums; }
+.tk-fact { color: var(--ink-2); }
+.tk-fact b { color: var(--ink); font-weight: 500; }
+.tk-news { color: var(--ink); }
+.tk-news i { font-style: normal; font-family: var(--font-mono); font-size: .8vw; color: var(--amber); letter-spacing: .16em; text-transform: uppercase; margin-right: .5vw; }
+.tk-src { font-family: var(--font-mono); font-size: .8vw; color: var(--ink-3); }
+.tk-about { color: var(--ink-2); font-size: 1.15vw; }
+.tk-sep { color: var(--amber-dim); font-size: 1vw; padding: 0 .4vw; }
+.tk-div { color: var(--amber); opacity: .7; font-size: 1.1vw; padding: 0 1vw; }
+
+/* Ingen pekare på en TV — inga hover-lager behövs. */
+.is-tv .glass::after { display: none; }
+.is-tv .row-head { cursor: default; }
