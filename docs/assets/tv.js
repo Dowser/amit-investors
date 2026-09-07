@@ -10,7 +10,7 @@ const PREVIEW = new URLSearchParams(location.search).has('preview');
 /* Hastighet uttryckt som sekunder per skärmbredd, inte som cykeltid: bandets
    längd beror på nyhetsrubrikerna och varierar, men läshastigheten ska vara
    densamma oavsett innehåll och skärmstorlek. 14 s ≈ 140 px/s på 1080p. */
-const TICKER_SCREEN_S = 14;
+const TICKER_SCREEN_S = 18;
 const REFRESH_MS = 5 * 60 * 1000;    // hämta ny data
 
 const $ = (s, r = document) => r.querySelector(s);
@@ -74,7 +74,8 @@ function renderHead() {
   const m = $('#tv-market'); m.textContent = open ? 'Öppen' : 'Stängd'; m.className = open ? 'is-open' : 'is-shut';
 
   const fmtD = (iso) => new Date(iso + 'T12:00:00Z').toLocaleDateString('sv-SE', { day: 'numeric', month: 'short' });
-  $('#tv-day').textContent = d.dates.length ? `${d.dates.length} · ${fmtD(d.dates.at(-1))}` : 'Före start';
+  // Bara dagnumret: datumet står redan på grafens x-axel, och huvudet är trångt.
+  $('#tv-day').textContent = d.dates.length ? String(d.dates.length) : 'Före start';
   const end = new Date(c.endDate + 'T17:30:00+01:00');
   const days = Math.ceil((end - Date.now()) / 86400000);
   $('#tv-left').textContent = d.state === 'ended' ? 'Avgjort' : days > 0 ? `${days} d` : 'Sista dagen';
