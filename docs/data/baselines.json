@@ -48,5 +48,10 @@
   "baseline": 101.2,
   "baselineDate": "2026-09-07",
   "pinnedAt": "2026-09-08T06:53:38.281Z"
+ },
+ "johan|BINV.ST|2026-09-07": {
+  "baseline": 24.2,
+  "baselineDate": "2026-09-07",
+  "pinnedAt": "2026-09-08T07:29:22.025Z"
  }
 }

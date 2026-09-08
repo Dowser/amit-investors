@@ -14,12 +14,13 @@ on:
     paths:
       - 'config/**'
       - 'docs/**'
+      - '!docs/data/**'          # workflowens egna återcommits ska inte trigga
       - 'scripts/**'
       - '.github/workflows/update.yml'
 
 # Publicering till GitHub Pages kräver dessa rättigheter.
 permissions:
-  contents: read
+  contents: write            # för den dagliga återcommitten av datafilerna
   pages: write
   id-token: write
 
@@ -69,3 +70,20 @@ jobs:
 
       - id: deploy
         uses: actions/deploy-pages@v4
+
+      # Baslinjer och observerade stängningar är det enda tillståndet sidan
+      # har. Cachen håller dem mellan körningar; en gång per dag committas de
+      # tillbaka så att de överlever även om cachen vräks. Bara kvällskörningen
+      # (cron '15 18'), och bara om något faktiskt ändrats.
+      - name: Committa tillbaka datafiler
+        if: github.event_name == 'schedule' && startsWith(github.event.schedule, '15 18')
+        run: |
+          git config user.name  "amit-investors[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/data/history.json docs/data/baselines.json
+          if git diff --cached --quiet; then
+            echo "Inga ändringar i datafilerna."
+            exit 0
+          fi
+          git commit -m "Dagens baslinjer och stängningar [skip ci]"
+          git push

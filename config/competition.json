@@ -91,6 +91,16 @@
       "about": "Stockholmsbaserad mobilspelskoncern som växte genom att köpa studior — Storm8, Candywriter, Sandbox — och nu gör det motsatta: slår ihop, stänger och betalar av skuld. Aktien handlas långt under toppen 2021 och rör sig på spelarengagemang, annonsmarknad och kostnaden för att köpa nya användare. Låg absolut kurs gör procentrörelserna stora."
     },
     {
+      "id": "johan",
+      "name": "Johan",
+      "ticker": "BINV.ST",
+      "company": "BioInvent International",
+      "avatar": "🧫",
+      "motto": "",
+      "color": "#f2e56b",
+      "about": "Lundbolag som utvecklar antikroppsläkemedel mot cancer, i egen regi och tillsammans med större bolag. Har flera kandidater i klinisk fas men inget godkänt läkemedel — värdet ligger i studiedata och partneravtal, och aktien rör sig därefter: långa väntetider brutna av enskilda dagar med stora hopp. Renodlad forskningsrisk."
+    },
+    {
       "id": "moderskeppet",
       "name": "Moderskeppet",
       "ticker": "ACAD.ST",

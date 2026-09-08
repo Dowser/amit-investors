@@ -190,6 +190,14 @@ har restaterat en hel handelsdag till null dagen efter; utan egen historik
 försvann dag 1 ur grafen. Yahoo vinner när den har ett värde — rättelser slår
 igenom — och historiken fyller hålen.
 
+Båda filerna lever mellan körningar i Actions-cachen och **committas tillbaka
+till repot en gång per dag** av den sena kvällskörningen, så att de överlever
+även om cachen vräks. Commits från workflowen är märkta `[skip ci]`.
+
+**Sen deltagare när startdagen restaterats:** saknar dagsserien öppningskurs
+för startdatumet hämtar skriptet den från 5-minutersstaplarna för den dagen,
+så att alla får samma startlinje oavsett när de läggs in.
+
 ### Kostnad
 
 Noll. Publika repon har obegränsat med Actions-minuter, GitHub Pages är gratis,

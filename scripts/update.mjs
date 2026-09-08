@@ -127,6 +127,30 @@ async function fetchChart(ticker, startDate, endDate, tz) {
   return { meta, candles };
 }
 
+/* Yahoo har nollat en hel handelsdag i dagsserien dagen efter. En deltagare
+   som tillkommer efter det skulle då få fel startlinje. 5-minutersdatan
+   överlever restateringen: första stapelns open är dagens öppning, sista
+   stapelns close är (så när som på stängningscallen) dagens stängning.
+   Returnerar null om dagen inte var en handelsdag — då är nästa dagsstapel
+   rätt baslinje och fallbacken ska inte användas. */
+async function fetchDayIntraday(ticker, isoDate, tz) {
+  const p1 = dayStartEpoch(isoDate) - 6 * 3600, p2 = dayStartEpoch(isoDate) + 30 * 3600;
+  const url = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(ticker)}` +
+    `?period1=${p1}&period2=${p2}&interval=5m&includePrePost=false`;
+  try {
+    const json = await (await fetchWithRetry(url)).json();
+    const r = json?.chart?.result?.[0];
+    const ts = r?.timestamp || [], q = r?.indicators?.quote?.[0] || {};
+    let open = null, close = null;
+    for (let i = 0; i < ts.length; i++) {
+      if (isoDateIn(tz, ts[i]) !== isoDate) continue;
+      if (open == null && q.open?.[i] != null) open = q.open[i];
+      if (q.close?.[i] != null) close = q.close[i];
+    }
+    return open == null ? null : { open, close };
+  } catch { return null; }
+}
+
 const round = (n, dp = 2) => (n == null || !Number.isFinite(n) ? null : Math.round(n * 10 ** dp) / 10 ** dp);
 
 const decodeEntities = (s) =>
@@ -284,7 +308,17 @@ async function main() {
       const key = pinKey(p, base.startDate);
       let baseline = pins[key]?.baseline ?? null;
       let baselineDate = pins[key]?.baselineDate ?? null;
-      const first = candles.find((c) => c.o != null);
+      let first = candles.find((c) => c.o != null);
+      // Saknas startdagen i dagsserien (restaterad till null) men var en
+      // handelsdag: hämta öppning och stängning från 5-minutersstaplarna.
+      if (baseline == null && (!first || first.d > base.startDate) && base.startDate <= today) {
+        const intraday = await fetchDayIntraday(p.ticker, base.startDate, tz);
+        if (intraday) {
+          process.stdout.write(`  intradag ${p.ticker.padEnd(12)} ${base.startDate} open=${intraday.open} close=${intraday.close}\n`);
+          candles.unshift({ d: base.startDate, o: intraday.open, c: intraday.close });
+          first = candles[0];
+        }
+      }
       if (baseline == null && first) {
         baseline = first.o; baselineDate = first.d;
         if (!PREVIEW) { pins[key] = { baseline: round(baseline, 4), baselineDate, pinnedAt: new Date().toISOString() }; pinsChanged = true; }

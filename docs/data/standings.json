@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-09-08T07:10:44.509Z",
+ "generatedAt": "2026-09-08T07:29:22.720Z",
  "state": "live",
  "marketState": "REGULAR",
  "session": {
@@ -35,10 +35,10 @@
    "ok": true,
    "baseline": 73.56,
    "baselineDate": "2026-09-07",
-   "price": 74.66,
+   "price": 75.24,
    "currency": "SEK",
-   "pct": 1.495,
-   "dayChangePct": 0.054,
+   "pct": 2.284,
+   "dayChangePct": 0.831,
    "series": [
     {
      "d": "2026-09-07",
@@ -47,25 +47,25 @@
     },
     {
      "d": "2026-09-08",
-     "c": 74.66,
-     "p": 1.495
+     "c": 75.24,
+     "p": 2.284
     }
    ],
    "stats": {
     "longName": "Embracer Group AB (publ)",
     "exchange": "Stockholm",
-    "dayHigh": 74.94,
-    "dayLow": 74.54,
+    "dayHigh": 75.8,
+    "dayLow": 74.3,
     "high52": 112.36,
     "low52": 43,
-    "volume": 2966,
+    "volume": 34789,
     "previousClose": 73.38
    },
    "session": {
     "start": 1788850800,
     "end": 1788881400
    },
-   "lastTrade": 1788851238
+   "lastTrade": 1788852480
   },
   {
    "id": "peter",
@@ -81,10 +81,10 @@
    "ok": true,
    "baseline": 45.72,
    "baselineDate": "2026-09-07",
-   "price": 46.04,
+   "price": 46,
    "currency": "SEK",
-   "pct": 0.7,
-   "dayChangePct": -0.26,
+   "pct": 0.612,
+   "dayChangePct": -0.347,
    "series": [
     {
      "d": "2026-09-07",
@@ -93,25 +93,25 @@
     },
     {
      "d": "2026-09-08",
-     "c": 46.04,
-     "p": 0.7
+     "c": 46,
+     "p": 0.612
     }
    ],
    "stats": {
     "longName": "Hansa Biopharma AB (publ)",
     "exchange": "Stockholm",
     "dayHigh": 46.26,
-    "dayLow": 45.88,
+    "dayLow": 45.84,
     "high52": 48.22,
     "low52": 23.52,
-    "volume": 26538,
+    "volume": 57737,
     "previousClose": 44.54
    },
    "session": {
     "start": 1788850800,
     "end": 1788881400
    },
-   "lastTrade": 1788851301
+   "lastTrade": 1788852525
   },
   {
    "id": "markus",
@@ -127,10 +127,10 @@
    "ok": true,
    "baseline": 40.18,
    "baselineDate": "2026-09-07",
-   "price": 39,
+   "price": 38.8,
    "currency": "SEK",
-   "pct": -2.937,
-   "dayChangePct": -0.561,
+   "pct": -3.435,
+   "dayChangePct": -1.071,
    "series": [
     {
      "d": "2026-09-07",
@@ -139,25 +139,25 @@
     },
     {
      "d": "2026-09-08",
-     "c": 39,
-     "p": -2.937
+     "c": 38.8,
+     "p": -3.435
     }
    ],
    "stats": {
     "longName": "Ovzon AB (publ)",
     "exchange": "Stockholm",
-    "dayHigh": 39.12,
-    "dayLow": 39,
+    "dayHigh": 39.14,
+    "dayLow": 38.74,
     "high52": 69.75,
     "low52": 29.7,
-    "volume": 10801,
+    "volume": 25210,
     "previousClose": 40.68
    },
    "session": {
     "start": 1788850800,
     "end": 1788881400
    },
-   "lastTrade": 1788851431
+   "lastTrade": 1788852553
   },
   {
    "id": "oscar",
@@ -196,14 +196,14 @@
     "dayLow": 65.9,
     "high52": 100,
     "low52": 63,
-    "volume": 324,
+    "volume": 394,
     "previousClose": 69.9
    },
    "session": {
     "start": 1788850800,
     "end": 1788881400
    },
-   "lastTrade": 1788850908
+   "lastTrade": 1788852282
   },
   {
    "id": "joakim",
@@ -219,10 +219,10 @@
    "ok": true,
    "baseline": 92.8,
    "baselineDate": "2026-09-07",
-   "price": 90.25,
+   "price": 90.8,
    "currency": "SEK",
-   "pct": -2.748,
-   "dayChangePct": -0.879,
+   "pct": -2.155,
+   "dayChangePct": -0.275,
    "series": [
     {
      "d": "2026-09-07",
@@ -231,25 +231,25 @@
     },
     {
      "d": "2026-09-08",
-     "c": 90.25,
-     "p": -2.748
+     "c": 90.8,
+     "p": -2.155
     }
    ],
    "stats": {
     "longName": "Yubico AB",
     "exchange": "Stockholm",
-    "dayHigh": 90.5,
+    "dayHigh": 91.4,
     "dayLow": 90,
     "high52": 136.4,
     "low52": 29.55,
-    "volume": 5188,
+    "volume": 12011,
     "previousClose": 90.85
    },
    "session": {
     "start": 1788850800,
     "end": 1788881400
    },
-   "lastTrade": 1788851378
+   "lastTrade": 1788852511
   },
   {
    "id": "camilla",
@@ -265,10 +265,10 @@
    "ok": true,
    "baseline": 290.4,
    "baselineDate": "2026-09-07",
-   "price": 281.4,
+   "price": 281.6,
    "currency": "SEK",
-   "pct": -3.099,
-   "dayChangePct": 0.428,
+   "pct": -3.03,
+   "dayChangePct": 0.5,
    "series": [
     {
      "d": "2026-09-07",
@@ -277,25 +277,25 @@
     },
     {
      "d": "2026-09-08",
-     "c": 281.4,
-     "p": -3.099
+     "c": 281.6,
+     "p": -3.03
     }
    ],
    "stats": {
     "longName": "Sectra AB (publ)",
     "exchange": "Stockholm",
     "dayHigh": 282.4,
-    "dayLow": 279.4,
+    "dayLow": 279,
     "high52": 332.2,
     "low52": 173.3,
-    "volume": 5862,
+    "volume": 12433,
     "previousClose": 287.6
    },
    "session": {
     "start": 1788850800,
     "end": 1788881400
    },
-   "lastTrade": 1788851432
+   "lastTrade": 1788852443
   },
   {
    "id": "marcus",
@@ -311,10 +311,10 @@
    "ok": true,
    "baseline": 0.753,
    "baselineDate": "2026-09-07",
-   "price": 0.747,
+   "price": 0.738,
    "currency": "SEK",
-   "pct": -0.797,
-   "dayChangePct": 2.469,
+   "pct": -1.992,
+   "dayChangePct": 1.235,
    "series": [
     {
      "d": "2026-09-07",
@@ -323,8 +323,8 @@
     },
     {
      "d": "2026-09-08",
-     "c": 0.747,
-     "p": -0.797
+     "c": 0.738,
+     "p": -1.992
     }
    ],
    "stats": {
@@ -334,14 +334,14 @@
     "dayLow": 0.74,
     "high52": 0.99,
     "low52": 0.55,
-    "volume": 50239,
+    "volume": 72011,
     "previousClose": 0.78
    },
    "session": {
     "start": 1788850800,
     "end": 1788881400
    },
-   "lastTrade": 1788851424
+   "lastTrade": 1788852326
   },
   {
    "id": "jeanette",
@@ -357,10 +357,10 @@
    "ok": true,
    "baseline": 27.52,
    "baselineDate": "2026-09-07",
-   "price": 28.68,
+   "price": 28.2,
    "currency": "SEK",
-   "pct": 4.215,
-   "dayChangePct": 0.561,
+   "pct": 2.471,
+   "dayChangePct": -1.122,
    "series": [
     {
      "d": "2026-09-07",
@@ -369,25 +369,25 @@
     },
     {
      "d": "2026-09-08",
-     "c": 28.68,
-     "p": 4.215
+     "c": 28.2,
+     "p": 2.471
     }
    ],
    "stats": {
     "longName": "Sivers Semiconductors AB (publ)",
     "exchange": "Stockholm",
-    "dayHigh": 28.8,
-    "dayLow": 28.2,
+    "dayHigh": 28.82,
+    "dayLow": 28.04,
     "high52": 110,
     "low52": 2.85,
-    "volume": 267865,
+    "volume": 494436,
     "previousClose": 27.32
    },
    "session": {
     "start": 1788850800,
     "end": 1788881400
    },
-   "lastTrade": 1788851439
+   "lastTrade": 1788852555
   },
   {
    "id": "adam",
@@ -403,10 +403,10 @@
    "ok": true,
    "baseline": 6.62,
    "baselineDate": "2026-09-07",
-   "price": 6.705,
+   "price": 6.665,
    "currency": "SEK",
-   "pct": 1.284,
-   "dayChangePct": -0.223,
+   "pct": 0.68,
+   "dayChangePct": -0.818,
    "series": [
     {
      "d": "2026-09-07",
@@ -415,25 +415,71 @@
     },
     {
      "d": "2026-09-08",
-     "c": 6.705,
-     "p": 1.284
+     "c": 6.665,
+     "p": 0.68
     }
    ],
    "stats": {
     "longName": "Stillfront Group AB (publ)",
     "exchange": "Stockholm",
     "dayHigh": 6.72,
-    "dayLow": 6.7,
+    "dayLow": 6.67,
     "high52": 7.1,
     "low52": 3.42,
-    "volume": 14557,
+    "volume": 18932,
     "previousClose": 6.75
    },
    "session": {
     "start": 1788850800,
     "end": 1788881400
    },
-   "lastTrade": 1788851426
+   "lastTrade": 1788852323
+  },
+  {
+   "id": "johan",
+   "name": "Johan",
+   "company": "BioInvent International",
+   "ticker": "BINV.ST",
+   "avatar": "🧫",
+   "motto": "",
+   "about": "Lundbolag som utvecklar antikroppsläkemedel mot cancer, i egen regi och tillsammans med större bolag. Har flera kandidater i klinisk fas men inget godkänt läkemedel — värdet ligger i studiedata och partneravtal, och aktien rör sig därefter: långa väntetider brutna av enskilda dagar med stora hopp. Renodlad forskningsrisk.",
+   "color": "#f2e56b",
+   "benchmark": false,
+   "startDate": "2026-09-07",
+   "ok": true,
+   "baseline": 24.2,
+   "baselineDate": "2026-09-07",
+   "price": 23.6,
+   "currency": "SEK",
+   "pct": -2.479,
+   "dayChangePct": -0.632,
+   "series": [
+    {
+     "d": "2026-09-07",
+     "c": 23.75,
+     "p": -1.86
+    },
+    {
+     "d": "2026-09-08",
+     "c": 23.6,
+     "p": -2.479
+    }
+   ],
+   "stats": {
+    "longName": "BioInvent International AB (publ)",
+    "exchange": "Stockholm",
+    "dayHigh": 23.85,
+    "dayLow": 23.4,
+    "high52": 34.85,
+    "low52": 19.22,
+    "volume": 4074,
+    "previousClose": 23.5
+   },
+   "session": {
+    "start": 1788850800,
+    "end": 1788881400
+   },
+   "lastTrade": 1788852427
   },
   {
    "id": "moderskeppet",
@@ -449,10 +495,10 @@
    "ok": true,
    "baseline": 101.2,
    "baselineDate": "2026-09-07",
-   "price": 100.8,
+   "price": 100.6,
    "currency": "SEK",
-   "pct": -0.395,
-   "dayChangePct": -0.592,
+   "pct": -0.593,
+   "dayChangePct": -0.789,
    "series": [
     {
      "d": "2026-09-07",
@@ -461,25 +507,25 @@
     },
     {
      "d": "2026-09-08",
-     "c": 100.8,
-     "p": -0.395
+     "c": 100.6,
+     "p": -0.593
     }
    ],
    "stats": {
     "longName": "AcadeMedia AB (publ)",
     "exchange": "Stockholm",
     "dayHigh": 101.6,
-    "dayLow": 100.8,
+    "dayLow": 100.6,
     "high52": 109.4,
     "low52": 85.5,
-    "volume": 2527,
+    "volume": 3348,
     "previousClose": 98
    },
    "session": {
     "start": 1788850800,
     "end": 1788881400
    },
-   "lastTrade": 1788851435
+   "lastTrade": 1788852474
   }
  ]
 }
