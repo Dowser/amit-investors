@@ -108,14 +108,21 @@ async function fetchChart(ticker, startDate, endDate, tz) {
   const ts = result.timestamp || [];
   const q = result.indicators?.quote?.[0] || {};
 
+  /* Yahoo kan leverera dagens/senaste stapel med open men close=null
+     (sett morgonen efter startdagen). Baslinjen behöver bara open, så en
+     sådan stapel får inte kastas. Saknas close på den SENASTE stapeln
+     används meta-kursen; saknas close på en äldre stapel hoppas punkten
+     över i serien men stapeln behålls för baslinjen. */
+  const lastTradeDate = meta.regularMarketTime ? isoDateIn(tz, meta.regularMarketTime) : null;
   const candles = [];
   for (let i = 0; i < ts.length; i++) {
-    const close = q.close?.[i];
     const open = q.open?.[i];
-    if (close == null) continue; // helgdag/halvdag utan avslut
+    let close = q.close?.[i];
     const d = isoDateIn(tz, ts[i]);
     if (d < startDate || d > endDate) continue;
-    candles.push({ d, o: open ?? close, c: close });
+    if (open == null && close == null) continue;   // helgdag/halvdag utan handel
+    if (close == null && i === ts.length - 1 && d === lastTradeDate) close = meta.regularMarketPrice ?? null;
+    candles.push({ d, o: open ?? close, c: close ?? null });
   }
   return { meta, candles };
 }
@@ -189,6 +196,13 @@ async function fetchNews(participant, limit = 5) {
 const participantStart = (p, competitionStart) =>
   p.startDate && p.startDate > competitionStart ? p.startDate : competitionStart;
 
+/* Baslinjen pinnas när den först fångats. Nyckeln innehåller ticker och
+   startdatum, så ett aktiebyte eller ett ändrat startdatum räknar om — men
+   en dålig morgon hos Yahoo gör det inte. Detta är den enda avsiktliga
+   avvikelsen från "allt räknas om vid varje körning". */
+const BASELINES_PATH = path.join(OUT_DIR, 'baselines.json');
+const pinKey = (p, start) => `${p.id}|${p.ticker}|${start}`;
+
 async function readJsonIfExists(p) {
   try { return existsSync(p) ? JSON.parse(await readFile(p, 'utf8')) : null; } catch { return null; }
 }
@@ -229,6 +243,8 @@ async function main() {
 
   await mkdir(OUT_DIR, { recursive: true });
   const prevNews = (await readJsonIfExists(path.join(OUT_DIR, 'news.json')))?.byParticipant || {};
+  const pins = PREVIEW ? {} : (await readJsonIfExists(BASELINES_PATH)) || {};
+  let pinsChanged = false;
 
   const participants = [];
   const allDates = new Set();
@@ -257,10 +273,18 @@ async function main() {
     try {
       const { meta, candles } = await fetchChart(p.ticker, base.startDate, endDate, tz);
 
-      // Baslinje = öppningskursen första handelsdagen på eller efter startDate.
-      const baseline = candles.length ? candles[0].o : null;
+      // Baslinje: pinnad om den finns, annars öppningskursen första
+      // handelsdagen på eller efter startDate — och då pinnas den.
+      const key = pinKey(p, base.startDate);
+      let baseline = pins[key]?.baseline ?? null;
+      let baselineDate = pins[key]?.baselineDate ?? null;
+      const first = candles.find((c) => c.o != null);
+      if (baseline == null && first) {
+        baseline = first.o; baselineDate = first.d;
+        if (!PREVIEW) { pins[key] = { baseline: round(baseline, 4), baselineDate, pinnedAt: new Date().toISOString() }; pinsChanged = true; }
+      }
       const series = baseline
-        ? candles.map((c) => {
+        ? candles.filter((c) => c.c != null).map((c) => {
             allDates.add(c.d);
             return { d: c.d, c: round(c.c, 4), p: round((c.c / baseline - 1) * 100, 3) };
           })
@@ -273,7 +297,7 @@ async function main() {
         ...base,
         ok: true,
         baseline: round(baseline, 4),
-        baselineDate: candles[0]?.d ?? null,
+        baselineDate,
         price: round(price, 4),
         currency: meta.currency || 'SEK',
         pct: baseline && price ? round((price / baseline - 1) * 100, 3) : null,
@@ -327,6 +351,10 @@ async function main() {
     participants,
   };
   await writeFile(path.join(OUT_DIR, OUT_FILE), JSON.stringify(standings, null, 1) + '\n');
+  if (pinsChanged) {
+    await writeFile(BASELINES_PATH, JSON.stringify(pins, null, 1) + '\n');
+    console.log(`Pinnade ${Object.keys(pins).length} baslinjer i baselines.json`);
+  }
   console.log(`\nSkrev ${OUT_FILE} (${state}, ${standings.dates.length} handelsdagar)`);
 
   if (WANT_NEWS && !PREVIEW) {

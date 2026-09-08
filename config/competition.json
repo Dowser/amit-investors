@@ -81,6 +81,16 @@
       "about": "Kistabolag som designar chip för millimetervågsradio — 5G, satellit­länkar och trådlösa nät — samt fotonik för datacenter och lidar. Säljer till systembyggare snarare än slutkunder, så orderflödet är klumpigt och aktien rör sig på enskilda avtal. Liten, forskningstung och volatil."
     },
     {
+      "id": "adam",
+      "name": "Adam",
+      "ticker": "SF.ST",
+      "company": "Stillfront Group",
+      "avatar": "📱",
+      "motto": "",
+      "color": "#d48cff",
+      "about": "Stockholmsbaserad mobilspelskoncern som växte genom att köpa studior — Storm8, Candywriter, Sandbox — och nu gör det motsatta: slår ihop, stänger och betalar av skuld. Aktien handlas långt under toppen 2021 och rör sig på spelarengagemang, annonsmarknad och kostnaden för att köpa nya användare. Låg absolut kurs gör procentrörelserna stora."
+    },
+    {
       "id": "moderskeppet",
       "name": "Moderskeppet",
       "ticker": "ACAD.ST",

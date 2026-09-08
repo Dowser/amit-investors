@@ -178,6 +178,13 @@ en korrekt omräknad tävling.
 **Baslinjen** är öppningskursen den första handelsdagen. Utdelningar och spliter
 räknas inte om — det är avsiktligt, det ska vara enkelt att kontrollera för hand.
 
+**Baslinjen pinnas** i `docs/data/baselines.json` när den först fångats — det
+enda som *inte* räknas om vid varje körning. Yahoo kan leverera senaste
+stapeln med öppning men utan stängning, och utan pinning försvann hela
+ställningen en morgon. Nyckeln innehåller ticker och startdatum, så ett
+aktiebyte eller ett ändrat `startDate` räknar ändå om. Vill du tvinga en
+omräkning: ta bort raden ur filen och kör skriptet.
+
 ### Kostnad
 
 Noll. Publika repon har obegränsat med Actions-minuter, GitHub Pages är gratis,

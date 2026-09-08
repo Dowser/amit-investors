@@ -1,10 +1,16 @@
 {
- "generatedAt": "2026-09-07T07:01:34.037Z",
+ "generatedAt": "2026-09-08T06:51:41.813Z",
  "byParticipant": {
   "andreas": {
-   "fetchedAt": "2026-09-07T06:38:18.782Z",
+   "fetchedAt": "2026-09-08T06:51:25.990Z",
    "query": "Embracer Group",
    "items": [
+    {
+     "title": "Direwolf Hotar THQ Nordic: 335 GB Data Stulet [2026]",
+     "link": "https://news.google.com/rss/articles/CBMibEFVX3lxTFB1dE50Wm5KeGJvRlJ6MFZ5Rjg1cGFocDdBeTV0T2dLUkVDQWRKNGlBY2FkOGVYRDVNQV9kUEl4amc4NXR3MDJjam1sNHNGWEt1TzdxeE9oZUxuNUZJNGotXy1iMHFEMEt1UEE0ZQ?oc=5",
+     "source": "shattered.io",
+     "published": "2026-09-05T10:02:55.000Z"
+    },
     {
      "title": "Spelbolaget från Karlstad miljardköper i USA: ”Vi har varit uppvaktade”",
      "link": "https://news.google.com/rss/articles/CBMimwFBVV95cUxNaW03RFBTN3dWTnBWWFB1Z3dTUjNiOWhESHp2U21yazVjLWhjeDlNYS1GZF95SjJnWEtCQWw1RlBwTmloNEhLaFpHWk82U3FBQlNaN2EtcVNQLXh6MENOUDJERjlaTEU3eWt2aGNYd09aQm9jaU4xdTIxWmV2cjZsU3g4eWZraXJtMG1TUE9VNkpXc3VDUmc2a3RQOA?oc=5",
@@ -28,36 +34,30 @@
      "link": "https://news.google.com/rss/articles/CBMieEFVX3lxTE5fNldnNG1jS003dzQwUDBMSjJSVFpuREJsZFJuMkRiSkhEYlBhZHI5V1hoVE5UbE5KRDROTS0wWnhER0x4cV90MDQ4a0llcHpIU1NVZTVxa21SYnF1WGUtaHIwZUN6cDB1NFdwRFk2SjRpMV9RT25QMg?oc=5",
      "source": "tech-insider.org",
      "published": "2026-08-24T07:00:00.000Z"
-    },
-    {
-     "title": "Embracer rapport: omstruktureringen börjar ge effekt",
-     "link": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE9NRW1aVnp3eXFtVHR2U3BldWJpdC02b0Q2bGoycGFJRGUzeDltWjc0cGZlSXpuY1RVejVHc1NveE5selotOUFKZEx0SFQ2TUUzT0lrMkQzVGlOajdt?oc=5",
-     "source": "HurBra.se",
-     "published": "2026-08-13T07:00:00.000Z"
     }
    ]
   },
   "peter": {
-   "fetchedAt": "2026-09-07T06:38:20.470Z",
+   "fetchedAt": "2026-09-08T06:51:27.605Z",
    "query": "Hansa Biopharma",
    "items": [
     {
      "title": "Analytikern: Tre köpvärda aktier med stark volymbalans",
      "link": "https://news.google.com/rss/articles/CBMimgFBVV95cUxNekdzR0NiZXVjV0h5dTJ6TWpyb0IyS2RURzlPaXJtenBUcFF4cUl3cFRjTXpsbHhYZmlaX2NKSnoyT3ljbnVkNkdRbWtUYUQ1ZnpFcnBSeFB3UldFUWFrR29hZUo5RHJ2dTlpYXdacG1HalV6TU81aXUwN1VQOUN2eVg2OGIxaXVQMWdjalo3U0FSQk1YZWEzYzBn?oc=5",
-     "source": "Placera.se",
-     "published": "2026-09-05T07:29:26.000Z"
+     "source": "placera.se",
+     "published": "2026-09-04T08:27:10.000Z"
+    },
+    {
+     "title": "Triss i röda börsdagar – Volvo Cars föll",
+     "link": "https://news.google.com/rss/articles/CBMib0FVX3lxTE9qaFpWVG0yZ0tDRy1SVURQcTMwV0s1Q0NnbEZDZDlWZldXdG5TOHVjbVk5a1dFZk1Sa2pDWG5tQ0R0dlBCdzY0LUlWWVF2WURtbkdFZ2ZHSnpaMl9fenJSQ2p3ejVxd0Jsa0ZJemJsbw?oc=5",
+     "source": "Dagens industri",
+     "published": "2026-09-02T15:31:17.000Z"
     },
     {
      "title": "Nibe rapportvinnare på munter börs",
      "link": "https://news.google.com/rss/articles/CBMie0FVX3lxTE5fRUI1Sk1FalRPakNwSTRmLWZTd2pYamYtcTR6MGxCRXFSVVlnTWZyNm5ncWM3SDJhUHJJUGNVbXVaSkR2Z3pQd3lwcHdkdDlqLUNpTE1XSGhxUWVvYm9oTzVmMGtYMlZfelVzeUlqTUpEV2JJczlFS2otcw?oc=5",
      "source": "Affärsvärlden",
      "published": "2026-08-31T17:21:34.000Z"
-    },
-    {
-     "title": "Intrums högsta prioritet: Banta skulden – ”stor förändring”",
-     "link": "https://news.google.com/rss/articles/CBMieEFVX3lxTE1iNm00WGdZUXliWU1wQ0FVd09HeWJqV05LR0g2OVNMUG5keTBfNWdZRWdQaFF2UWFFcjUzU2xraWlPdENKM09VZlRHNERJUnRoU0FmZk1URXRieTAtQUI3dDY4Mmszb0tJRFR4clllWVFiNFZLd2I2Zg?oc=5",
-     "source": "EFN",
-     "published": "2026-08-28T09:04:01.000Z"
     },
     {
      "title": "Connor, Clark & Lunn inte längre publik blankare i Hansa Biopharma",
@@ -74,7 +74,7 @@
    ]
   },
   "markus": {
-   "fetchedAt": "2026-09-07T06:38:22.051Z",
+   "fetchedAt": "2026-09-08T06:51:29.191Z",
    "query": "Ovzon",
    "items": [
     {
@@ -110,7 +110,7 @@
    ]
   },
   "joakim": {
-   "fetchedAt": "2026-09-07T06:38:25.392Z",
+   "fetchedAt": "2026-09-08T06:51:32.369Z",
    "query": "Yubico",
    "items": [
     {
@@ -146,15 +146,9 @@
    ]
   },
   "camilla": {
-   "fetchedAt": "2026-09-07T06:38:26.985Z",
+   "fetchedAt": "2026-09-08T06:51:33.977Z",
    "query": "Sectra",
    "items": [
-    {
-     "title": "Sectra: Liten säkerhetsmarginal",
-     "link": "https://news.google.com/rss/articles/CBMieEFVX3lxTFB1VEFuSnVyTEhROERDUWw1cndFMnZZWlhYOE5iaTc1Y1BaVWI1RDkxUkVPVU16QXVHeDlOamljZDR5SkI2UV9wRTBxdVYxMHJJRFM3WVdFQ0xMd3VYUzk4eU9xMUxXakYyeHFwQmR6OE1JVmJnYkVjRA?oc=5",
-     "source": "Affärsvärlden",
-     "published": "2026-09-07T05:49:20.000Z"
-    },
     {
      "title": "Sectras orderingång rasar",
      "link": "https://news.google.com/rss/articles/CBMib0FVX3lxTE9RSWZleHNFZmpfai1DV0tzMjVRbWZTY0hnRmktb2lrSTExczhoNnY4cEpQUlNjdGhKTjVfT0VWMUVsUjNaMFJ0MXotdVgzQS1qWjYtRlJjV0owYlZTSHNFdF95RDAyNmc2NEVESjFINA?oc=5",
@@ -174,15 +168,21 @@
      "published": "2026-09-04T16:34:40.000Z"
     },
     {
-     "title": "Börsen inleder runt nollan – Sectra faller tillbaka",
-     "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE5oU1FGNWIyLTVVQlhWX3VNNHF4T25IX1BKS00xcmt1eGp2Q2pYcjVDdU53Q09oQ29ma2x6RFJuZmF5OFpFRDJUdDdzXzF6MHpTMVowMFlDSDhNOGJ3YmlWNWF0LW1VNEti?oc=5",
+     "title": "Video: Sectras vd: AI är en tsunamivåg",
+     "link": "https://news.google.com/rss/articles/CBMiX0FVX3lxTFBDWkdjVktlM2pxbmVrbnhTZHJFUXJxQllNNmc1OW1GT0Y3bWduVE9Sa1pZN3VocU04dFVmbWdaQ01sVzdIdnNOUWNsS2VXcFlNX2xUaWJnV1k0SFlmc09z?oc=5",
      "source": "EFN",
-     "published": "2026-09-04T14:29:12.000Z"
+     "published": "2026-09-04T14:19:09.000Z"
+    },
+    {
+     "title": "Affärsvärlden lockas inte av Sectra, neutralt råd",
+     "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxPZUV6SC14LWpENkZ2UnJKdXFkdUQ4MWR4RXZDb1BSek9RRlQ0N0FlNE1WZTVnOXoxaTJlTFNOWmd6MHV2ZENaQ1ZKMW1kdk4tUHhEUUVPeXBlVGVYZEI0MlJndUVnWlYwbnktT080WTUwRFRrTTVmWlZKVVpnYThiQVFvVEJmNzVV?oc=5",
+     "source": "Börsvärlden",
+     "published": "2026-09-04T13:09:00.000Z"
     }
    ]
   },
   "marcus": {
-   "fetchedAt": "2026-09-07T06:38:28.542Z",
+   "fetchedAt": "2026-09-08T06:51:35.567Z",
    "query": "Isofol Medical",
    "items": [
     {
@@ -212,14 +212,14 @@
    ]
   },
   "jeanette": {
-   "fetchedAt": "2026-09-07T06:38:30.483Z",
+   "fetchedAt": "2026-09-08T06:51:37.219Z",
    "query": "Sivers Semiconductors",
    "items": [
     {
-     "title": "Citadel Securities inte längre publik blankare i Sivers Semiconductors",
-     "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxNMUNqc1dSRmh2MWhuZHhoWnZNc0d2ZFc3aGt6eXE3MEtJbEFOTFZXX2MyanlRMWlGNWxfV3pqZ1VURmdxemoyYUdwTUtOdlNSM3h3WEYxeHFXUjkyUXlsWjdJRVY3dlpMSVlPWkttcENZMmx1MzlXRjVKcGkzWVJBWk93dTJQZmUyX1h5SDRkRWMwN1hsTjZ1VmF4RlRINVVNUE9WTDln?oc=5",
-     "source": "Börsvärlden",
-     "published": "2026-09-03T21:04:52.000Z"
+     "title": "Ägarrusning i Sivers – 11 000 nya på ett kvartal",
+     "link": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxQVzVuSzJscDlyckNOUzZKUWt1elNuWW9pZDBMdEoxN043YktsQ3RYZml6TXczSk1zQkJLeDhuUVNZSG5BY1Y5c3VJa2NoWk4xUzNjby1Bbi13X1BNaVJTZm1kLVc1dm9nSU5JZWJOck1jS2JQeTdHcTNWWWFGdVNtVGhrRHJQWE1DSEdj?oc=5",
+     "source": "Affärsvärlden",
+     "published": "2026-09-08T06:30:38.000Z"
     },
     {
      "title": "DNB Carnegie slutar bevaka Sivers",
@@ -228,40 +228,40 @@
      "published": "2026-09-02T06:33:59.000Z"
     },
     {
-     "title": "Sivers måste sluta försöka sminka grisen",
-     "link": "https://news.google.com/rss/articles/CBMigwFBVV95cUxOWGJJM1BGWl9rbjZBaml3RDcxM241TXRmNXZUUnVwd2tGcW9QT2YtSURBQmF2bDY0amZxNVhIdVEtUWk0NDQxekdjX0RQc1RHcS1VTW1WS0NyblM0VFVnQ3l1TzV6SkpHYW5MR3VORUdOc3k4RER6VlJwRVgxdDAwcUg2bw?oc=5",
-     "source": "Affärsvärlden",
-     "published": "2026-08-28T10:17:58.000Z"
+     "title": "Lägre omsättning och högre förlust för Sivers",
+     "link": "https://news.google.com/rss/articles/CBMie0FVX3lxTE51RkZZNERJZ0k5cXVzaVFGWS1lYWllaE9DemloN05MZDYwRG1CbDVqR3RFZVgxY1FIOUlTSVRRZk8tWHAyUTUtWW5rNGgzbDJFY0JUUy1uVWJKajl3bmFxaHdJM3VsUFJXdnI0eVFOcllwUUNmUWo1OVp5SQ?oc=5",
+     "source": "EFN",
+     "published": "2026-08-28T07:00:00.000Z"
     },
     {
-     "title": "Sivers rasar på rapporten",
-     "link": "https://news.google.com/rss/articles/CBMidkFVX3lxTFAzWFh0WVNVUnZaNFdyYk0yNVV0TGhCMGpoclN5aE13Sjl3MjhRNzNleHZHYXY2MWdqY3hEeENPbWVhcGdnYWdCdW5pbWVncFVxdjFsempzRWxhLTZ0N1E2Rm96V3JvbG5NQURWQ2xsSjltdVFRdkE?oc=5",
-     "source": "Placera.se",
-     "published": "2026-08-28T07:34:34.000Z"
+     "title": "Börsraketen rasar efter rapport",
+     "link": "https://news.google.com/rss/articles/CBMiZkFVX3lxTFB3Y0w2MDFtZGtSM044Y0NuUkJISEY1d1Vac2NXNVRyOTJCMDN4T0FQaXl3SGlMS051YXN5d0l4OFprbDhtZk1scW9lWjdIVnJfSHd1RkJXT2NXVkVIV2x0VG5SWF9BQQ?oc=5",
+     "source": "Dagens industri",
+     "published": "2026-08-28T07:00:00.000Z"
     },
     {
-     "title": "Björn Jeffery: Upp 800 procent – baksmällan är här",
-     "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTE1obHpPcUVGdmFsQXVfeTlyaS1vVDhMNlRmaG1mcEFMazRBQkZuZU42d2ZwVVB3SW52cF9vTVdXWnlrQ2RNRFNjLU1IeklhNTg0bTZSZHBvX0ZIXzBRQWRNRlVOanliVDBKM2NRSjU2UjE?oc=5",
-     "source": "Svenska Dagbladet",
+     "title": "Uppåt på Stockholmsbörsen – Sivers rasar tvåsiffrigt",
+     "link": "https://news.google.com/rss/articles/CBMif0FVX3lxTFBuYUltcXJXOU1pa1hPM0pRbm5FV2p3OEU3WHhvUEwwTXdqSDVqbXRRd21wd204Uk1NcnJqQVdNY09XYm8zeXlZemVSNG1CVFRLWjZLX0hhdnpnMFZUNVZtS3FXTzB3R19lUHdNTl9id2lYWVZpNWd3UTlFNFF1ZFU?oc=5",
+     "source": "Dagens industri",
      "published": "2026-08-28T07:00:00.000Z"
     }
    ]
   },
   "moderskeppet": {
-   "fetchedAt": "2026-09-07T06:38:32.111Z",
+   "fetchedAt": "2026-09-08T06:51:40.411Z",
    "query": "AcadeMedia",
    "items": [
-    {
-     "title": "Börsen på minus – Academedia mot strömmen",
-     "link": "https://news.google.com/rss/articles/CBMiggFBVV95cUxQMkJTQ3daOUhTcTBrb0tHZGZfQzg5QWhkUnp0TVpmczBSVTdFdWtkbDBsb2FPaWl4Y285akNCWVpiaVhIUWEtaUJXRjZGX29fTjJUb2otUzNpOEhQb1pDenEtMkZWMGtuSVVyTmo5emppLUFZMzlCbkdkM3JRN3p6aU93?oc=5",
-     "source": "Affärsvärlden",
-     "published": "2026-09-04T06:28:40.000Z"
-    },
     {
      "title": "SEB skrotar säljstämpel på Academedia – här är dagens rekar",
      "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxNdzB3TU4yM1I5UDg1cFhIYzZ3UUswX0RDbmV2amRSNmwtQlZNVzUyTTNHQXJoTHVmSTl4Z0VTNjFJZGNnaklxaDRicWtrMk1WN3JIaVl5M0ZlMUY1U1MxZHlDd0xxU2hlSG9XVFAyU3NsVUFkVGpveGZXQ0h0UUcxUHR6ZTN5V3J3?oc=5",
      "source": "Dagens industri",
      "published": "2026-09-01T05:49:25.000Z"
+    },
+    {
+     "title": "Börsen på minus – Academedia mot strömmen",
+     "link": "https://news.google.com/rss/articles/CBMiggFBVV95cUxQMkJTQ3daOUhTcTBrb0tHZGZfQzg5QWhkUnp0TVpmczBSVTdFdWtkbDBsb2FPaWl4Y285akNCWVpiaVhIUWEtaUJXRjZGX29fTjJUb2otUzNpOEhQb1pDenEtMkZWMGtuSVVyTmo5emppLUFZMzlCbkdkM3JRN3p6aU93?oc=5",
+     "source": "Affärsvärlden",
+     "published": "2026-08-31T15:42:11.000Z"
     },
     {
      "title": "Academedia ökar vinsten – avvaktar utdelningsbesked",
@@ -272,7 +272,7 @@
     {
      "title": "Academedia",
      "link": "https://news.google.com/rss/articles/CBMiekFVX3lxTE8tc3BVdmNpU2xIWFgxcUI5a1FhU1BINVptczVLSWE1MU9kU09ZSWREWkdmWktGNmhBc0xiVC1JLW9XTy0yQjZUR0lHaERtVjlYaUxQUFN1bnlSZ29rNmRsVlNzUThoTTVfREIyUS0tc3Z5MzZ1djM5bW5B?oc=5",
-     "source": "Placera.se",
+     "source": "placera.se",
      "published": "2026-08-31T10:38:10.000Z"
     },
     {
@@ -284,7 +284,7 @@
    ]
   },
   "oscar": {
-   "fetchedAt": "2026-09-07T07:01:32.634Z",
+   "fetchedAt": "2026-09-08T06:51:30.783Z",
    "query": "Prevas",
    "items": [
     {
@@ -306,16 +306,52 @@
      "published": "2026-07-17T07:00:00.000Z"
     },
     {
+     "title": "Prevas minskade omsättningen och resultatet",
+     "link": "https://news.google.com/rss/articles/CBMiggFBVV95cUxOeC1ldmN2MWNkWWtpbE9tSC1BeXR5cjFlWFI1bEN0bll5VUZYN3phRDUzNVlNU2ZmTjQwQVZuaUVkcWoyc3dXNFh2bEgyYmZ2TVY5N19OMURuMVp2dC12d3kxVGNmcjlDTUdoWDRSbkp3RW5kMTB5RmdUNnIyTUJZd2J3?oc=5",
+     "source": "Börsvärlden",
+     "published": "2026-07-17T07:00:00.000Z"
+    },
+    {
      "title": "Efter budregnet – ABG listar fler uppköpskandidater",
      "link": "https://news.google.com/rss/articles/CBMiggFBVV95cUxNRV8yWTJYNGE4ZjNnQ1VzbnpLOGduQlplTy1EajJjcWtYRmxkUjlldVNueF9IbXRPUFo0VWRVMDlHaTN6akRDS3d4dDBwbllmbUgzYjNiVmQ0VHIxY2Vja3ZtLW1oNmQyemVCZFdaMEdRbE9uTGE2UzNSZHVQUlZuLVZR?oc=5",
      "source": "Dagens industri",
      "published": "2026-07-01T07:00:00.000Z"
+    }
+   ]
+  },
+  "adam": {
+   "fetchedAt": "2026-09-08T06:51:38.790Z",
+   "query": "Stillfront Group",
+   "items": [
+    {
+     "title": "Gamingaktier för nybörjare – bästa tipsen, aktierna och fonderna att investera i 2026",
+     "link": "https://news.google.com/rss/articles/CBMiV0FVX3lxTFA5TE5wbFRyczM2Yl9SaVNJZUhZbTE3MWlMQmxlaGNwSGVFSG5LcHU5M0tDbEg3bWJhNkZOcENueW5tS3k5TkVVMElpSks3V0Vmbkx2N1dDQQ?oc=5",
+     "source": "Börskollen",
+     "published": "2026-09-02T07:00:00.000Z"
     },
     {
-     "title": "Prevas: Försvarar marginalerna",
-     "link": "https://news.google.com/rss/articles/CBMiekFVX3lxTE55R2tJNjBfSFRpQzhLTUJmdjJoaTM4MlZBeUdVdzAtWm9mNUd1Ym1JalRuNzVTZjhfcHltZlVHaE5lWFJ0bWc4ekh1dHVHcGh3M2lwU0VNeDlrdy1EQTBCRjV3bDZXSVV4ZDZSd3R4UVZQd1BsTFA2M2dn?oc=5",
-     "source": "Placera.se",
-     "published": "2026-06-23T07:00:00.000Z"
+     "title": "Veckans vinnare - Vecka 30",
+     "link": "https://news.google.com/rss/articles/CBMie0FVX3lxTE5tZ0ZQVC1YN0JqVjVNazhpaEYydl9qM1N3ZWJuZkg4NE1KTWdHTDgzbkZuRDB1QmZVNHRDQURvVndDTUxJRTdJQkZUUC1td0J1RVA1dUxxckJmMWNVUGVBY09YXzNfTlJYYk0xY2JXcm9uSTlnQnU5bUtvOA?oc=5",
+     "source": "Aktiellt",
+     "published": "2026-07-27T07:00:00.000Z"
+    },
+    {
+     "title": "Intrum och Sivers inte längre blankarfavoriter",
+     "link": "https://news.google.com/rss/articles/CBMikgFBVV95cUxPUEhMMnJkMW9wWWM1MGIzWm96Yk1fS0NSSHp4bUYzQWNreVlmOV9TeWtacjMxZHpoWEk4RjhiYmZVUWlkenE3R2VNUkVoWGJsZmo1WUM3LWMyemVwNEJpUUNsU2Z3emJBeWZBaC10VHYyd2VzY2VhZWl2TUN6dEZpd0VXZjJTVFl1dnRSeE1idDFadw?oc=5",
+     "source": "placera.se",
+     "published": "2026-07-15T07:00:00.000Z"
+    },
+    {
+     "title": "Veckans vinnare - Vecka 26",
+     "link": "https://news.google.com/rss/articles/CBMie0FVX3lxTE1lcGpqd0hGLU00ZWpKSXowWUU0YklhLUhXZnRWa0xLNW03VFZoQlJCU3hsZk1UUzZrdDhOMXlsRTA2elVqM0NLN24zaENVdVhROUcxNGRIeXQ0c1pDSkRlQlpDWVRCbGQ4ZU1lVXZ2UU5kbHZQQnl3VjJIMA?oc=5",
+     "source": "Aktiellt",
+     "published": "2026-06-29T07:00:00.000Z"
+    },
+    {
+     "title": "Spretigt läge bland gamingbolagen",
+     "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxQNXF1YzJ1V2tUbzZ5bE9OTWtqYUtPTUZ3Q3BURk9JNnlLVTRQZ1l1aW0zUk53eGtjTzU0WDIyWnp0LWdNejAydkZHLUdsdnN4ZnROblRFd1o3dEs2a1RFSE1nVWFsMXFTUmJnbkFuTGVrRGU1dDlLb0RaWUxyQUlITF8zZzhfYVE?oc=5",
+     "source": "Aktiellt",
+     "published": "2026-06-16T07:00:00.000Z"
     }
    ]
   }
