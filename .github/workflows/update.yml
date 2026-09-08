@@ -11,9 +11,9 @@ on:
   workflow_dispatch:        # manuell knapp i Actions-fliken
   push:
     branches: [main]
-    # Botens återcommits av docs/data triggar inte: de är märkta [skip ci].
-    # (Ett negationsmönster här visade sig stoppa ALLA körningar för en push
-    # som innehöll datafilerna — även när config och skript också ändrats.)
+    # Botens återcommits av docs/data triggar inte: de bär skip-ci-markören.
+    # OBS: GitHub läser HELA commit-meddelandet efter den markören, även
+    # brödtexten — skriv aldrig ut den bokstavligt i ett vanligt commit.
     paths:
       - 'config/**'
       - 'docs/**'
