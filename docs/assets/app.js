@@ -314,16 +314,25 @@ function renderHero() {
 
 /* ---------------------------------------------------------------- diagram */
 
+/* Syntetisk startpunkt: baslinjen (öppningen dag 1) ligger på 0 % och ritas
+   som första punkt, så att dag 1 får en linje och alla linjer utgår från
+   samma origo. Bara i helvyn — i ett 10-dagarsfönster vore ett hopp från
+   0 % till dag 11 vilseledande. */
+const START = '__start';
+const isStart = (d) => d === START;
+
 function visibleDates() {
   const all = state.data.dates;
-  if (state.range === 'all') return all;
+  if (state.range === 'all') return all.length ? [START, ...all] : all;
   return all.slice(-Number(state.range));
 }
 
 function seriesFor(p, dates) {
   const map = new Map(p.series.map((s) => [s.d, s.p]));
-  return dates.map((d) => (map.has(d) ? map.get(d) : null));
+  return dates.map((d) => (isStart(d) ? (p.baseline != null ? 0 : null) : map.has(d) ? map.get(d) : null));
 }
+
+const fmtAxisDate = (d, opts) => (isStart(d) ? 'Start' : new Date(d + 'T12:00:00Z').toLocaleDateString('sv-SE', opts));
 
 let chartDrawn = false;
 
@@ -392,7 +401,7 @@ function renderChart() {
   const step = Math.max(1, Math.ceil(dates.length / 6));
   for (let i = 0; i < dates.length; i += step) {
     const t = mk('text', { x: x(i), y: H - 8, class: 'axis-text', 'text-anchor': i === 0 ? 'start' : 'middle' });
-    t.textContent = new Date(dates[i] + 'T12:00:00Z').toLocaleDateString('sv-SE', { day: 'numeric', month: 'short' });
+    t.textContent = fmtAxisDate(dates[i], { day: 'numeric', month: 'short' });
     svg.append(t);
   }
 
@@ -492,8 +501,9 @@ function attachHover(svg, ctx) {
     rows.sort((a, b) => b.v - a.v);
 
     tip.innerHTML = '';
-    tip.append(el('div', 'tip-date',
-      new Date(ctx.dates[i] + 'T12:00:00Z').toLocaleDateString('sv-SE', { weekday: 'short', day: 'numeric', month: 'short' })));
+    tip.append(el('div', 'tip-date', isStart(ctx.dates[i])
+      ? 'Start · öppning dag 1'
+      : new Date(ctx.dates[i] + 'T12:00:00Z').toLocaleDateString('sv-SE', { weekday: 'short', day: 'numeric', month: 'short' })));
     for (const r2 of rows) {
       const row = el('div', 'tip-row');
       const sw = el('span', 'tip-swatch'); sw.style.background = r2.p.color;
@@ -570,7 +580,7 @@ function sparkline(p) {
   svg.setAttribute('class', 'spark');
   svg.setAttribute('viewBox', '0 0 72 26');
   svg.setAttribute('aria-hidden', 'true');
-  const vals = p.series.map((s) => s.p).filter((v) => v != null);
+  const vals = (p.baseline != null ? [0] : []).concat(p.series.map((s) => s.p).filter((v) => v != null));
   if (vals.length < 2) return svg;
 
   const lo = Math.min(...vals, 0), hi = Math.max(...vals, 0), rng = hi - lo || 1;
@@ -810,7 +820,11 @@ async function init() {
   renderTelemetry(); renderHero(); renderBoard(); wireControls();
 
   $('#app').hidden = false;
-  requestAnimationFrame(() => {
+  /* Grafen mäter sin bredd, så den renderas efter att #app fått layout. rAF är
+     rätt ögonblick — men vissa inbäddade webbläsare (Teams på mobil, bak-
+     grundade flikar) stryper rAF helt, och då får sidan aldrig graf eller
+     bli av med startskärmen. En timeout gör samma jobb om rAF uteblir. */
+  const afterLayout = () => {
     renderChart();
     if (!REDUCED) {
       document.querySelectorAll('.hero, #chart-panel, #board-panel, .foot').forEach((n, i) => {
@@ -819,7 +833,10 @@ async function init() {
       });
     }
     $('#boot').classList.add('is-done');
-  });
+  };
+  let done = false;
+  requestAnimationFrame(() => { if (!done) { done = true; afterLayout(); } });
+  setTimeout(() => { if (!done) { done = true; afterLayout(); } }, 300);
 }
 
 init();

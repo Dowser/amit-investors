@@ -201,6 +201,10 @@ const participantStart = (p, competitionStart) =>
    en dålig morgon hos Yahoo gör det inte. Detta är den enda avsiktliga
    avvikelsen från "allt räknas om vid varje körning". */
 const BASELINES_PATH = path.join(OUT_DIR, 'baselines.json');
+/* Observerade dagsstängningar. Yahoo har restaterat en hel handelsdag till
+   null dagen efter; utan egen historik försvann dag 1 ur grafen. Yahoo vinner
+   när den har ett värde (rättelser ska slå igenom), historiken fyller hålen. */
+const HISTORY_PATH = path.join(OUT_DIR, 'history.json');
 const pinKey = (p, start) => `${p.id}|${p.ticker}|${start}`;
 
 async function readJsonIfExists(p) {
@@ -245,6 +249,8 @@ async function main() {
   const prevNews = (await readJsonIfExists(path.join(OUT_DIR, 'news.json')))?.byParticipant || {};
   const pins = PREVIEW ? {} : (await readJsonIfExists(BASELINES_PATH)) || {};
   let pinsChanged = false;
+  const history = PREVIEW ? {} : (await readJsonIfExists(HISTORY_PATH)) || {};
+  let historyChanged = false;
 
   const participants = [];
   const allDates = new Set();
@@ -283,10 +289,20 @@ async function main() {
         baseline = first.o; baselineDate = first.d;
         if (!PREVIEW) { pins[key] = { baseline: round(baseline, 4), baselineDate, pinnedAt: new Date().toISOString() }; pinsChanged = true; }
       }
+      // Slå ihop Yahoos stängningar med historiken. Dagens värde skrivs över
+      // vid varje körning tills dagen är slut, och konvergerar mot stängningen.
+      const hist = history[key] || {};
+      for (const c of candles) {
+        if (c.c == null) continue;
+        const v = round(c.c, 4);
+        if (hist[c.d] !== v) { hist[c.d] = v; historyChanged = true; }
+      }
+      if (!PREVIEW) history[key] = hist;
+      const source = PREVIEW ? Object.fromEntries(candles.filter((c) => c.c != null).map((c) => [c.d, round(c.c, 4)])) : hist;
       const series = baseline
-        ? candles.filter((c) => c.c != null).map((c) => {
-            allDates.add(c.d);
-            return { d: c.d, c: round(c.c, 4), p: round((c.c / baseline - 1) * 100, 3) };
+        ? Object.keys(source).filter((d) => d >= base.startDate && d <= endDate).sort().map((d) => {
+            allDates.add(d);
+            return { d, c: source[d], p: round((source[d] / baseline - 1) * 100, 3) };
           })
         : [];
 
@@ -354,6 +370,11 @@ async function main() {
   if (pinsChanged) {
     await writeFile(BASELINES_PATH, JSON.stringify(pins, null, 1) + '\n');
     console.log(`Pinnade ${Object.keys(pins).length} baslinjer i baselines.json`);
+  }
+  if (historyChanged) {
+    await writeFile(HISTORY_PATH, JSON.stringify(history, null, 1) + '\n');
+    const days = new Set(Object.values(history).flatMap((h) => Object.keys(h)));
+    console.log(`Uppdaterade history.json (${days.size} handelsdagar)`);
   }
   console.log(`\nSkrev ${OUT_FILE} (${state}, ${standings.dates.length} handelsdagar)`);
 

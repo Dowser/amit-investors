@@ -98,8 +98,10 @@ function renderHead() {
    där ögat redan är. En enkel "dodge" skjuter isär etiketter som krockar. */
 function renderChart() {
   const svg = $('#tv-chart'); svg.innerHTML = '';
-  const dates = state.data.dates;
-  const active = state.data.participants.filter((p) => p.ok && p.series.length);
+  // Startpunkt: baslinjen på 0 % före dag 1, så alla linjer utgår från samma origo.
+  const START = '__start';
+  const dates = state.data.dates.length ? [START, ...state.data.dates] : [];
+  const active = state.data.participants.filter((p) => p.ok && p.series.length && p.baseline != null);
   const r = svg.getBoundingClientRect(); const W = Math.max(400, r.width), H = Math.max(240, r.height);
   svg.setAttribute('viewBox', `0 0 ${W} ${H}`); svg.setAttribute('preserveAspectRatio', 'none');
 
@@ -126,12 +128,13 @@ function renderChart() {
   const step = Math.max(1, Math.ceil(dates.length / 8));
   for (let i = 0; i < dates.length; i += step) {
     const t = mk('text', { x: x(i), y: H - 8, class: 'axis-text', 'text-anchor': i === 0 ? 'start' : 'middle' });
-    t.textContent = new Date(dates[i] + 'T12:00:00Z').toLocaleDateString('sv-SE', { day: 'numeric', month: 'short' }); svg.append(t);
+    t.textContent = dates[i] === START ? 'Start' : new Date(dates[i] + 'T12:00:00Z').toLocaleDateString('sv-SE', { day: 'numeric', month: 'short' }); svg.append(t);
   }
 
   const labels = [];
   for (const p of active) {
     const map = new Map(p.series.map((s) => [s.d, s.p]));
+    map.set(START, 0);
     let d = '', started = false, last = null;
     dates.forEach((dt, i) => { const v = map.get(dt); if (v == null) return; d += (started ? 'L' : 'M') + x(i).toFixed(1) + ' ' + y(v).toFixed(1) + ' '; started = true; last = { i, v }; });
     if (!started) continue;
@@ -173,7 +176,7 @@ function renderChart() {
 /* ------------------------------------------------------------- ställning */
 function sparkline(p) {
   const svg = mk('svg', { class: 'spark', viewBox: '0 0 72 26', 'aria-hidden': 'true' });
-  const vals = p.series.map((s) => s.p); if (vals.length < 2) return svg;
+  const vals = (p.baseline != null ? [0] : []).concat(p.series.map((s) => s.p)); if (vals.length < 2) return svg;
   const lo = Math.min(...vals, 0), hi = Math.max(...vals, 0), rng = hi - lo || 1;
   const d = vals.map((v, i) => (i ? 'L' : 'M') + ((i / (vals.length - 1)) * 70 + 1).toFixed(1) + ' ' + (24 - ((v - lo) / rng) * 22).toFixed(1)).join(' ');
   svg.append(mk('path', { d, fill: 'none', stroke: p.color, 'stroke-width': 2, 'stroke-linejoin': 'round', 'stroke-linecap': 'round' }));

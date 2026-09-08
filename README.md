@@ -185,6 +185,11 @@ ställningen en morgon. Nyckeln innehåller ticker och startdatum, så ett
 aktiebyte eller ett ändrat `startDate` räknar ändå om. Vill du tvinga en
 omräkning: ta bort raden ur filen och kör skriptet.
 
+**Stängningskurserna sparas** på samma sätt i `docs/data/history.json`. Yahoo
+har restaterat en hel handelsdag till null dagen efter; utan egen historik
+försvann dag 1 ur grafen. Yahoo vinner när den har ett värde — rättelser slår
+igenom — och historiken fyller hålen.
+
 ### Kostnad
 
 Noll. Publika repon har obegränsat med Actions-minuter, GitHub Pages är gratis,
