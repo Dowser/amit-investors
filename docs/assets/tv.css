@@ -34,14 +34,17 @@ body.is-tv { font-size: 1.15vw; }
 }
 .tv-sub { font-family: var(--font-mono); font-size: .8vw; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-3); margin-left: .6vw; }
 
-.tv-lead { padding: .5vw 1.4vw; display: flex; align-items: center; gap: 1vw; border-radius: 100px; white-space: nowrap; }
+.tv-lead { padding: .5vw 1.4vw; display: flex; align-items: center; border-radius: 100px; white-space: nowrap; }
+.tv-lead > * + * { margin-left: 1vw; }   /* marginal, inte gap: flex-gap saknas före Chromium 84 */
 .tv-lead .lab { font-family: var(--font-mono); font-size: .75vw; letter-spacing: .22em; text-transform: uppercase; color: var(--ink-3); }
 .tv-lead .who { font-size: 1.4vw; font-weight: 600; letter-spacing: -.01em; }
 .tv-lead .co  { font-family: var(--font-mono); font-size: .85vw; color: var(--ink-2); }
 .tv-lead .pct { font-family: var(--font-mono); font-weight: 700; font-size: 1.6vw; font-variant-numeric: tabular-nums; }
 
-.tv-readouts { display: flex; justify-content: flex-end; gap: 1.3vw; margin: 0; font-family: var(--font-mono); font-size: .85vw; letter-spacing: .1em; text-transform: uppercase; white-space: nowrap; }
+.tv-readouts { display: flex; justify-content: flex-end; margin: 0; font-family: var(--font-mono); font-size: .85vw; letter-spacing: .1em; text-transform: uppercase; white-space: nowrap; }
 .tv-readouts .readout { flex: none; }
+.tv-readouts > * + * { margin-left: 1.3vw; }
+.tv-readouts .is-stale { color: var(--down); }
 .tv-readouts .readout dd { font-size: 1vw; }
 
 /* --- Paneler -------------------------------------------------------------- */
@@ -49,8 +52,8 @@ body.is-tv { font-size: 1.15vw; }
 .tv-main { display: grid; grid-template-columns: 1.55fr 1fr; gap: 1vw; min-height: 0; }
 .tv-panel { padding: 1.1vw 1.3vw; display: flex; flex-direction: column; min-height: 0; }
 .tv-panel > * { position: relative; z-index: 2; }
-.tv-h { margin: 0 0 .7vw; font-size: 1.35vw; font-weight: 600; letter-spacing: -.02em; display: flex; align-items: baseline; gap: .8vw; }
-.tv-h span { font-family: var(--font-mono); font-size: .75vw; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-3); font-weight: 400; }
+.tv-h { margin: 0 0 .7vw; font-size: 1.35vw; font-weight: 600; letter-spacing: -.02em; display: flex; align-items: baseline; }
+.tv-h span { margin-left: .8vw; font-family: var(--font-mono); font-size: .75vw; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-3); font-weight: 400; }
 
 #tv-chart { flex: 1; width: 100%; min-height: 0; display: block; overflow: visible; }
 #tv-chart .axis-text { font-size: .8vw; }
@@ -72,6 +75,7 @@ body.is-tv { font-size: 1.15vw; }
 .tv-row.is-pending { opacity: .6; }
 .tv-row .rank { font-size: 1.2vw; }
 .tv-row .avatar { font-size: 1.5vw; line-height: 1; }
+.emoji { display: inline-block; width: 1.15em; height: 1.15em; vertical-align: -.2em; }
 .tv-row .who-name { font-size: 1.35vw; font-weight: 600; line-height: 1.05; }
 .tv-row .who-co { font-size: .78vw; margin-top: .2vw; }
 .tv-row .pct { font-size: 1.55vw; }
@@ -89,7 +93,8 @@ body.is-tv { font-size: 1.15vw; }
 }
 .tv-track { display: flex; white-space: nowrap; will-change: transform; }
 .tv-strip { display: flex; align-items: center; }
-.tk-item { display: inline-flex; align-items: center; gap: .9vw; padding: 0 2.2vw; font-size: 1.35vw; line-height: 1; }
+.tk-item { display: inline-flex; align-items: center; padding: 0 2.2vw; font-size: 1.35vw; line-height: 1; }
+.tk-item > * + * { margin-left: .9vw; }
 .tk-sw { width: .7vw; height: .7vw; border-radius: .2vw; flex: none; }
 .tk-name { font-weight: 700; letter-spacing: -.01em; }
 .tk-co { font-family: var(--font-mono); font-size: .95vw; color: var(--ink-2); letter-spacing: .05em; }
@@ -101,7 +106,17 @@ body.is-tv { font-size: 1.15vw; }
 .tk-src { font-family: var(--font-mono); font-size: .8vw; color: var(--ink-3); }
 .tk-about { color: var(--ink-2); font-size: 1.15vw; }
 .tk-sep { color: var(--amber-dim); font-size: 1vw; padding: 0 .4vw; }
-.tk-div { color: var(--amber); opacity: .7; font-size: 1.1vw; padding: 0 1vw; }
+.tk-div { flex: none; width: .6vw; height: .6vw; margin: 0 1.1vw; background: var(--amber); opacity: .7; transform: rotate(45deg); }
+
+/* --- Driftstatus ----------------------------------------------------------- */
+
+.tv-stale {
+  position: absolute; left: 50%; bottom: 5.8vw; transform: translateX(-50%); z-index: 5;
+  padding: .5vw 1.4vw; border-radius: 100px; white-space: nowrap;
+  background: var(--down); color: var(--void); font-weight: 700; font-size: 1.2vw;
+}
+.tv-stale[hidden] { display: none; }
+.is-tv .boot-inner { font-size: 1.4vw; white-space: pre-line; }
 
 /* Ingen pekare på en TV — inga hover-lager behövs. */
 .is-tv .glass::after { display: none; }

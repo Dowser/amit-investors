@@ -235,6 +235,12 @@ async function readJsonIfExists(p) {
   try { return existsSync(p) ? JSON.parse(await readFile(p, 'utf8')) : null; } catch { return null; }
 }
 
+/** Senaste kända stängning på eller före cutoff, eller null. */
+function lastClose(closes, cutoff) {
+  const last = Object.keys(closes).filter((d) => d <= cutoff).sort().at(-1);
+  return last ? closes[last] : null;
+}
+
 async function main() {
   const cfg = JSON.parse(await readFile(CONFIG_PATH, 'utf8'));
   const tz = cfg.timezone || 'Europe/Stockholm';
@@ -276,8 +282,19 @@ async function main() {
   const history = PREVIEW ? {} : (await readJsonIfExists(HISTORY_PATH)) || {};
   let historyChanged = false;
 
+  // Efter sista dagen är resultatet avgjort: inget får längre följa marknaden.
+  const afterEnd = !PREVIEW && today > endDate;
+
   const participants = [];
   const allDates = new Set();
+  let failed = 0;
+
+  const toSeries = (source, baseline, from) => (baseline
+    ? Object.keys(source).filter((d) => d >= from && d <= endDate).sort().map((d) => {
+        allDates.add(d);
+        return { d, c: source[d], p: round((source[d] / baseline - 1) * 100, 3) };
+      })
+    : []);
 
   for (const [i, p] of cfg.participants.entries()) {
     const color = p.color || PALETTE[i % PALETTE.length];
@@ -328,19 +345,18 @@ async function main() {
       const hist = history[key] || {};
       for (const c of candles) {
         if (c.c == null) continue;
+        // Efter finalen får Yahoo bara fylla hål, aldrig ändra en slutkurs.
+        if (afterEnd && hist[c.d] != null) continue;
         const v = round(c.c, 4);
         if (hist[c.d] !== v) { hist[c.d] = v; historyChanged = true; }
       }
       if (!PREVIEW) history[key] = hist;
       const source = PREVIEW ? Object.fromEntries(candles.filter((c) => c.c != null).map((c) => [c.d, round(c.c, 4)])) : hist;
-      const series = baseline
-        ? Object.keys(source).filter((d) => d >= base.startDate && d <= endDate).sort().map((d) => {
-            allDates.add(d);
-            return { d, c: source[d], p: round((source[d] / baseline - 1) * 100, 3) };
-          })
-        : [];
+      const series = toSeries(source, baseline, base.startDate);
 
-      const price = meta.regularMarketPrice ?? candles.at(-1)?.c ?? null;
+      // regularMarketPrice är alltid dagens kurs, oavsett begärd period.
+      const settled = lastClose(source, endDate);
+      const price = afterEnd ? settled : meta.regularMarketPrice ?? candles.at(-1)?.c ?? settled;
       const prevClose = meta.chartPreviousClose ?? meta.previousClose ?? null;
 
       participants.push({
@@ -351,7 +367,7 @@ async function main() {
         price: round(price, 4),
         currency: meta.currency || 'SEK',
         pct: baseline && price ? round((price / baseline - 1) * 100, 3) : null,
-        dayChangePct: round(meta.regularMarketChangePercent, 3)
+        dayChangePct: afterEnd ? null : round(meta.regularMarketChangePercent, 3)
           ?? (prevClose && price ? round((price / prevClose - 1) * 100, 3) : null),
         series,
         stats: {
@@ -372,10 +388,34 @@ async function main() {
       process.stdout.write(`  kurs  ${p.ticker.padEnd(12)} ${series.length} dagar\n`);
     } catch (err) {
       console.error(`  FEL   ${p.ticker.padEnd(12)} ${err.message}`);
-      participants.push({ ...base, ok: false, error: String(err.message), series: [], pct: null, price: null });
+      failed++;
+      // En tillfällig störning får inte flytta någon i tabellen: använd
+      // senast kända värden så länge baslinje och historik finns.
+      const key = pinKey(p, base.startDate);
+      const baseline = pins[key]?.baseline ?? null;
+      const hist = history[key] || {};
+      const price = lastClose(hist, endDate);
+      if (baseline != null && price != null) {
+        participants.push({
+          ...base, ok: true, stale: true, error: String(err.message),
+          baseline, baselineDate: pins[key].baselineDate ?? null,
+          price, currency: 'SEK', pct: round((price / baseline - 1) * 100, 3), dayChangePct: null,
+          series: toSeries(hist, baseline, base.startDate), stats: {}, session: null, lastTrade: null,
+        });
+      } else {
+        participants.push({ ...base, ok: false, error: String(err.message), series: [], pct: null, price: null });
+      }
     }
     await sleep(300); // var snäll mot en gratis, oofficiell endpoint
   }
+
+  const tickers = cfg.participants.filter((p) => p.ticker).length;
+  if (tickers && failed === tickers) {
+    // Hellre en röd körning och kvarvarande sida än en publicerad tom tavla.
+    console.error(`\nAlla ${tickers} kurshämtningar misslyckades. Publicerar inget.`);
+    process.exit(1);
+  }
+  if (failed) console.log(`::warning::${failed} av ${tickers} kurser kunde inte hämtas, senast kända värden används.`);
 
   const state = PREVIEW ? 'live' : today < startDate ? 'pre' : today > endDate ? 'ended' : 'live';
 
@@ -405,7 +445,7 @@ async function main() {
     await writeFile(BASELINES_PATH, JSON.stringify(pins, null, 1) + '\n');
     console.log(`Pinnade ${Object.keys(pins).length} baslinjer i baselines.json`);
   }
-  if (historyChanged) {
+  if (historyChanged && !PREVIEW) {
     await writeFile(HISTORY_PATH, JSON.stringify(history, null, 1) + '\n');
     const days = new Set(Object.values(history).flatMap((h) => Object.keys(h)));
     console.log(`Uppdaterade history.json (${days.size} handelsdagar)`);
