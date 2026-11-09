@@ -64,11 +64,11 @@ body {
 
 /* --- Atmosfärslager ------------------------------------------------------ */
 
-#starfield { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+#starfield { position: fixed; top: 0; right: 0; bottom: 0; left: 0; z-index: 0; pointer-events: none; }
 
 /* Aurora: två mycket långsamt drivande färgmoln. Perioderna (48 s / 67 s) är
    avsiktligt inte multiplar av varandra, så mönstret aldrig repeterar synbart. */
-.aurora { position: fixed; inset: -25%; z-index: 0; pointer-events: none; filter: blur(80px); opacity: 1; }
+.aurora { position: fixed; top: -25%; right: -25%; bottom: -25%; left: -25%; z-index: 0; pointer-events: none; filter: blur(80px); opacity: 1; }
 .aurora span { position: absolute; border-radius: 50%; mix-blend-mode: screen; }
 .aurora span:nth-child(1) {
   width: 52vw; height: 52vw; left: 2%; top: 4%;
@@ -90,13 +90,13 @@ body {
 
 /* Filmkorn via SVG-brus: bryter upp de stora gradienterna så de inte bandar */
 .grain {
-  position: fixed; inset: 0; z-index: 1; pointer-events: none;
+  position: fixed; top: 0; right: 0; bottom: 0; left: 0; z-index: 1; pointer-events: none;
   opacity: .40; mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
 }
 
 .vignette {
-  position: fixed; inset: 0; z-index: 1; pointer-events: none;
+  position: fixed; top: 0; right: 0; bottom: 0; left: 0; z-index: 1; pointer-events: none;
   background: radial-gradient(130% 100% at 50% 42%, transparent 48%, rgba(0,0,0,.66) 100%);
 }
 
@@ -119,7 +119,7 @@ main { position: relative; z-index: 2; }
    utom ramen, så gradienten syns bara i kanten. Detta — inte oskärpan — är
    det som får ytan att läsa som glas i stället för som en grå ruta. */
 .glass::before {
-  content: ''; position: absolute; inset: 0; border-radius: inherit;
+  content: ''; position: absolute; top: 0; right: 0; bottom: 0; left: 0; border-radius: inherit;
   padding: 1px; pointer-events: none; z-index: 1;
   background:
     radial-gradient(260px circle at var(--mx, 50%) var(--my, -30%),
@@ -132,7 +132,7 @@ main { position: relative; z-index: 2; }
 
 /* Ytreflex: den diffusa ljuspölen innanför glaset. */
 .glass::after {
-  content: ''; position: absolute; inset: 0; border-radius: inherit;
+  content: ''; position: absolute; top: 0; right: 0; bottom: 0; left: 0; border-radius: inherit;
   pointer-events: none; z-index: 0; opacity: 0; transition: opacity .5s ease;
   background: radial-gradient(460px circle at var(--mx, 50%) var(--my, 50%),
     rgba(200, 232, 255, .13), transparent 60%);
@@ -145,7 +145,7 @@ main { position: relative; z-index: 2; }
 /* Hörnmarkörer: fyra vinkelhakar som ramar in varje panel. Ren CSS — åtta
    1 px-gradienter placerade i hörnen, inga extra element eller bilder. */
 .corners {
-  position: absolute; inset: 11px; pointer-events: none; z-index: 3;
+  position: absolute; top: 11px; right: 11px; bottom: 11px; left: 11px; pointer-events: none; z-index: 3;
   opacity: .40;
   --c: var(--amber);
   background:
@@ -623,7 +623,7 @@ main { position: relative; z-index: 2; }
 /* --- Uppstart ------------------------------------------------------------ */
 
 .boot {
-  position: fixed; inset: 0; z-index: 40; display: grid; place-items: center;
+  position: fixed; top: 0; right: 0; bottom: 0; left: 0; z-index: 40; display: grid; place-items: center;
   background: var(--void); transition: opacity .5s ease, visibility .5s;
 }
 .boot.is-done { opacity: 0; visibility: hidden; }

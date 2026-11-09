@@ -26,7 +26,7 @@ Det är den enda filen du normalt behöver röra.
       "name": "Ada",               // visas i tabellen
       "ticker": "ERIC-B.ST",       // Yahoo Finance-symbol, se nedan
       "company": "Ericsson B",
-      "avatar": "📡",              // valfri emoji
+      "avatar": "📡",              // emoji, se TV-läge nedan
       "motto": "Allt är radio till slut.",
       "about": "Kort text om bolaget som visas när raden fälls ut.",
 
@@ -129,6 +129,13 @@ sidan tål att laddas om hur ofta som helst utan att bandet börjar om.
 Hastigheten sätts i `docs/assets/tv.js` som sekunder per skärmbredd
 (`TICKER_SCREEN_S`). Data hämtas om var femte minut. `?preview=1` fungerar
 även här.
+
+Avatarerna ritas som SVG-filer i `docs/assets/emoji/`, eftersom många TV-apparater
+saknar en emojifont som täcker tecknen. Filnamnet är emojins kodpunkter i hex utan
+`fe0f`, till exempel `1fa7b.svg`. Byter du avatar behöver filen läggas dit från
+[jdecked/twemoji](https://github.com/jdecked/twemoji), annars visas bara namnet.
+Grafiken är © Twitter, Inc och andra bidragsgivare, under
+[CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/).
 
 ## Köra lokalt
 

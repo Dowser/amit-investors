@@ -5,6 +5,8 @@
    roterande signage-flöde utan att bandet börjar om.
    ========================================================================= */
 
+'use strict';
+
 const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const PREVIEW = new URLSearchParams(location.search).has('preview');
 /* Hastighet uttryckt som sekunder per skärmbredd, inte som cykeltid: bandets
@@ -12,6 +14,9 @@ const PREVIEW = new URLSearchParams(location.search).has('preview');
    densamma oavsett innehåll och skärmstorlek. 14 s ≈ 140 px/s på 1080p. */
 const TICKER_SCREEN_S = 18;
 const REFRESH_MS = 5 * 60 * 1000;    // hämta ny data
+const FETCH_TIMEOUT_MS = 20 * 1000;
+const STALE_MIN = 90;                // normalt högst ca 55 min mellan körningar
+const LOADED_AT = Date.now();
 
 const $ = (s, r = document) => r.querySelector(s);
 const el = (tag, cls, txt) => { const n = document.createElement(tag); if (cls) n.className = cls; if (txt != null) n.textContent = txt; return n; };
@@ -23,7 +28,16 @@ const pctFmt = (v) => (v == null ? '–' : (v >= 0 ? '+' : '−') + nf(2).format
 const kr = (v) => (v == null ? '–' : nf(Math.abs(v) < 1 ? 3 : 2).format(v));
 const upDown = (v) => (v == null ? 'var(--ink-2)' : v >= 0 ? 'var(--up)' : 'var(--down)');
 
-const state = { data: null, news: {}, tickerKey: '' };
+/* Avatarerna ritas som egna SVG-filer. Många TV-apparater saknar en emojifont
+   som täcker tecknen och visar då fyrkanter. Filnamnet är kodpunkterna i hex. */
+const emojiSrc = (emoji) => `assets/emoji/${Array.from(emoji).filter((c) => c !== '\uFE0F').map((c) => c.codePointAt(0).toString(16)).join('-')}.svg`;
+function avatarImg(emoji) {
+  const img = el('img', 'emoji'); img.alt = ''; img.src = emojiSrc(emoji);
+  img.onerror = () => img.remove();
+  return img;
+}
+
+const state = { data: null, news: {}, tickerKey: '', fetchFails: 0 };
 const competitors = () => state.data.participants.filter((p) => !p.benchmark);
 const benchmarkOf = () => state.data.participants.find((p) => p.benchmark) || null;
 const ranked = () => competitors().sort((a, b) => {
@@ -60,9 +74,34 @@ function starfield() {
 
 /* ------------------------------------------------------------------- data */
 async function loadJson(path, optional = false) {
-  const res = await fetch(`${path}?v=${Date.now()}`, { cache: 'no-store' });
-  if (!res.ok) { if (optional) return null; throw new Error(`${path}: HTTP ${res.status}`); }
-  return res.json();
+  // Timeouten är en egen timer: AbortController saknas före Chromium 66, och
+  // en hämtning som hänger skulle annars aldrig nå återförsöken.
+  const ctl = window.AbortController ? new AbortController() : null;
+  let timer;
+  const timeout = new Promise((_, reject) => {
+    timer = setTimeout(() => { if (ctl) ctl.abort(); reject(new Error(`${path}: timeout`)); }, FETCH_TIMEOUT_MS);
+  });
+  const load = async () => {
+    const res = await fetch(`${path}?v=${Date.now()}`, ctl ? { cache: 'no-store', signal: ctl.signal } : { cache: 'no-store' });
+    if (!res.ok) throw new Error(`${path}: HTTP ${res.status}`);
+    return res.json();
+  };
+  try {
+    return await Promise.race([load(), timeout]);
+  } catch (err) {
+    if (optional) return null;
+    throw err;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+/* Börsens klocka i tävlingens tidszon, oberoende av TV:ns egen tidszon. */
+function marketClock(c) {
+  const now = new Date(), timeZone = c.timezone;
+  const weekday = now.toLocaleDateString('en-GB', { timeZone, weekday: 'short' });
+  const [hour, minute] = now.toLocaleTimeString('en-GB', { timeZone, hour: '2-digit', minute: '2-digit', hour12: false }).split(':').map(Number);
+  return { weekend: weekday === 'Sat' || weekday === 'Sun', minutes: hour * 60 + minute };
 }
 
 /* ------------------------------------------------------------------ huvud */
@@ -70,16 +109,12 @@ function renderHead() {
   const d = state.data, c = d.competition;
   $('#tv-sub').textContent = c.subtitle || '';
 
-  const open = d.session && Date.now() / 1000 >= d.session.start && Date.now() / 1000 <= d.session.end;
-  const m = $('#tv-market'); m.textContent = open ? 'Öppen' : 'Stängd'; m.className = open ? 'is-open' : 'is-shut';
-
   const fmtD = (iso) => new Date(iso + 'T12:00:00Z').toLocaleDateString('sv-SE', { day: 'numeric', month: 'short' });
   // Bara dagnumret: datumet står redan på grafens x-axel, och huvudet är trångt.
   $('#tv-day').textContent = d.dates.length ? String(d.dates.length) : 'Före start';
   const end = new Date(c.endDate + 'T17:30:00+01:00');
   const days = Math.ceil((end - Date.now()) / 86400000);
   $('#tv-left').textContent = d.state === 'ended' ? 'Avgjort' : days > 0 ? `${days} d` : 'Sista dagen';
-  $('#tv-synced').textContent = new Date(d.generatedAt).toLocaleTimeString('sv-SE', { hour: '2-digit', minute: '2-digit', timeZone: c.timezone });
   $('#tv-count').textContent = `${competitors().length} tävlande`;
 
   const lead = $('#tv-lead'); lead.innerHTML = '';
@@ -90,7 +125,53 @@ function renderHead() {
   }
   const pct = el('span', 'pct', pctFmt(top.pct)); pct.style.color = upDown(top.pct);
   lead.append(el('span', 'lab', d.state === 'ended' ? 'Segrare' : 'I ledning'),
-    el('span', 'who', `${top.avatar} ${top.name}`), el('span', 'co', top.company), pct);
+    nameWithAvatar('who', top), el('span', 'co', top.company), pct);
+}
+
+function nameWithAvatar(cls, p) {
+  const n = el('span', cls); n.append(avatarImg(p.avatar), ` ${p.name}`);
+  return n;
+}
+
+/* Allt som ändras med klockan, inte med datan. Körs på en egen timer så att
+   en skärm utan nät inte står kvar på "Öppen" över en helg. */
+function renderStatus() {
+  const d = state.data, c = d.competition, now = new Date(), gen = new Date(d.generatedAt);
+  const nowSec = now.getTime() / 1000;
+  const open = d.session && nowSec >= d.session.start && nowSec <= d.session.end;
+  const m = $('#tv-market'); m.textContent = open ? 'Öppen' : 'Stängd'; m.className = open ? 'is-open' : 'is-shut';
+
+  const tz = (o) => Object.assign({ timeZone: c.timezone }, o);
+  const time = gen.toLocaleTimeString('sv-SE', tz({ hour: '2-digit', minute: '2-digit' }));
+  const today = gen.toLocaleDateString('sv-SE', tz()) === now.toLocaleDateString('sv-SE', tz());
+  const synced = today ? time : `${gen.toLocaleDateString('sv-SE', tz({ day: 'numeric', month: 'short' }))} ${time}`;
+
+  const clock = marketClock(c);
+  const tradingHours = !clock.weekend && clock.minutes >= 9 * 60 && clock.minutes <= 17 * 60 + 30;
+  const stale = !PREVIEW && d.state === 'live' && tradingHours && (now - gen) / 60000 > STALE_MIN;
+  const warning = state.fetchFails >= 2 ? `Ingen kontakt med servern. Visar data från ${synced}.`
+    : stale ? `Datan har inte uppdaterats sedan ${synced}.` : '';
+
+  const s = $('#tv-synced'); s.textContent = synced; s.classList.toggle('is-stale', Boolean(warning));
+  const banner = $('#tv-stale'); banner.textContent = warning; banner.hidden = !warning;
+}
+
+/* En TV står på i veckor och får annars aldrig ny kod. Ladda bara om när sidan
+   går att nå, annars byts en fungerande vy mot webbläsarens felsida. */
+let lastReloadCheck = 0;
+async function reloadIfReachable() {
+  // Tidsspärr, inte flagga: ett anrop som aldrig avslutas får inte stoppa senare kontroller.
+  if (Date.now() - lastReloadCheck < 10 * 60 * 1000) return;
+  lastReloadCheck = Date.now();
+  try {
+    const res = await fetch(location.href, { method: 'HEAD', cache: 'no-store' });
+    if (res.ok) location.reload();
+  } catch (err) { /* försöker igen vid nästa kontroll */ }
+}
+
+function nightlyReload() {
+  const { minutes } = marketClock(state.data.competition);
+  if (minutes >= 3 * 60 && minutes < 4 * 60 && Date.now() - LOADED_AT > 2 * 3600 * 1000) reloadIfReachable();
 }
 
 /* ---------------------------------------------------------------- diagram
@@ -110,7 +191,7 @@ function renderChart() {
     t.textContent = 'Grafen tänds efter första handelsdagens öppning.'; svg.append(t); return;
   }
 
-  const PAD = { t: 18, r: Math.round(W * 0.265), b: 30, l: 60 };
+  const PAD = { t: 18, r: Math.round(W * 0.28), b: 30, l: 60 };
   const iw = W - PAD.l - PAD.r, ih = H - PAD.t - PAD.b;
   let lo = 0, hi = 0;
   for (const p of active) for (const s of p.series) { lo = Math.min(lo, s.p); hi = Math.max(hi, s.p); }
@@ -165,11 +246,13 @@ function renderChart() {
     const kx = Math.min(l.x + 14, W - PAD.r + 4);
     g.append(mk('path', { d: `M${l.x + 6} ${l.capY} L${kx} ${l.capY} L${W - PAD.r + 12} ${l.y}`,
       fill: 'none', stroke: l.p.color, 'stroke-width': 1, opacity: .5 }));
-    const name = mk('text', { x: W - PAD.r + 20, y: l.y + 4, fill: l.p.color, class: 'end-label' });
-    name.textContent = `${l.p.avatar} ${l.p.name}`;
+    const size = Math.round(innerWidth * 0.0125);
+    const icon = mk('image', { x: W - PAD.r + 20, y: l.y - size / 2, width: size, height: size, href: emojiSrc(l.p.avatar) });
+    const name = mk('text', { x: W - PAD.r + 20 + size + 6, y: l.y + 4, fill: l.p.color, class: 'end-label' });
+    name.textContent = l.p.name;
     const pct = mk('text', { x: W - 4, y: l.y + 4, fill: l.p.benchmark ? 'var(--ink-2)' : upDown(l.p.pct), class: 'end-pct', 'text-anchor': 'end' });
     pct.textContent = pctFmt(l.p.pct);
-    g.append(name, pct); svg.append(g);
+    g.append(icon, name, pct); svg.append(g);
   }
 }
 
@@ -196,9 +279,10 @@ function renderBoard() {
     who.append(el('div', 'who-name', p.name), el('div', 'who-co' + (p.pending ? ' is-pending' : ''), p.pending ? 'Aktie ej vald ännu' : p.company));
     const right = el('div');
     const pct = el('div', 'pct'); pct.textContent = pctFmt(p.pct); pct.style.color = upDown(p.pct);
-    const day = el('div', 'day', p.dayChangePct == null ? '' : `idag ${pctFmt(p.dayChangePct)}`);
+    const day = el('div', 'day', p.stale ? 'senast kända kurs' : p.dayChangePct == null ? '' : `idag ${pctFmt(p.dayChangePct)}`);
     right.append(pct, day);
-    li.append(rank, el('span', 'avatar', p.avatar), who, right, sparkline(p));
+    const avatar = el('span', 'avatar'); avatar.append(avatarImg(p.avatar));
+    li.append(rank, avatar, who, right, sparkline(p));
     board.append(li);
   });
 }
@@ -213,7 +297,7 @@ function buildTickerStrip() {
   for (const p of all) {
     const item = el('span', 'tk-item');
     const sw = el('span', 'tk-sw'); sw.style.background = p.color; sw.style.boxShadow = `0 0 10px ${p.color}`;
-    item.append(sw, el('span', 'tk-name', `${p.avatar} ${p.name}`));
+    item.append(sw, nameWithAvatar('tk-name', p));
     if (p.pending) { item.append(el('span', 'tk-co', 'har inte valt aktie än')); strip.append(item); continue; }
     item.append(el('span', 'tk-co', `${p.company} · ${p.ticker}`));
     const pct = el('span', 'tk-pct', (p.benchmark ? 'referens ' : '') + pctFmt(p.pct)); pct.style.color = upDown(p.pct); item.append(pct);
@@ -224,24 +308,25 @@ function buildTickerStrip() {
     if (p.dayChangePct != null) facts.push(`idag <b>${pctFmt(p.dayChangePct)}</b>`);
     if (s.low52 != null && s.high52 != null) facts.push(`52v <b>${kr(s.low52)}–${kr(s.high52)}</b>`);
     if (facts.length) { const f = el('span', 'tk-fact'); f.innerHTML = facts.join('<span class="tk-sep">·</span>'); item.append(f); }
-    const news = state.news[p.id]?.items?.slice(0, 2) || [];
+    const news = ((state.news[p.id] || {}).items || []).slice(0, 2);
     for (const n of news) {
       const nn = el('span', 'tk-news'); nn.append(el('i', null, 'Nyhet'), document.createTextNode(n.title));
       if (n.source) nn.append(el('span', 'tk-src', `  — ${n.source}`)); item.append(nn);
     }
     if (p.about) item.append(el('span', 'tk-about', p.about));
-    strip.append(item, el('span', 'tk-div', '◆'));
+    strip.append(item, el('span', 'tk-div'));
   }
   return strip;
 }
 
 let tickerW = 0;
 function renderTicker() {
-  const key = JSON.stringify(state.data.participants.map((p) => [p.id, p.pct, p.price, p.dayChangePct])) + JSON.stringify(Object.keys(state.news));
+  const key = JSON.stringify(state.data.participants.map((p) => [p.id, p.pct, p.price, p.dayChangePct,
+    ((state.news[p.id] || {}).items || []).slice(0, 2).map((n) => [n.title, n.source])]));
   if (key === state.tickerKey && tickerW > 0) return;
   state.tickerKey = key;
   const track = $('#tv-track'); track.innerHTML = '';
-  const a = buildTickerStrip(), b = a.cloneNode(true);   // två kopior = sömlös loop
+  const a = buildTickerStrip(), b = buildTickerStrip();   // två kopior = sömlös loop, byggda var för sig för att behålla onerror
   track.append(a, b);
   tickerW = a.getBoundingClientRect().width;
 }
@@ -281,15 +366,34 @@ function renderAll(steps) {
 
 async function refresh() {
   const file = PREVIEW ? 'data/standings.preview.json' : 'data/standings.json';
-  const [standings, news] = await Promise.all([loadJson(file), loadJson('data/news.json', true)]);
-  state.data = standings; state.news = news?.byParticipant || {};
-  renderAll([renderHead, renderBoard, renderChart, renderTicker]);
+  let standings, news;
+  try {
+    [standings, news] = await Promise.all([loadJson(file), loadJson('data/news.json', true)]);
+  } catch (err) {
+    state.fetchFails++;
+    if (state.data) renderAll([renderStatus]);
+    throw err;
+  }
+  state.fetchFails = 0;
+  state.data = standings;
+  if (news) state.news = news.byParticipant || {};
+  renderAll([renderStatus, renderHead, renderBoard, renderChart, renderTicker]);
 }
 
-async function init() {
-  starfield();
+/* En TV kan starta före nätet och har inget tangentbord: försök tills det går. */
+async function boot(attempt = 0) {
   try { await refresh(); }
-  catch (err) { $('#boot').innerHTML = `<div class="boot-inner"><p>Kunde inte läsa kursdata.<br><br>${String(err.message)}</p></div>`; return; }
+  catch (err) {
+    window.__tvStarted = true;   // koden fungerar, felet gäller datan och försöks igen här
+    const delay = Math.min(15 * 2 ** attempt, 300);
+    $('#boot p').textContent = `Kunde inte läsa kursdata. Försöker igen om ${delay} s.\n\n${err.message}`;
+    setTimeout(() => boot(attempt + 1), delay * 1000);
+    return;
+  }
+  start();
+}
+
+function start() {
   $('#tv').hidden = false;
   const afterLayout = () => { renderAll([renderChart, renderTicker]); positionTicker(); $('#boot').classList.add('is-done'); };
   let done = false;
@@ -297,6 +401,10 @@ async function init() {
   setTimeout(() => { if (!done) { done = true; afterLayout(); } }, 300);   // rAF-strypt miljö
   tickTicker();
   setInterval(() => refresh().catch(() => {}), REFRESH_MS);
+  setInterval(() => renderAll([renderStatus, nightlyReload]), 60 * 1000);
   let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => { state.tickerKey = ''; renderAll([renderChart, renderTicker]); }, 200); });
+  window.__tvStarted = true;
 }
-init();
+
+starfield();
+boot();
