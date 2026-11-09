@@ -656,7 +656,7 @@ function renderBoard() {
     const who = el('div', 'who');
     who.append(el('div', 'who-name', p.name),
       el('div', 'who-co' + (p.pending ? ' is-pending' : ''),
-        p.pending ? 'Aktie ej vald ännu' : `${p.company} · ${p.ticker}`));
+        p.pending ? 'Aktie ej vald ännu' : `${p.company} · ${p.ticker}${p.stale ? ' · senast kända kurs' : ''}`));
     head.append(who);
 
     // Divergerande stapel kring nollan

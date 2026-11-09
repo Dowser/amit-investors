@@ -74,13 +74,20 @@ function starfield() {
 
 /* ------------------------------------------------------------------- data */
 async function loadJson(path, optional = false) {
-  // AbortController saknas före Chromium 66; då blir det utan timeout.
+  // Timeouten är en egen timer: AbortController saknas före Chromium 66, och
+  // en hämtning som hänger skulle annars aldrig nå återförsöken.
   const ctl = window.AbortController ? new AbortController() : null;
-  const timer = ctl && setTimeout(() => ctl.abort(), FETCH_TIMEOUT_MS);
-  try {
+  let timer;
+  const timeout = new Promise((_, reject) => {
+    timer = setTimeout(() => { if (ctl) ctl.abort(); reject(new Error(`${path}: timeout`)); }, FETCH_TIMEOUT_MS);
+  });
+  const load = async () => {
     const res = await fetch(`${path}?v=${Date.now()}`, ctl ? { cache: 'no-store', signal: ctl.signal } : { cache: 'no-store' });
     if (!res.ok) throw new Error(`${path}: HTTP ${res.status}`);
-    return await res.json();
+    return res.json();
+  };
+  try {
+    return await Promise.race([load(), timeout]);
   } catch (err) {
     if (optional) return null;
     throw err;
@@ -268,7 +275,7 @@ function renderBoard() {
     who.append(el('div', 'who-name', p.name), el('div', 'who-co' + (p.pending ? ' is-pending' : ''), p.pending ? 'Aktie ej vald ännu' : p.company));
     const right = el('div');
     const pct = el('div', 'pct'); pct.textContent = pctFmt(p.pct); pct.style.color = upDown(p.pct);
-    const day = el('div', 'day', p.dayChangePct == null ? '' : `idag ${pctFmt(p.dayChangePct)}`);
+    const day = el('div', 'day', p.stale ? 'senast kända kurs' : p.dayChangePct == null ? '' : `idag ${pctFmt(p.dayChangePct)}`);
     right.append(pct, day);
     const avatar = el('span', 'avatar'); avatar.append(avatarImg(p.avatar));
     li.append(rank, avatar, who, right, sparkline(p));
@@ -372,6 +379,7 @@ async function refresh() {
 async function boot(attempt = 0) {
   try { await refresh(); }
   catch (err) {
+    window.__tvStarted = true;   // koden fungerar, felet gäller datan och försöks igen här
     const delay = Math.min(15 * 2 ** attempt, 300);
     $('#boot p').textContent = `Kunde inte läsa kursdata. Försöker igen om ${delay} s.\n\n${err.message}`;
     setTimeout(() => boot(attempt + 1), delay * 1000);
@@ -390,8 +398,8 @@ function start() {
   setInterval(() => refresh().catch(() => {}), REFRESH_MS);
   setInterval(() => renderAll([renderStatus, nightlyReload]), 60 * 1000);
   let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => { state.tickerKey = ''; renderAll([renderChart, renderTicker]); }, 200); });
+  window.__tvStarted = true;
 }
 
-window.__tvStarted = true;
 starfield();
 boot();
