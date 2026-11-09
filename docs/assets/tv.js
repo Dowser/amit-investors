@@ -91,10 +91,10 @@ async function loadJson(path, optional = false) {
 
 /* Börsens klocka i tävlingens tidszon, oberoende av TV:ns egen tidszon. */
 function marketClock(c) {
-  const parts = {};
-  new Intl.DateTimeFormat('en-GB', { timeZone: c.timezone, weekday: 'short', hour: 'numeric', minute: 'numeric', hour12: false })
-    .formatToParts(new Date()).forEach((p) => { parts[p.type] = p.value; });
-  return { weekend: parts.weekday === 'Sat' || parts.weekday === 'Sun', minutes: Number(parts.hour) * 60 + Number(parts.minute) };
+  const now = new Date(), timeZone = c.timezone;
+  const weekday = now.toLocaleDateString('en-GB', { timeZone, weekday: 'short' });
+  const [hour, minute] = now.toLocaleTimeString('en-GB', { timeZone, hour: '2-digit', minute: '2-digit', hour12: false }).split(':').map(Number);
+  return { weekend: weekday === 'Sat' || weekday === 'Sun', minutes: hour * 60 + minute };
 }
 
 /* ------------------------------------------------------------------ huvud */

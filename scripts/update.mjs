@@ -235,6 +235,8 @@ async function readJsonIfExists(p) {
   try { return existsSync(p) ? JSON.parse(await readFile(p, 'utf8')) : null; } catch { return null; }
 }
 
+const SETTLE_DAYS = 3;
+
 /** Senaste kända stängning på eller före cutoff, eller null. */
 function lastClose(closes, cutoff) {
   const last = Object.keys(closes).filter((d) => d <= cutoff).sort().at(-1);
@@ -284,6 +286,9 @@ async function main() {
 
   // Efter sista dagen är resultatet avgjort: inget får längre följa marknaden.
   const afterEnd = !PREVIEW && today > endDate;
+  // Sista körningen kan ha missats och lämnat en intradagskurs som slutkurs.
+  // Den får därför rättas fram till nästa börsdag efter julhelgen, sedan låses den.
+  const settleUntil = new Date(Date.parse(`${endDate}T12:00:00Z`) + SETTLE_DAYS * 86400000).toISOString().slice(0, 10);
 
   const participants = [];
   const allDates = new Set();
@@ -345,8 +350,9 @@ async function main() {
       const hist = history[key] || {};
       for (const c of candles) {
         if (c.c == null) continue;
-        // Efter finalen får Yahoo bara fylla hål, aldrig ändra en slutkurs.
-        if (afterEnd && hist[c.d] != null) continue;
+        // Efter finalen får Yahoo bara fylla hål, utom sista dagen under rättelsetiden.
+        const correctable = c.d === candles.at(-1).d && today <= settleUntil;
+        if (afterEnd && hist[c.d] != null && !correctable) continue;
         const v = round(c.c, 4);
         if (hist[c.d] !== v) { hist[c.d] = v; historyChanged = true; }
       }
