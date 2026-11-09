@@ -65,13 +65,17 @@
 <script>
 /* Vakt i ES5: om tv.js inte kunde laddas eller tolkas startar annars ingenting. */
 (function () {
-  setTimeout(function () {
+  function check() {
     if (window.__tvStarted) return;
     var x = new XMLHttpRequest();
+    function again() { setTimeout(check, 60000); }
     x.open('HEAD', location.href, true);
-    x.onload = function () { if (x.status >= 200 && x.status < 400) location.reload(); };
+    x.timeout = 20000;
+    x.onload = function () { if (x.status >= 200 && x.status < 400) location.reload(); else again(); };
+    x.onerror = x.ontimeout = again;
     x.send();
-  }, 120000);
+  }
+  setTimeout(check, 120000);
 })();
 </script>
 <script src="assets/tv.js"></script>
