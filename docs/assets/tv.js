@@ -158,15 +158,15 @@ function renderStatus() {
 
 /* En TV står på i veckor och får annars aldrig ny kod. Ladda bara om när sidan
    går att nå, annars byts en fungerande vy mot webbläsarens felsida. */
-let reloadCheckPending = false;
+let lastReloadCheck = 0;
 async function reloadIfReachable() {
-  if (reloadCheckPending) return;   // ett hängande anrop får inte köa upp fler
-  reloadCheckPending = true;
+  // Tidsspärr, inte flagga: ett anrop som aldrig avslutas får inte stoppa senare kontroller.
+  if (Date.now() - lastReloadCheck < 10 * 60 * 1000) return;
+  lastReloadCheck = Date.now();
   try {
     const res = await fetch(location.href, { method: 'HEAD', cache: 'no-store' });
     if (res.ok) location.reload();
   } catch (err) { /* försöker igen vid nästa kontroll */ }
-  finally { reloadCheckPending = false; }
 }
 
 function nightlyReload() {
@@ -321,7 +321,8 @@ function buildTickerStrip() {
 
 let tickerW = 0;
 function renderTicker() {
-  const key = JSON.stringify(state.data.participants.map((p) => [p.id, p.pct, p.price, p.dayChangePct])) + JSON.stringify(Object.keys(state.news));
+  const key = JSON.stringify(state.data.participants.map((p) => [p.id, p.pct, p.price, p.dayChangePct,
+    ((state.news[p.id] || {}).items || []).slice(0, 2).map((n) => [n.title, n.source])]));
   if (key === state.tickerKey && tickerW > 0) return;
   state.tickerKey = key;
   const track = $('#tv-track'); track.innerHTML = '';

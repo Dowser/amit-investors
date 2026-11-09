@@ -351,7 +351,7 @@ async function main() {
       for (const c of candles) {
         if (c.c == null) continue;
         // Efter finalen får Yahoo bara fylla hål, utom sista dagen under rättelsetiden.
-        const correctable = c.d === candles.at(-1).d && today <= settleUntil;
+        const correctable = c.d === candles.filter((x) => x.c != null).at(-1).d && today <= settleUntil;
         if (afterEnd && hist[c.d] != null && !correctable) continue;
         const v = round(c.c, 4);
         if (hist[c.d] !== v) { hist[c.d] = v; historyChanged = true; }
