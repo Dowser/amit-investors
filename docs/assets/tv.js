@@ -321,7 +321,7 @@ function renderTicker() {
   if (key === state.tickerKey && tickerW > 0) return;
   state.tickerKey = key;
   const track = $('#tv-track'); track.innerHTML = '';
-  const a = buildTickerStrip(), b = a.cloneNode(true);   // två kopior = sömlös loop
+  const a = buildTickerStrip(), b = buildTickerStrip();   // två kopior = sömlös loop, byggda var för sig för att behålla onerror
   track.append(a, b);
   tickerW = a.getBoundingClientRect().width;
 }
