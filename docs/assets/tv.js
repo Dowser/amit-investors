@@ -184,6 +184,7 @@ function renderChart() {
   const dates = state.data.dates.length ? [START, ...state.data.dates] : [];
   const active = state.data.participants.filter((p) => p.ok && p.series.length && p.baseline != null);
   const r = svg.getBoundingClientRect(); const W = Math.max(400, r.width), H = Math.max(240, r.height);
+  const u = parseFloat(getComputedStyle(svg).fontSize);   // layoutens enhet --u i px
   svg.setAttribute('viewBox', `0 0 ${W} ${H}`); svg.setAttribute('preserveAspectRatio', 'none');
 
   if (!dates.length || !active.length) {
@@ -191,7 +192,7 @@ function renderChart() {
     t.textContent = 'Grafen tänds efter första handelsdagens öppning.'; svg.append(t); return;
   }
 
-  const PAD = { t: 18, r: Math.round(W * 0.28), b: 30, l: 60 };
+  const PAD = { t: Math.round(u * 0.94), r: Math.round(u * 16.5), b: Math.round(u * 1.56), l: Math.round(u * 3.1) };
   const iw = W - PAD.l - PAD.r, ih = H - PAD.t - PAD.b;
   let lo = 0, hi = 0;
   for (const p of active) for (const s of p.series) { lo = Math.min(lo, s.p); hi = Math.max(hi, s.p); }
@@ -202,13 +203,13 @@ function renderChart() {
   for (let i = 0; i <= 5; i++) {
     const v = lo + ((hi - lo) * i) / 5, yy = y(v);
     svg.append(mk('line', { x1: PAD.l, x2: W - PAD.r, y1: yy, y2: yy, class: 'grid-line' }));
-    const l = mk('text', { x: PAD.l - 10, y: yy + 4, class: 'axis-text', 'text-anchor': 'end' });
+    const l = mk('text', { x: PAD.l - u * 0.5, y: yy + u * 0.2, class: 'axis-text', 'text-anchor': 'end' });
     l.textContent = (v >= 0 ? '+' : '−') + Math.abs(v).toFixed(0) + '%'; svg.append(l);
   }
   if (lo < 0 && hi > 0) svg.append(mk('line', { x1: PAD.l, x2: W - PAD.r, y1: y(0), y2: y(0), class: 'zero-line' }));
-  const step = Math.max(1, Math.ceil(dates.length / 8));
+  const step = Math.max(1, Math.ceil(dates.length / Math.min(8, Math.max(2, Math.floor(iw / (u * 4.5))))));
   for (let i = 0; i < dates.length; i += step) {
-    const t = mk('text', { x: x(i), y: H - 8, class: 'axis-text', 'text-anchor': i === 0 ? 'start' : 'middle' });
+    const t = mk('text', { x: x(i), y: H - u * 0.42, class: 'axis-text', 'text-anchor': 'middle' });
     t.textContent = dates[i] === START ? 'Start' : new Date(dates[i] + 'T12:00:00Z').toLocaleDateString('sv-SE', { day: 'numeric', month: 'short' }); svg.append(t);
   }
 
@@ -231,7 +232,7 @@ function renderChart() {
   /* Dodge i tre pass: tryck isär uppifrån, klampa mot underkanten och tryck
      isär nerifrån, klampa mot överkanten och tryck isär uppifrån igen. Bara
      det trånga klustret flyttas — en ensam etikett högst upp lämnas i fred. */
-  const MIN = Math.max(18, H * 0.052), minY = PAD.t + 8, maxY = H - PAD.b - 6;
+  const MIN = Math.max(u * 1.35, H * 0.052), minY = PAD.t + 8, maxY = H - PAD.b - 6;
   labels.sort((a, b) => a.y - b.y);
   const n = labels.length;
   for (let i = 1; i < n; i++) labels[i].y = Math.max(labels[i].y, labels[i - 1].y + MIN);
@@ -244,13 +245,13 @@ function renderChart() {
     const g = mk('g', {});
     // Anslutning från punkten till etiketten: kort horisontell bit, sedan snett.
     const kx = Math.min(l.x + 14, W - PAD.r + 4);
-    g.append(mk('path', { d: `M${l.x + 6} ${l.capY} L${kx} ${l.capY} L${W - PAD.r + 12} ${l.y}`,
+    g.append(mk('path', { d: `M${l.x + 6} ${l.capY} L${kx} ${l.capY} L${W - PAD.r + u * 0.625} ${l.y}`,
       fill: 'none', stroke: l.p.color, 'stroke-width': 1, opacity: .5 }));
-    const size = Math.round(innerWidth * 0.0125);
-    const icon = mk('image', { x: W - PAD.r + 20, y: l.y - size / 2, width: size, height: size, href: emojiSrc(l.p.avatar) });
-    const name = mk('text', { x: W - PAD.r + 20 + size + 6, y: l.y + 4, fill: l.p.color, class: 'end-label' });
+    const size = Math.round(u * 1.25), labelX = W - PAD.r + u * 1.04;
+    const icon = mk('image', { x: labelX, y: l.y - size / 2, width: size, height: size, href: emojiSrc(l.p.avatar) });
+    const name = mk('text', { x: labelX + size + u * 0.31, y: l.y + u * 0.2, fill: l.p.color, class: 'end-label' });
     name.textContent = l.p.name;
-    const pct = mk('text', { x: W - 4, y: l.y + 4, fill: l.p.benchmark ? 'var(--ink-2)' : upDown(l.p.pct), class: 'end-pct', 'text-anchor': 'end' });
+    const pct = mk('text', { x: W - 4, y: l.y + u * 0.2, fill: l.p.benchmark ? 'var(--ink-2)' : upDown(l.p.pct), class: 'end-pct', 'text-anchor': 'end' });
     pct.textContent = pctFmt(l.p.pct);
     g.append(icon, name, pct); svg.append(g);
   }
