@@ -158,11 +158,15 @@ function renderStatus() {
 
 /* En TV står på i veckor och får annars aldrig ny kod. Ladda bara om när sidan
    går att nå, annars byts en fungerande vy mot webbläsarens felsida. */
+let reloadCheckPending = false;
 async function reloadIfReachable() {
+  if (reloadCheckPending) return;   // ett hängande anrop får inte köa upp fler
+  reloadCheckPending = true;
   try {
     const res = await fetch(location.href, { method: 'HEAD', cache: 'no-store' });
     if (res.ok) location.reload();
   } catch (err) { /* försöker igen vid nästa kontroll */ }
+  finally { reloadCheckPending = false; }
 }
 
 function nightlyReload() {
