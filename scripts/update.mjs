@@ -235,7 +235,7 @@ async function readJsonIfExists(p) {
   try { return existsSync(p) ? JSON.parse(await readFile(p, 'utf8')) : null; } catch { return null; }
 }
 
-const SETTLE_DAYS = 3;
+const SETTLE_DAYS = 5;
 
 /** Senaste kända stängning på eller före cutoff, eller null. */
 function lastClose(closes, cutoff) {
@@ -289,6 +289,7 @@ async function main() {
   // Sista körningen kan ha missats och lämnat en intradagskurs som slutkurs.
   // Den får därför rättas fram till nästa börsdag efter julhelgen, sedan låses den.
   const settleUntil = new Date(Date.parse(`${endDate}T12:00:00Z`) + SETTLE_DAYS * 86400000).toISOString().slice(0, 10);
+  const locked = afterEnd && today > settleUntil;
 
   const participants = [];
   const allDates = new Set();
@@ -403,7 +404,7 @@ async function main() {
       const price = lastClose(hist, endDate);
       if (baseline != null && price != null) {
         participants.push({
-          ...base, ok: true, stale: true, error: String(err.message),
+          ...base, ok: true, stale: !locked, error: String(err.message),
           baseline, baselineDate: pins[key].baselineDate ?? null,
           price, currency: 'SEK', pct: round((price / baseline - 1) * 100, 3), dayChangePct: null,
           series: toSeries(hist, baseline, base.startDate), stats: {}, session: null, lastTrade: null,
@@ -425,6 +426,12 @@ async function main() {
 
   const state = PREVIEW ? 'live' : today < startDate ? 'pre' : today > endDate ? 'ended' : 'live';
 
+  // Vinnaren utropas först när alla tävlande har en färsk slutkurs för samma sista dag.
+  const competing = participants.filter((p) => !p.benchmark && !p.pending);
+  const lastDay = (p) => p.series.at(-1)?.d;
+  const finalDay = competing.map(lastDay).filter(Boolean).sort().at(-1);
+  const provisional = afterEnd && competing.some((p) => p.stale || lastDay(p) !== finalDay);
+
   // Borsens oppettider harleds ur handelssessionen i stallet for ett
   // marketState-falt (som chart-endpointen inte skickar). Klienten raknar om
   // detta mot aktuell tid, eftersom JSON-filen kan vara flera timmar gammal.
@@ -435,6 +442,7 @@ async function main() {
   const standings = {
     generatedAt: new Date().toISOString(),
     state,
+    provisional,
     marketState,
     session,
     today,

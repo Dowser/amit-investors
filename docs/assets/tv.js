@@ -114,7 +114,7 @@ function renderHead() {
   $('#tv-day').textContent = d.dates.length ? String(d.dates.length) : 'Före start';
   const end = new Date(c.endDate + 'T17:30:00+01:00');
   const days = Math.ceil((end - Date.now()) / 86400000);
-  $('#tv-left').textContent = d.state === 'ended' ? 'Avgjort' : days > 0 ? `${days} d` : 'Sista dagen';
+  $('#tv-left').textContent = d.state === 'ended' ? (d.provisional ? 'Preliminärt' : 'Avgjort') : days > 0 ? `${days} d` : 'Sista dagen';
   $('#tv-count').textContent = `${competitors().length} tävlande`;
 
   const lead = $('#tv-lead'); lead.innerHTML = '';
@@ -124,7 +124,7 @@ function renderHead() {
     return;
   }
   const pct = el('span', 'pct', pctFmt(top.pct)); pct.style.color = upDown(top.pct);
-  lead.append(el('span', 'lab', d.state === 'ended' ? 'Segrare' : 'I ledning'),
+  lead.append(el('span', 'lab', d.state === 'ended' ? (d.provisional ? 'Preliminär segrare' : 'Segrare') : 'I ledning'),
     nameWithAvatar('who', top), el('span', 'co', top.company), pct);
 }
 
@@ -132,6 +132,8 @@ function nameWithAvatar(cls, p) {
   const n = el('span', cls); n.append(avatarImg(p.avatar), ` ${p.name}`);
   return n;
 }
+
+const isTradingHours = (clock) => !clock.weekend && clock.minutes >= 9 * 60 && clock.minutes <= 17 * 60 + 30;
 
 /* Allt som ändras med klockan, inte med datan. Körs på en egen timer så att
    en skärm utan nät inte står kvar på "Öppen" över en helg. */
@@ -147,8 +149,7 @@ function renderStatus() {
   const synced = today ? time : `${gen.toLocaleDateString('sv-SE', tz({ day: 'numeric', month: 'short' }))} ${time}`;
 
   const clock = marketClock(c);
-  const tradingHours = !clock.weekend && clock.minutes >= 9 * 60 && clock.minutes <= 17 * 60 + 30;
-  const stale = !PREVIEW && d.state === 'live' && tradingHours && (now - gen) / 60000 > STALE_MIN;
+  const stale = !PREVIEW && d.state === 'live' && isTradingHours(clock) && (now - gen) / 60000 > STALE_MIN;
   const warning = state.fetchFails >= 2 ? `Ingen kontakt med servern. Visar data från ${synced}.`
     : stale ? `Datan har inte uppdaterats sedan ${synced}.` : '';
 
@@ -169,9 +170,12 @@ async function reloadIfReachable() {
   } catch (err) { /* försöker igen vid nästa kontroll */ }
 }
 
+/* Helst på natten, men en TV som sover 03–04 ska också få ny kod: efter ett
+   dygn räcker det att börsen är stängd, och efter två dygn laddas sidan om ändå. */
 function nightlyReload() {
-  const { minutes } = marketClock(state.data.competition);
-  if (minutes >= 3 * 60 && minutes < 4 * 60 && Date.now() - LOADED_AT > 2 * 3600 * 1000) reloadIfReachable();
+  const clock = marketClock(state.data.competition), ageH = (Date.now() - LOADED_AT) / 3600000;
+  const night = clock.minutes >= 3 * 60 && clock.minutes < 4 * 60;
+  if ((night && ageH > 2) || (ageH > 26 && !isTradingHours(clock)) || ageH > 48) reloadIfReachable();
 }
 
 /* ---------------------------------------------------------------- diagram

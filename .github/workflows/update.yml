@@ -47,12 +47,14 @@ jobs:
 
       # Nyheter cachas mellan körningar. Om Google News fallerar en gång
       # behåller sidan gårdagens rubriker i stället för att visa tom panel.
+      # Bara nyheterna: baslinjer och stängningar är committade, så att en
+      # manuell rättning i repot inte skrivs över av en äldre cache.
       - name: Återställ nyhetscache
         uses: actions/cache/restore@v4
         with:
-          path: docs/data
-          key: amit-data-${{ github.run_id }}
-          restore-keys: amit-data-
+          path: docs/data/news.json
+          key: amit-news-${{ github.run_id }}
+          restore-keys: amit-news-
 
       - name: Hämta kurser och nyheter
         run: node scripts/update.mjs
@@ -61,8 +63,30 @@ jobs:
         uses: actions/cache/save@v4
         if: always()
         with:
-          path: docs/data
-          key: amit-data-${{ github.run_id }}
+          path: docs/data/news.json
+          key: amit-news-${{ github.run_id }}
+
+      # Baslinjer och observerade stängningar är det enda tillståndet sidan
+      # har. De committas av varje körning efter börsens stängning, oavsett vad
+      # som startade den: GitHubs schema är inte tillförlitligt. Före publicering
+      # och utan att stoppa den, så att ett fel här inte lämnar sidan gammal.
+      - name: Committa tillbaka datafiler
+        if: github.ref == 'refs/heads/main'
+        continue-on-error: true
+        run: |
+          if [ "$(TZ=Europe/Stockholm date +%H%M)" -lt 1745 ]; then
+            echo "Börsen har inte stängt, sparar inte."
+            exit 0
+          fi
+          git config user.name  "amit-investors[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/data/history.json docs/data/baselines.json
+          if git diff --cached --quiet; then
+            echo "Inga ändringar i datafilerna."
+            exit 0
+          fi
+          git commit -m "Dagens baslinjer och stängningar [skip ci]"
+          git push || { git pull --rebase origin main && git push; }
 
       - uses: actions/configure-pages@v5
 
@@ -72,20 +96,3 @@ jobs:
 
       - id: deploy
         uses: actions/deploy-pages@v4
-
-      # Baslinjer och observerade stängningar är det enda tillståndet sidan
-      # har. Cachen håller dem mellan körningar; en gång per dag committas de
-      # tillbaka så att de överlever även om cachen vräks. Bara kvällskörningen
-      # (cron '15 18'), och bara om något faktiskt ändrats.
-      - name: Committa tillbaka datafiler
-        if: github.event_name == 'schedule' && startsWith(github.event.schedule, '15 18')
-        run: |
-          git config user.name  "amit-investors[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs/data/history.json docs/data/baselines.json
-          if git diff --cached --quiet; then
-            echo "Inga ändringar i datafilerna."
-            exit 0
-          fi
-          git commit -m "Dagens baslinjer och stängningar [skip ci]"
-          git push

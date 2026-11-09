@@ -244,7 +244,7 @@ function renderTelemetry() {
 
   const end = new Date(d.competition.endDate + 'T17:30:00+01:00');
   const days = Math.ceil((end - Date.now()) / 86400000);
-  $('#ro-remaining').textContent = d.state === 'ended' ? 'Avgjort' : days > 0 ? `${days} d` : 'Sista dagen';
+  $('#ro-remaining').textContent = d.state === 'ended' ? (d.provisional ? 'Preliminärt' : 'Avgjort') : days > 0 ? `${days} d` : 'Sista dagen';
   $('#ro-count').textContent = competitors().length;
 }
 
@@ -300,7 +300,7 @@ function renderHero() {
     return;
   }
   eyebrow.textContent = d.state === 'ended' ? 'Uppdrag slutfört' : 'Uppdrag pågår';
-  $('#capsule-label').textContent = d.state === 'ended' ? 'Segrare' : 'I ledning';
+  $('#capsule-label').textContent = d.state === 'ended' ? (d.provisional ? 'Preliminär segrare' : 'Segrare') : 'I ledning';
 
   const name = el('div', 'capsule-name');
   name.append(el('span', 'capsule-avatar', top.avatar), el('span', 'capsule-who', top.name));

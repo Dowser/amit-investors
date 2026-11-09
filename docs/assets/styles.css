@@ -125,7 +125,7 @@ main { position: relative; z-index: 2; }
     radial-gradient(260px circle at var(--mx, 50%) var(--my, -30%),
       rgba(255, 224, 178, .95), rgba(140, 210, 255, .40) 40%, transparent 64%),
     linear-gradient(180deg, rgba(200, 228, 255, .45), rgba(150, 190, 230, .10) 55%);
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask: linear-gradient(#000, #000) content-box, linear-gradient(#000, #000);
   -webkit-mask-composite: xor; mask-composite: exclude;
   transition: opacity .4s;
 }
@@ -262,7 +262,7 @@ main { position: relative; z-index: 2; }
     transparent 0deg, rgba(255,190,100,1) 38deg, rgba(120,245,225,.95) 108deg,
     rgba(150,190,255,.35) 150deg, transparent 190deg, transparent 232deg,
     rgba(214,178,255,.95) 292deg, rgba(255,190,100,.45) 330deg, transparent 356deg);
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask: linear-gradient(#000, #000) content-box, linear-gradient(#000, #000);
   -webkit-mask-composite: xor; mask-composite: exclude;
   animation: spin-iris 9s linear infinite;
 }
@@ -416,7 +416,7 @@ main { position: relative; z-index: 2; }
   opacity: 0; transition: opacity .35s;
   background: radial-gradient(200px circle at var(--mx, 50%) var(--my, 50%),
     color-mix(in srgb, var(--row-color, #9cf) 80%, white), transparent 62%);
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask: linear-gradient(#000, #000) content-box, linear-gradient(#000, #000);
   -webkit-mask-composite: xor; mask-composite: exclude;
 }
 .row:hover::before { opacity: .95; }

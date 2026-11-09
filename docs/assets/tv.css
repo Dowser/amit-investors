@@ -15,7 +15,7 @@ body.is-tv { font-size: calc(1.15 * var(--u)); }
 .tv {
   position: relative; z-index: 2;
   height: 100vh; box-sizing: border-box;
-  padding: calc(1.1 * var(--u)) calc(1.4 * var(--u)); gap: var(--u);
+  padding: calc(1.1 * var(--u)) calc(1.4 * var(--u)); grid-gap: var(--u);
   display: grid; grid-template-rows: auto minmax(0, 1fr) auto;
 }
 
@@ -24,11 +24,11 @@ body.is-tv { font-size: calc(1.15 * var(--u)); }
 /* Kolumnordning: märke (fast), ledarpill (krymper), avläsningar (fast).
    minmax(0, 1fr) är det som gör att pillen kan bli smalare än sitt innehåll —
    utan det trycks avläsningarna ut genom högerkanten när pillen blir bred. */
-.tv-head { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: calc(1.4 * var(--u)); }
+.tv-head { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; grid-gap: calc(1.4 * var(--u)); }
 .tv-lead { justify-self: center; max-width: 100%; min-width: 0; overflow: hidden; }
 .tv-lead .co { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
 .tv-lead .who, .tv-lead .pct, .tv-lead .lab { flex: none; }
-.tv-brand { display: grid; grid-template-columns: auto auto; grid-template-rows: auto auto; align-items: center; column-gap: calc(.8 * var(--u)); }
+.tv-brand { display: grid; grid-template-columns: auto auto; grid-template-rows: auto auto; align-items: center; grid-column-gap: calc(.8 * var(--u)); }
 .tv-brand .tele-dot { grid-row: 1 / span 2; }
 .tv-brand .tv-sub { grid-column: 2; margin-left: 0; margin-top: calc(.25 * var(--u)); }   /* under märket, inte bredvid */
 .tv-brand .tele-dot { width: calc(.5 * var(--u)); height: calc(.5 * var(--u)); }
@@ -56,7 +56,7 @@ body.is-tv { font-size: calc(1.15 * var(--u)); }
 
 /* --- Paneler -------------------------------------------------------------- */
 
-.tv-main { display: grid; grid-template-columns: 1.55fr 1fr; gap: var(--u); min-height: 0; }
+.tv-main { display: grid; grid-template-columns: 1.55fr 1fr; grid-gap: var(--u); min-height: 0; }
 .tv-panel { padding: calc(1.1 * var(--u)) calc(1.3 * var(--u)); display: flex; flex-direction: column; min-height: 0; }
 .tv-panel > * { position: relative; z-index: 2; }
 .tv-h { margin: 0 0 calc(.7 * var(--u)); font-size: calc(1.35 * var(--u)); font-weight: 600; letter-spacing: -.02em; display: flex; align-items: baseline; }
@@ -71,10 +71,10 @@ body.is-tv { font-size: calc(1.15 * var(--u)); }
 
 /* --- Ställningen ----------------------------------------------------------- */
 
-.tv-board { list-style: none; margin: 0; padding: 0; flex: 1; min-height: 0; display: grid; grid-auto-rows: minmax(0, 1fr); gap: calc(.45 * var(--u)); }
+.tv-board { list-style: none; margin: 0; padding: 0; flex: 1; min-height: 0; display: grid; grid-auto-rows: minmax(0, 1fr); grid-gap: calc(.45 * var(--u)); }
 .tv-row {
   display: grid; grid-template-columns: calc(2.3 * var(--u)) calc(2.4 * var(--u)) minmax(0, 1fr) auto calc(6.5 * var(--u));
-  align-items: center; gap: calc(.9 * var(--u)); padding: 0 var(--u); border-radius: calc(.7 * var(--u));
+  align-items: center; grid-gap: calc(.9 * var(--u)); padding: 0 var(--u); border-radius: calc(.7 * var(--u));
   border: 1px solid var(--hairline); background: rgba(126,160,200,.035); min-height: 0;
 }
 .tv-row.is-leader { border-color: rgba(255,180,84,.45); background: rgba(255,180,84,.06); }

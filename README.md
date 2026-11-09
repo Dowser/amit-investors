@@ -197,9 +197,10 @@ har restaterat en hel handelsdag till null dagen efter; utan egen historik
 försvann dag 1 ur grafen. Yahoo vinner när den har ett värde — rättelser slår
 igenom — och historiken fyller hålen.
 
-Båda filerna lever mellan körningar i Actions-cachen och **committas tillbaka
-till repot en gång per dag** av den sena kvällskörningen, så att de överlever
-även om cachen vräks. Commits från workflowen är märkta `[skip ci]`.
+Båda filerna **committas tillbaka till repot** av körningar efter börsens
+stängning, och bara om något ändrats. Commits från workflowen är märkta
+`[skip ci]`. Repot är sanningen: vill du rätta en kurs eller baslinje räcker det
+att committa ändringen. Bara nyheterna ligger i Actions-cachen.
 
 **Sen deltagare när startdagen restaterats:** saknar dagsserien öppningskurs
 för startdatumet hämtar skriptet den från 5-minutersstaplarna för den dagen,
