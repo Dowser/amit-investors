@@ -135,6 +135,25 @@ function nameWithAvatar(cls, p) {
 
 const isTradingHours = (clock) => !clock.weekend && clock.minutes >= 9 * 60 && clock.minutes <= 17 * 60 + 30;
 
+/* Dagens vinnare: störst kursrörelse senaste handelsdagen bland de tävlande.
+   Visas bara vid uppgång, och döljs efter finalen när dagsrörelsen saknas. */
+function renderDayWinner() {
+  const d = state.data, box = $('#tv-daywin'), sub = $('.tv-h-row .tv-h span');
+  box.innerHTML = '';
+  const c = competitors().filter((p) => !p.pending && !p.stale && p.dayChangePct != null);
+  const w = c.length ? c.reduce((a, b) => (b.dayChangePct > a.dayChangePct ? b : a)) : null;
+  box.hidden = !w || w.dayChangePct <= 0 || d.state === 'ended';
+  sub.hidden = !box.hidden;   // undertiteln får sällan plats bredvid rutan
+  if (box.hidden) return;
+  // Efter midnatt och på helgen gäller siffran en tidigare dag: säg vilken.
+  const tz = { timeZone: d.competition.timezone };
+  const last = w.lastTrade ? new Date(w.lastTrade * 1000) : null;
+  const today = !last || last.toLocaleDateString('sv-SE', tz) === new Date().toLocaleDateString('sv-SE', tz);
+  const label = today ? 'Dagens vinnare'
+    : `Vinnare ${last.toLocaleDateString('sv-SE', Object.assign({ day: 'numeric', month: 'short' }, tz))}`;
+  box.append(el('span', 'lab', label), nameWithAvatar('who', w), el('span', 'pct', pctFmt(w.dayChangePct)));
+}
+
 /* Allt som ändras med klockan, inte med datan. Körs på en egen timer så att
    en skärm utan nät inte står kvar på "Öppen" över en helg. */
 function renderStatus() {
@@ -323,7 +342,6 @@ function buildTickerStrip() {
       const meta = [n.source, when].filter(Boolean).join(' · ');
       if (meta) nn.append(el('span', 'tk-src', `  — ${meta}`)); item.append(nn);
     }
-    if (p.about) item.append(el('span', 'tk-about', p.about));
     strip.append(item, el('span', 'tk-div'));
   }
   return strip;
@@ -387,7 +405,7 @@ async function refresh() {
   state.fetchFails = 0;
   state.data = standings;
   if (news) state.news = news.byParticipant || {};
-  renderAll([renderStatus, renderHead, renderBoard, renderChart, renderTicker]);
+  renderAll([renderStatus, renderHead, renderDayWinner, renderBoard, renderChart, renderTicker]);
 }
 
 /* En TV kan starta före nätet och har inget tangentbord: försök tills det går. */
@@ -411,7 +429,7 @@ function start() {
   setTimeout(() => { if (!done) { done = true; afterLayout(); } }, 300);   // rAF-strypt miljö
   tickTicker();
   setInterval(() => refresh().catch(() => {}), REFRESH_MS);
-  setInterval(() => renderAll([renderStatus, nightlyReload]), 60 * 1000);
+  setInterval(() => renderAll([renderStatus, renderDayWinner, nightlyReload]), 60 * 1000);
   let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => { state.tickerKey = ''; renderAll([renderChart, renderTicker]); }, 200); });
   window.__tvStarted = true;
 }
