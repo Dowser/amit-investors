@@ -22,7 +22,7 @@
   /* Text */
   --ink:         #e9eef7;
   --ink-2:       #93a6c0;
-  --ink-3:       #5b6f8d;
+  --ink-3:       #8195b2;
 
   /* Glas */
   --glass:       rgba(126, 160, 200, .045);
@@ -331,11 +331,12 @@ main { position: relative; z-index: 2; }
 .chip:focus-visible, .row-head:focus-visible, .legend-item:focus-visible {
   outline: 2px solid var(--amber); outline-offset: 2px;
 }
+.row-head:focus-visible { outline-offset: -2px; }   /* raden klipper allt utanför */
 
 /* --- Diagram ------------------------------------------------------------- */
 
 .chart-wrap { position: relative; }
-#chart { width: 100%; height: clamp(280px, 42vw, 420px); display: block; overflow: visible; }
+#chart { width: 100%; height: clamp(280px, 42vw, 420px); display: block; overflow: visible; touch-action: pan-y; }
 
 .grid-line { stroke: var(--hairline); stroke-width: 1; }
 .zero-line { stroke: var(--amber-dim); stroke-width: 1; stroke-dasharray: 3 5; }
@@ -485,7 +486,11 @@ main { position: relative; z-index: 2; }
   position: absolute; top: 5px; height: 14px; border-radius: 3px;
   transition: width .7s cubic-bezier(.22,1,.36,1), left .7s cubic-bezier(.22,1,.36,1);
 }
-@media (max-width: 780px) { .bar { display: none; } }
+/* Kolumnmallen måste följa med när staplar och sparklines döljs. */
+@media (max-width: 780px) {
+  .bar { display: none; }
+  .row-head { grid-template-columns: 40px 36px minmax(0, 1fr) 106px 72px 24px; }
+}
 
 .pct {
   font-family: var(--font-mono); font-weight: 700; font-size: 19px;
@@ -495,7 +500,13 @@ main { position: relative; z-index: 2; }
 .pct.up { color: var(--up); } .pct.down { color: var(--down); } .pct.flat { color: var(--ink-2); }
 
 .spark { width: 72px; height: 26px; display: block; }
-@media (max-width: 620px) { .spark { display: none; } }
+@media (max-width: 620px) {
+  .spark { display: none; }
+  .row-head { grid-template-columns: 30px 26px minmax(0, 1fr) auto 12px; gap: 6px; }
+  .row-head .pct { font-size: 16px; }
+  .row-head .avatar { font-size: 20px; }
+  .who-name { font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+}
 
 .caret {
   color: var(--ink-3); font-size: 11px; text-align: center;
@@ -543,7 +554,8 @@ main { position: relative; z-index: 2; }
   transition: grid-template-rows .38s cubic-bezier(.4,0,.2,1);
 }
 .row.is-open .dossier { grid-template-rows: 1fr; }
-.dossier-inner { overflow: hidden; }
+.dossier-inner { overflow: hidden; visibility: hidden; transition: visibility 0s linear .38s; }
+.row.is-open .dossier-inner { visibility: visible; transition-delay: 0s; }   /* stängda rader ska inte gå att tabba till */
 .dossier-pad {
   padding: 4px clamp(12px, 1.8vw, 18px) 20px;
   display: grid; gap: 22px;
@@ -618,7 +630,7 @@ main { position: relative; z-index: 2; }
 .foot p { margin: 0 0 8px; max-width: 78ch; }
 .foot strong { color: var(--ink-2); font-weight: 500; }
 .foot-fine { font-family: var(--font-mono); font-size: 10px; letter-spacing: .1em;
-  text-transform: uppercase; color: #3f5068; margin-top: 16px; }
+  text-transform: uppercase; color: var(--ink-2); margin-top: 16px; }
 
 /* --- Uppstart ------------------------------------------------------------ */
 

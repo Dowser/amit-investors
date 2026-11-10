@@ -38,16 +38,16 @@ body.is-tv { font-size: calc(1.15 * var(--u)); }
   background: linear-gradient(96deg, var(--amber) 6%, #ffd9a0 30%, var(--cyan) 70%, #7ea6ff 100%);
   -webkit-background-clip: text; background-clip: text; color: transparent;
 }
-.tv-sub { font-family: var(--font-mono); font-size: calc(.8 * var(--u)); letter-spacing: .2em; text-transform: uppercase; color: var(--ink-3); margin-left: calc(.6 * var(--u)); }
+.tv-sub { font-family: var(--font-mono); font-size: var(--u); letter-spacing: .2em; text-transform: uppercase; color: var(--ink-3); margin-left: calc(.6 * var(--u)); }
 
 .tv-lead { padding: calc(.5 * var(--u)) calc(1.4 * var(--u)); display: flex; align-items: center; border-radius: 100px; white-space: nowrap; }
 .tv-lead > * + * { margin-left: var(--u); }   /* marginal, inte gap: flex-gap saknas före Chromium 84 */
-.tv-lead .lab { font-family: var(--font-mono); font-size: calc(.75 * var(--u)); letter-spacing: .22em; text-transform: uppercase; color: var(--ink-3); }
+.tv-lead .lab { font-family: var(--font-mono); font-size: var(--u); letter-spacing: .22em; text-transform: uppercase; color: var(--ink-3); }
 .tv-lead .who { font-size: calc(1.4 * var(--u)); font-weight: 600; letter-spacing: -.01em; }
-.tv-lead .co  { font-family: var(--font-mono); font-size: calc(.85 * var(--u)); color: var(--ink-2); }
+.tv-lead .co  { font-family: var(--font-mono); font-size: var(--u); color: var(--ink-2); }
 .tv-lead .pct { font-family: var(--font-mono); font-weight: 700; font-size: calc(1.6 * var(--u)); font-variant-numeric: tabular-nums; }
 
-.tv-readouts { display: flex; justify-content: flex-end; margin: 0; font-family: var(--font-mono); font-size: calc(.85 * var(--u)); letter-spacing: .1em; text-transform: uppercase; white-space: nowrap; }
+.tv-readouts { display: flex; justify-content: flex-end; margin: 0; font-family: var(--font-mono); font-size: var(--u); letter-spacing: .1em; text-transform: uppercase; white-space: nowrap; }
 .tv-readouts .readout { flex: none; gap: 0; }
 .tv-readouts .readout dd { margin-left: calc(.36 * var(--u)); }
 .tv-readouts > * + * { margin-left: calc(1.3 * var(--u)); }
@@ -60,12 +60,12 @@ body.is-tv { font-size: calc(1.15 * var(--u)); }
 .tv-panel { padding: calc(1.1 * var(--u)) calc(1.3 * var(--u)); display: flex; flex-direction: column; min-height: 0; }
 .tv-panel > * { position: relative; z-index: 2; }
 .tv-h { margin: 0 0 calc(.7 * var(--u)); font-size: calc(1.35 * var(--u)); font-weight: 600; letter-spacing: -.02em; display: flex; align-items: baseline; }
-.tv-h span { margin-left: calc(.8 * var(--u)); font-family: var(--font-mono); font-size: calc(.75 * var(--u)); letter-spacing: .16em; text-transform: uppercase; color: var(--ink-3); font-weight: 400; }
+.tv-h span { margin-left: calc(.8 * var(--u)); font-family: var(--font-mono); font-size: var(--u); letter-spacing: .16em; text-transform: uppercase; color: var(--ink-3); font-weight: 400; }
 
 #tv-chart { font-size: var(--u); flex: 1; width: 100%; min-height: 0; display: block; overflow: visible; }
-#tv-chart .axis-text { font-size: calc(.8 * var(--u)); }
-#tv-chart .end-label { font-family: var(--font-mono); font-size: calc(.95 * var(--u)); font-weight: 500; }
-#tv-chart .end-pct   { font-family: var(--font-mono); font-size: calc(.95 * var(--u)); font-weight: 700; font-variant-numeric: tabular-nums; }
+#tv-chart .axis-text { font-size: var(--u); }
+#tv-chart .end-label { font-family: var(--font-mono); font-size: var(--u); font-weight: 500; }
+#tv-chart .end-pct   { font-family: var(--font-mono); font-size: var(--u); font-weight: 700; font-variant-numeric: tabular-nums; }
 #tv-chart .series-benchmark { stroke-width: 1.6; opacity: .6; }
 #tv-chart .series-path { stroke-width: 2.6; }
 
@@ -81,12 +81,13 @@ body.is-tv { font-size: calc(1.15 * var(--u)); }
 .tv-row.is-benchmark { border-style: dashed; background: transparent; opacity: .8; }
 .tv-row.is-pending { opacity: .6; }
 .tv-row .rank { font-size: calc(1.2 * var(--u)); }
+.tv-row .rank-ref { font-size: var(--u) !important; }
 .tv-row .avatar { font-size: calc(1.5 * var(--u)); line-height: 1; }
 .emoji { display: inline-block; width: 1.15em; height: 1.15em; vertical-align: -.2em; }
 .tv-row .who-name { font-size: calc(1.35 * var(--u)); font-weight: 600; line-height: 1.05; }
-.tv-row .who-co { font-size: calc(.78 * var(--u)); margin-top: calc(.2 * var(--u)); }
+.tv-row .who-co { font-size: var(--u); margin-top: calc(.2 * var(--u)); }
 .tv-row .pct { font-size: calc(1.55 * var(--u)); }
-.tv-row .day { font-family: var(--font-mono); font-size: calc(.75 * var(--u)); color: var(--ink-3); text-align: right; letter-spacing: .04em; }
+.tv-row .day { font-family: var(--font-mono); font-size: var(--u); color: var(--ink-3); text-align: right; letter-spacing: .04em; }
 .tv-row .spark { width: calc(6.5 * var(--u)); height: calc(2 * var(--u)); display: block; }
 
 /* --- Ticker ---------------------------------------------------------------- */
@@ -104,13 +105,13 @@ body.is-tv { font-size: calc(1.15 * var(--u)); }
 .tk-item > * + * { margin-left: calc(.9 * var(--u)); }
 .tk-sw { width: calc(.7 * var(--u)); height: calc(.7 * var(--u)); border-radius: calc(.2 * var(--u)); flex: none; }
 .tk-name { font-weight: 700; letter-spacing: -.01em; }
-.tk-co { font-family: var(--font-mono); font-size: calc(.95 * var(--u)); color: var(--ink-2); letter-spacing: .05em; }
+.tk-co { font-family: var(--font-mono); font-size: var(--u); color: var(--ink-2); letter-spacing: .05em; }
 .tk-pct { font-family: var(--font-mono); font-weight: 700; font-variant-numeric: tabular-nums; }
 .tk-fact { color: var(--ink-2); }
 .tk-fact b { color: var(--ink); font-weight: 500; }
 .tk-news { color: var(--ink); }
-.tk-news i { font-style: normal; font-family: var(--font-mono); font-size: calc(.8 * var(--u)); color: var(--amber); letter-spacing: .16em; text-transform: uppercase; margin-right: calc(.5 * var(--u)); }
-.tk-src { font-family: var(--font-mono); font-size: calc(.8 * var(--u)); color: var(--ink-3); }
+.tk-news i { font-style: normal; font-family: var(--font-mono); font-size: var(--u); color: var(--amber); letter-spacing: .16em; text-transform: uppercase; margin-right: calc(.5 * var(--u)); }
+.tk-src { font-family: var(--font-mono); font-size: var(--u); color: var(--ink-3); }
 .tk-about { color: var(--ink-2); font-size: calc(1.15 * var(--u)); }
 .tk-sep { color: var(--amber-dim); font-size: var(--u); padding: 0 calc(.4 * var(--u)); }
 .tk-div { flex: none; width: calc(.6 * var(--u)); height: calc(.6 * var(--u)); margin: 0 calc(1.1 * var(--u)); background: var(--amber); opacity: .7; transform: rotate(45deg); }

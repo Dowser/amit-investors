@@ -196,7 +196,7 @@ function renderChart() {
     t.textContent = 'Grafen tänds efter första handelsdagens öppning.'; svg.append(t); return;
   }
 
-  const PAD = { t: Math.round(u * 0.94), r: Math.round(u * 16.5), b: Math.round(u * 1.56), l: Math.round(u * 3.1) };
+  const PAD = { t: Math.round(u * 0.94), r: Math.round(u * 18), b: Math.round(u * 1.9), l: Math.round(u * 3.8) };
   const iw = W - PAD.l - PAD.r, ih = H - PAD.t - PAD.b;
   let lo = 0, hi = 0;
   for (const p of active) for (const s of p.series) { lo = Math.min(lo, s.p); hi = Math.max(hi, s.p); }
@@ -211,7 +211,7 @@ function renderChart() {
     l.textContent = (v >= 0 ? '+' : '−') + Math.abs(v).toFixed(0) + '%'; svg.append(l);
   }
   if (lo < 0 && hi > 0) svg.append(mk('line', { x1: PAD.l, x2: W - PAD.r, y1: y(0), y2: y(0), class: 'zero-line' }));
-  const step = Math.max(1, Math.ceil(dates.length / Math.min(8, Math.max(2, Math.floor(iw / (u * 4.5))))));
+  const step = Math.max(1, Math.ceil(dates.length / Math.min(8, Math.max(2, Math.floor(iw / (u * 5.4))))));
   for (let i = 0; i < dates.length; i += step) {
     const t = mk('text', { x: x(i), y: H - u * 0.42, class: 'axis-text', 'text-anchor': 'middle' });
     t.textContent = dates[i] === START ? 'Start' : new Date(dates[i] + 'T12:00:00Z').toLocaleDateString('sv-SE', { day: 'numeric', month: 'short' }); svg.append(t);
@@ -236,7 +236,7 @@ function renderChart() {
   /* Dodge i tre pass: tryck isär uppifrån, klampa mot underkanten och tryck
      isär nerifrån, klampa mot överkanten och tryck isär uppifrån igen. Bara
      det trånga klustret flyttas — en ensam etikett högst upp lämnas i fred. */
-  const MIN = Math.max(u * 1.35, H * 0.052), minY = PAD.t + 8, maxY = H - PAD.b - 6;
+  const MIN = Math.max(u * 1.45, H * 0.052), minY = PAD.t + 8, maxY = H - PAD.b - 6;
   labels.sort((a, b) => a.y - b.y);
   const n = labels.length;
   for (let i = 1; i < n; i++) labels[i].y = Math.max(labels[i].y, labels[i - 1].y + MIN);
@@ -296,6 +296,10 @@ function renderBoard() {
    Innehållet: allt som dossiern på huvudsidan visar, per deltagare. Bandet
    byggs bara om när innehållet faktiskt ändrats — annars skulle bredden
    hoppa vid varje datauppdatering och positionen rycka till. */
+const NEWS_MAX_DAYS = 30;
+const tickerNews = (p) => ((state.news[p.id] || {}).items || [])
+  .filter((n) => !n.published || Date.now() - Date.parse(n.published) < NEWS_MAX_DAYS * 86400000).slice(0, 2);
+
 function buildTickerStrip() {
   const strip = el('div', 'tv-strip');
   const all = [...ranked(), ...(benchmarkOf() ? [benchmarkOf()] : [])];
@@ -313,10 +317,11 @@ function buildTickerStrip() {
     if (p.dayChangePct != null) facts.push(`idag <b>${pctFmt(p.dayChangePct)}</b>`);
     if (s.low52 != null && s.high52 != null) facts.push(`52v <b>${kr(s.low52)}–${kr(s.high52)}</b>`);
     if (facts.length) { const f = el('span', 'tk-fact'); f.innerHTML = facts.join('<span class="tk-sep">·</span>'); item.append(f); }
-    const news = ((state.news[p.id] || {}).items || []).slice(0, 2);
-    for (const n of news) {
+    for (const n of tickerNews(p)) {
       const nn = el('span', 'tk-news'); nn.append(el('i', null, 'Nyhet'), document.createTextNode(n.title));
-      if (n.source) nn.append(el('span', 'tk-src', `  — ${n.source}`)); item.append(nn);
+      const when = n.published ? new Date(n.published).toLocaleDateString('sv-SE', { day: 'numeric', month: 'short' }) : '';
+      const meta = [n.source, when].filter(Boolean).join(' · ');
+      if (meta) nn.append(el('span', 'tk-src', `  — ${meta}`)); item.append(nn);
     }
     if (p.about) item.append(el('span', 'tk-about', p.about));
     strip.append(item, el('span', 'tk-div'));
@@ -327,7 +332,7 @@ function buildTickerStrip() {
 let tickerW = 0;
 function renderTicker() {
   const key = JSON.stringify(state.data.participants.map((p) => [p.id, p.pct, p.price, p.dayChangePct,
-    ((state.news[p.id] || {}).items || []).slice(0, 2).map((n) => [n.title, n.source])]));
+    tickerNews(p).map((n) => [n.title, n.source])]));
   if (key === state.tickerKey && tickerW > 0) return;
   state.tickerKey = key;
   const track = $('#tv-track'); track.innerHTML = '';

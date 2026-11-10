@@ -398,9 +398,9 @@ function renderChart() {
   if (lo < 0 && hi > 0) svg.append(mk('line', { x1: PAD.l, x2: W - PAD.r, y1: y(0), y2: y(0), class: 'zero-line' }));
 
   // X-etiketter
-  const step = Math.max(1, Math.ceil(dates.length / 6));
+  const step = Math.max(1, Math.ceil(dates.length / Math.min(6, Math.max(2, Math.floor(iw / 64)))));
   for (let i = 0; i < dates.length; i += step) {
-    const t = mk('text', { x: x(i), y: H - 8, class: 'axis-text', 'text-anchor': i === 0 ? 'start' : 'middle' });
+    const t = mk('text', { x: x(i), y: H - 8, class: 'axis-text', 'text-anchor': 'middle' });
     t.textContent = fmtAxisDate(dates[i], { day: 'numeric', month: 'short' });
     svg.append(t);
   }
@@ -483,7 +483,8 @@ function attachHover(svg, ctx) {
     dots.forEach((d) => d.node.setAttribute('opacity', 0));
   };
 
-  svg.addEventListener('pointermove', (ev) => {
+  /* Handlers som egenskaper: diagrammet ritas om men elementet är detsamma. */
+  const show = (ev) => {
     const r = svg.getBoundingClientRect();
     const px = ((ev.clientX - r.left) / r.width) * ctx.W;
     let i = Math.round(((px - ctx.PAD.l) / ctx.iw) * (ctx.dates.length - 1));
@@ -520,10 +521,17 @@ function attachHover(svg, ctx) {
     const half = tip.offsetWidth / 2;
     tip.style.left = Math.max(half + 4, Math.min(wrapW - half - 4, px2)) + 'px';
     tip.style.top = '18px';
-  });
-
-  svg.addEventListener('pointerleave', hide);
+  };
+  svg.onpointermove = show;
+  svg.onpointerdown = show;                   // ett tryck på mobil ger ingen pointermove
+  svg.onpointerleave = (ev) => { if (ev.pointerType !== 'touch') hide(); };
+  hideChartTip = hide;
 }
+
+let hideChartTip = null;
+document.addEventListener('pointerdown', (ev) => {
+  if (hideChartTip && !ev.target.closest('#chart')) hideChartTip();
+});
 
 function renderLegend() {
   const ul = $('#legend');
@@ -546,14 +554,18 @@ function renderLegend() {
       if (state.hidden.has(p.id)) state.hidden.delete(p.id); else state.hidden.add(p.id);
       state.focus = null; renderChart();
     });
-    btn.addEventListener('pointerenter', () => {
+    const highlight = () => {
       if (state.hidden.has(p.id)) return;
       state.focus = p.id; $('#chart').setAttribute('class', 'chart is-focused');
       syncFocusClasses();
-    });
-    btn.addEventListener('pointerleave', () => {
+    };
+    const unhighlight = () => {
       state.focus = null; $('#chart').setAttribute('class', 'chart'); syncFocusClasses();
-    });
+    };
+    btn.addEventListener('pointerenter', highlight);
+    btn.addEventListener('pointerleave', unhighlight);
+    btn.addEventListener('focus', highlight);
+    btn.addEventListener('blur', unhighlight);
     li.append(btn); ul.append(li);
   }
 }
@@ -621,13 +633,16 @@ function renderBoard() {
   const prevRanks = previousRanks();
   // Referensen räknas in i skalan så att staplarna är jämförbara med den.
   const scaled = bench ? [...list, bench] : list;
-  const maxAbs = Math.max(1, ...scaled.map((p) => Math.abs(p.pct ?? 0)));
+  // Sorterat på dagens rörelse visar raderna dagens rörelse, utan medaljer.
+  const byDay = state.sort === 'day';
+  const shown = (p) => (byDay ? p.dayChangePct : p.pct);
+  const maxAbs = Math.max(1, ...scaled.map((p) => Math.abs(shown(p) ?? 0)));
 
   scaled.forEach((p, i) => {
     const isBench = p.benchmark;
     const idx = isBench ? -1 : i;   // -1 = utanför tävlan
     const li = el('li', 'row'
-      + (idx === 0 && p.pct != null ? ' is-leader' : '')
+      + (idx === 0 && p.pct != null && !byDay ? ' is-leader' : '')
       + (isBench ? ' is-benchmark' : '')
       + (p.pending ? ' is-pending' : ''));
     li.dataset.id = p.id;
@@ -640,7 +655,7 @@ function renderBoard() {
     const rank = el('span', 'rank',
       isBench ? 'REF' : p.pct == null ? '–' : String(idx + 1).padStart(2, '0'));
     if (isBench) rank.classList.add('rank-ref');
-    else if (p.pct != null && idx < 3) rank.classList.add('rank-medal', `rank-${idx + 1}`);
+    else if (p.pct != null && idx < 3 && !byDay) rank.classList.add('rank-medal', `rank-${idx + 1}`);
     head.append(rank);
 
     // Förändring sedan föregående stängning. Bara meningsfull i totalsortering.
@@ -663,7 +678,7 @@ function renderBoard() {
     const bar = el('div', 'bar');
     bar.append(el('div', 'bar-axis'));
     const fill = el('div', 'bar-fill');
-    const v = p.pct ?? 0;
+    const v = shown(p) ?? 0;
     const frac = Math.min(1, Math.abs(v) / maxAbs) * 50;
     fill.style.background = p.color;
     fill.style.boxShadow = `0 0 14px -2px ${p.color}`;
@@ -672,9 +687,9 @@ function renderBoard() {
     bar.append(fill);
     head.append(bar);
 
-    const pctEl = el('span', `pct ${dirClass(p.pct)}`);
-    if (boardAnimated) pctEl.textContent = pctFmt(p.pct);
-    else countUp(pctEl, p.pct, pctFmt, 900 + idx * 60);
+    const pctEl = el('span', `pct ${dirClass(shown(p))}`);
+    if (boardAnimated) pctEl.textContent = pctFmt(shown(p));
+    else countUp(pctEl, shown(p), pctFmt, 900 + idx * 60);
     head.append(pctEl);
     head.append(sparkline(p));
     head.append(el('span', 'caret', '▾'));

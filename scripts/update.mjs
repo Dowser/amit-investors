@@ -14,6 +14,7 @@
  *   node scripts/update.mjs --no-news   # bara kurser (snabbare)
  *   node scripts/update.mjs --validate  # kontrollera att alla tickers finns
  *   node scripts/update.mjs --force-news # hamta nyheter aven om cachen ar farsk
+ *   node scripts/update.mjs --offline   # nodlage: publicera committad data utan Yahoo
  *   node scripts/update.mjs --preview   # forhandsvisning: kor tavlingen som
  *                                       # om den startat for 90 dagar sedan och
  *                                       # skriver standings.preview.json.
@@ -26,6 +27,7 @@ import path from 'node:path';
 
 const ROOT = path.resolve(import.meta.dirname, '..');
 const CONFIG_PATH = path.join(ROOT, 'config', 'competition.json');
+const OVERRIDES_PATH = path.join(ROOT, 'config', 'overrides.json');
 const OUT_DIR = path.join(ROOT, 'docs', 'data');
 
 /* Ärlig, beskrivande User-Agent. Detta är avsiktligt och inte ett förbiseende:
@@ -43,7 +45,8 @@ const PALETTE = [
 ];
 
 const args = process.argv.slice(2);
-const WANT_NEWS = !args.includes('--no-news');
+const OFFLINE = args.includes('--offline');
+const WANT_NEWS = !args.includes('--no-news') && !OFFLINE;
 const VALIDATE_ONLY = args.includes('--validate');
 const PREVIEW = args.includes('--preview');
 const FORCE_NEWS = args.includes('--force-news');
@@ -192,6 +195,15 @@ function parseRss(xml) {
   return items;
 }
 
+/* Googles sökning träffar även listartiklar och forumsidor som bara nämner
+   bolaget i brödtexten. På en TV står allt som "Nyhet", så rubriken måste
+   handla om bolaget. */
+const NEWS_NOISE = /aktieforum|rapportkalender|veckans vinnare|aktierna med störst/i;
+const isRelevantNews = (item, p) =>
+  item.title.toLowerCase().includes(newsName(p).split(/\s+/)[0].toLowerCase())
+  && !NEWS_NOISE.test(item.title)
+  && !/tradedesk/i.test(item.source || '');
+
 /** Google News RSS. Vi lagrar rubrik + länk tillbaka till källan, aldrig artikeltext. */
 async function fetchNews(participant, limit = 5) {
   // 90 dagars fönster: småbolag som Vitec bevakas för glest för 45 dagar.
@@ -209,7 +221,7 @@ async function fetchNews(participant, limit = 5) {
   for (let attempt = 0; attempt < 3; attempt++) {
     if (attempt) await sleep(3000 * attempt);
     const items = parseRss(await (await fetchWithRetry(url)).text());
-    if (items.length) return items.slice(0, limit);
+    if (items.length) return items.filter((item) => isRelevantNews(item, participant)).slice(0, limit);
   }
   return [];
 }
@@ -282,6 +294,8 @@ async function main() {
   const pins = PREVIEW ? {} : (await readJsonIfExists(BASELINES_PATH)) || {};
   let pinsChanged = false;
   const history = PREVIEW ? {} : (await readJsonIfExists(HISTORY_PATH)) || {};
+  // Manuella rättningar går före Yahoo. Ett skrivfel ska synas som en röd körning.
+  const overrides = existsSync(OVERRIDES_PATH) ? JSON.parse(await readFile(OVERRIDES_PATH, 'utf8')) : {};
   let historyChanged = false;
 
   // Efter sista dagen är resultatet avgjort: inget får längre följa marknaden.
@@ -323,12 +337,21 @@ async function main() {
       continue;
     }
 
+    const key = pinKey(p, base.startDate);
+    const corrected = overrides[p.ticker] || {};
+    if (!PREVIEW && Object.keys(corrected).length) {
+      history[key] ||= {};
+      for (const [d, v] of Object.entries(corrected)) {
+        if (history[key][d] !== v) { history[key][d] = v; historyChanged = true; }
+      }
+    }
+
     try {
+      if (OFFLINE) throw new Error('offline');
       const { meta, candles } = await fetchChart(p.ticker, base.startDate, endDate, tz);
 
       // Baslinje: pinnad om den finns, annars öppningskursen första
       // handelsdagen på eller efter startDate — och då pinnas den.
-      const key = pinKey(p, base.startDate);
       let baseline = pins[key]?.baseline ?? null;
       let baselineDate = pins[key]?.baselineDate ?? null;
       let first = candles.find((c) => c.o != null);
@@ -350,7 +373,7 @@ async function main() {
       // vid varje körning tills dagen är slut, och konvergerar mot stängningen.
       const hist = history[key] || {};
       for (const c of candles) {
-        if (c.c == null) continue;
+        if (c.c == null || corrected[c.d] != null) continue;
         // Efter finalen får Yahoo bara fylla hål, utom sista dagen under rättelsetiden.
         const correctable = c.d === candles.filter((x) => x.c != null).at(-1).d && today <= settleUntil;
         if (afterEnd && hist[c.d] != null && !correctable) continue;
@@ -363,7 +386,8 @@ async function main() {
 
       // regularMarketPrice är alltid dagens kurs, oavsett begärd period.
       const settled = lastClose(source, endDate);
-      const price = afterEnd ? settled : meta.regularMarketPrice ?? candles.at(-1)?.c ?? settled;
+      const latest = Object.keys(source).filter((d) => d <= endDate).sort().at(-1);
+      const price = afterEnd || corrected[latest] != null ? settled : meta.regularMarketPrice ?? candles.at(-1)?.c ?? settled;
       const prevClose = meta.chartPreviousClose ?? meta.previousClose ?? null;
 
       participants.push({
@@ -398,7 +422,6 @@ async function main() {
       failed++;
       // En tillfällig störning får inte flytta någon i tabellen: använd
       // senast kända värden så länge baslinje och historik finns.
-      const key = pinKey(p, base.startDate);
       const baseline = pins[key]?.baseline ?? null;
       const hist = history[key] || {};
       const price = lastClose(hist, endDate);
@@ -417,12 +440,12 @@ async function main() {
   }
 
   const tickers = cfg.participants.filter((p) => p.ticker).length;
-  if (tickers && failed === tickers) {
+  if (tickers && failed === tickers && !OFFLINE) {
     // Hellre en röd körning och kvarvarande sida än en publicerad tom tavla.
     console.error(`\nAlla ${tickers} kurshämtningar misslyckades. Publicerar inget.`);
     process.exit(1);
   }
-  if (failed) console.log(`::warning::${failed} av ${tickers} kurser kunde inte hämtas, senast kända värden används.`);
+  if (failed && !OFFLINE) console.log(`::warning::${failed} av ${tickers} kurser kunde inte hämtas, senast kända värden används.`);
 
   const state = PREVIEW ? 'live' : today < startDate ? 'pre' : today > endDate ? 'ended' : 'live';
 
@@ -430,7 +453,8 @@ async function main() {
   const competing = participants.filter((p) => !p.benchmark && !p.pending);
   const lastDay = (p) => p.series.at(-1)?.d;
   const finalDay = competing.map(lastDay).filter(Boolean).sort().at(-1);
-  const provisional = afterEnd && competing.some((p) => p.stale || lastDay(p) !== finalDay);
+  const provisional = afterEnd && (finalDay !== endDate
+    || (!locked && competing.some((p) => p.stale || lastDay(p) !== finalDay)));
 
   // Borsens oppettider harleds ur handelssessionen i stallet for ett
   // marketState-falt (som chart-endpointen inte skickar). Klienten raknar om
@@ -460,7 +484,13 @@ async function main() {
     console.log(`Pinnade ${Object.keys(pins).length} baslinjer i baselines.json`);
   }
   if (historyChanged && !PREVIEW) {
-    await writeFile(HISTORY_PATH, JSON.stringify(history, null, 1) + '\n');
+    // Dagens värde sparas först efter stängning. Avslutade dagar sparas direkt,
+    // så att en missad kväll inte kan tappas när Yahoo senare nollar dagen.
+    const closed = Number(new Intl.DateTimeFormat('sv-SE', { timeZone: tz, hour: '2-digit', minute: '2-digit' })
+      .format(new Date()).replace(/\D/g, '')) >= 1745;
+    const toSave = closed ? history : Object.fromEntries(Object.entries(history).map(([k, h]) =>
+      [k, Object.fromEntries(Object.entries(h).filter(([d]) => d < today || overrides[k.split('|')[1]]?.[d] != null))]));
+    await writeFile(HISTORY_PATH, JSON.stringify(toSave, null, 1) + '\n');
     const days = new Set(Object.values(history).flatMap((h) => Object.keys(h)));
     console.log(`Uppdaterade history.json (${days.size} handelsdagar)`);
   }
@@ -503,6 +533,11 @@ async function main() {
         console.error(`  FEL   nyheter ${p.company}: ${err.message} (behåller cachade)`);
       }
       await sleep(1400);
+    }
+    // Även cachade rubriker från före filtret ska bort.
+    for (const p of cfg.participants) {
+      const feed = byParticipant[p.id];
+      if (feed?.items) feed.items = feed.items.filter((item) => isRelevantNews(item, p));
     }
     await writeFile(
       path.join(OUT_DIR, 'news.json'),

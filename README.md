@@ -197,10 +197,19 @@ har restaterat en hel handelsdag till null dagen efter; utan egen historik
 försvann dag 1 ur grafen. Yahoo vinner när den har ett värde — rättelser slår
 igenom — och historiken fyller hålen.
 
-Båda filerna **committas tillbaka till repot** av körningar efter börsens
-stängning, och bara om något ändrats. Commits från workflowen är märkta
-`[skip ci]`. Repot är sanningen: vill du rätta en kurs eller baslinje räcker det
-att committa ändringen. Bara nyheterna ligger i Actions-cachen.
+Båda filerna **committas tillbaka till repot** när något nytt finns, och dagens
+stängning sparas först efter börsens stängning. Commits från workflowen är märkta
+`[skip ci]`. Bara nyheterna ligger i Actions-cachen.
+
+**Rätta en kurs.** En baslinje rättas direkt i `baselines.json`. En stängningskurs
+rättas i `config/overrides.json`, annars skriver Yahoo över den vid nästa körning:
+
+```json
+{ "YUBICO.ST": { "2026-12-23": 123.45 } }
+```
+
+**Nödläge.** Om Yahoo inte svarar går det att publicera det som finns i repot: starta
+workflowen under Actions med rutan för nödläge ikryssad.
 
 **Sen deltagare när startdagen restaterats:** saknar dagsserien öppningskurs
 för startdatumet hämtar skriptet den från 5-minutersstaplarna för den dagen,
