@@ -16,7 +16,7 @@ body.is-tv { font-size: calc(1.15 * var(--u)); }
   position: relative; z-index: 2;
   height: 100vh; box-sizing: border-box;
   padding: calc(1.1 * var(--u)) calc(1.4 * var(--u)); grid-gap: var(--u);
-  display: grid; grid-template-rows: auto minmax(0, 1fr) auto;
+  display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr) auto;   /* minmax: en lång mening får inte bredda sidan */
 }
 
 /* --- Huvud ---------------------------------------------------------------- */
@@ -80,7 +80,6 @@ body.is-tv { font-size: calc(1.15 * var(--u)); }
 #tv-chart { font-size: var(--u); flex: 1; width: 100%; min-height: 0; display: block; overflow: visible; }
 #tv-chart .axis-text { font-size: var(--u); }
 #tv-chart .end-label { font-family: var(--font-mono); font-size: var(--u); font-weight: 500; }
-#tv-chart .end-pct   { font-family: var(--font-mono); font-size: var(--u); font-weight: 700; font-variant-numeric: tabular-nums; }
 #tv-chart .series-benchmark { stroke-width: 1.6; opacity: .6; }
 #tv-chart .series-path { stroke-width: 2.6; }
 
@@ -88,7 +87,7 @@ body.is-tv { font-size: calc(1.15 * var(--u)); }
 
 .tv-board { list-style: none; margin: 0; padding: 0; flex: 1; min-height: 0; display: grid; grid-auto-rows: minmax(0, 1fr); grid-gap: calc(.45 * var(--u)); }
 .tv-row {
-  display: grid; grid-template-columns: calc(2.3 * var(--u)) calc(2.4 * var(--u)) minmax(0, 1fr) auto calc(6.5 * var(--u));
+  display: grid; grid-template-columns: calc(4 * var(--u)) calc(2.4 * var(--u)) minmax(0, 1fr) auto calc(6.5 * var(--u));
   align-items: center; grid-gap: calc(.9 * var(--u)); padding: 0 var(--u); border-radius: calc(.7 * var(--u));
   border: 1px solid var(--hairline); background: rgba(126,160,200,.035); min-height: 0;
 }
@@ -105,30 +104,59 @@ body.is-tv { font-size: calc(1.15 * var(--u)); }
 .tv-row .day { font-family: var(--font-mono); font-size: var(--u); color: var(--ink-3); text-align: right; letter-spacing: .04em; }
 .tv-row .spark { width: calc(6.5 * var(--u)); height: calc(2 * var(--u)); display: block; }
 
-/* --- Ticker ---------------------------------------------------------------- */
+/* --- Berättelseraden ------------------------------------------------------ */
 
-.tv-ticker {
-  height: calc(4.6 * var(--u)); overflow: hidden; position: relative;
-  border-top: 1px solid var(--hairline); border-bottom: 1px solid var(--hairline);
-  background: rgba(5,7,12,.55); display: flex; align-items: center;
-  mask-image: linear-gradient(90deg, transparent 0, #000 3%, #000 97%, transparent 100%);
-  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 3%, #000 97%, transparent 100%);
+.tv-foot {
+  height: calc(4.6 * var(--u)); padding: 0 calc(1.6 * var(--u)); display: flex; align-items: center; min-width: 0; overflow: hidden;
+  border-top: 1px solid var(--hairline); border-bottom: 1px solid var(--hairline); background: rgba(5,7,12,.55);
 }
-.tv-track { display: flex; white-space: nowrap; will-change: transform; }
-.tv-strip { display: flex; align-items: center; }
-.tk-item { display: inline-flex; align-items: center; padding: 0 calc(2.2 * var(--u)); font-size: calc(1.35 * var(--u)); line-height: 1; }
-.tk-item > * + * { margin-left: calc(.9 * var(--u)); }
-.tk-sw { width: calc(.7 * var(--u)); height: calc(.7 * var(--u)); border-radius: calc(.2 * var(--u)); flex: none; }
-.tk-name { font-weight: 700; letter-spacing: -.01em; }
-.tk-co { font-family: var(--font-mono); font-size: var(--u); color: var(--ink-2); letter-spacing: .05em; }
-.tk-pct { font-family: var(--font-mono); font-weight: 700; font-variant-numeric: tabular-nums; }
-.tk-fact { color: var(--ink-2); }
-.tk-fact b { color: var(--ink); font-weight: 500; }
-.tk-news { color: var(--ink); }
-.tk-news i { font-style: normal; font-family: var(--font-mono); font-size: var(--u); color: var(--amber); letter-spacing: .16em; text-transform: uppercase; margin-right: calc(.5 * var(--u)); }
-.tk-src { font-family: var(--font-mono); font-size: var(--u); color: var(--ink-3); }
-.tk-sep { color: var(--amber-dim); font-size: var(--u); padding: 0 calc(.4 * var(--u)); }
-.tk-div { flex: none; width: calc(.6 * var(--u)); height: calc(.6 * var(--u)); margin: 0 calc(1.1 * var(--u)); background: var(--amber); opacity: .7; transform: rotate(45deg); }
+.tv-story { display: flex; align-items: center; width: 100%; min-width: 0; transition: opacity .4s; }
+.tv-story[hidden] { display: none; }
+.tv-story.is-fading { opacity: 0; }
+.tv-story .chip {
+  flex: none; margin-right: calc(1.3 * var(--u)); padding: calc(.3 * var(--u)) calc(.9 * var(--u));
+  border: 1px solid currentColor; border-radius: 100px; color: var(--amber);
+  font-family: var(--font-mono); font-size: var(--u); letter-spacing: .18em; text-transform: uppercase;
+}
+.tv-story .chip.c-duel, .tv-story .chip.c-rep { color: var(--cyan); }
+.tv-story .chip.c-rec, .tv-story .chip.c-mkt { color: var(--up); }
+.tv-story .chip.c-week { color: #c9a6ff; }
+.tv-story .chip.c-pm { color: var(--ink-2); }
+.tv-story .chip.c-mar { background: rgba(255, 180, 84, .12); }
+.tv-story .text { flex: 1 1 auto; min-width: 0; font-size: calc(1.6 * var(--u)); font-weight: 600; letter-spacing: -.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tv-story .text b { color: var(--amber); font-weight: 700; }
+.tv-story .text .when { color: var(--ink-2); font-weight: 500; }
+.tv-story .text .pos { color: var(--up); }
+.tv-story .text .neg { color: var(--down); }
+.tv-story .dots { flex: none; display: flex; margin-left: calc(1.3 * var(--u)); }
+.tv-story .dots i { width: calc(.55 * var(--u)); height: calc(.55 * var(--u)); margin-left: calc(.45 * var(--u)); border-radius: 50%; background: var(--ink-3); opacity: .45; }
+.tv-story .dots i.on { opacity: 1; background: var(--ink); }
+
+/* --- Placeringspilar: CSS-trianglar, inga tecken som kan bli fyrkanter ------- */
+
+.mv { display: inline-flex; align-items: center; margin-left: calc(.4 * var(--u)); font-family: var(--font-mono); font-size: var(--u); font-weight: 700; -webkit-text-fill-color: currentColor; }
+.mv::before { content: ''; width: 0; height: 0; margin-right: calc(.15 * var(--u)); border-left: calc(.38 * var(--u)) solid transparent; border-right: calc(.38 * var(--u)) solid transparent; }
+.mv.up { color: var(--up); } .mv.up::before { border-bottom: calc(.6 * var(--u)) solid var(--up); }
+.mv.down { color: var(--down); } .mv.down::before { border-top: calc(.6 * var(--u)) solid var(--down); }
+.tv-row .day.up { color: var(--up); }
+.tv-row .day.down { color: var(--down); }
+
+/* --- Vinnarskärmen --------------------------------------------------------- */
+
+.podium { flex: 1; display: flex; flex-direction: column; min-height: 0; }
+.podium h3 { margin: 0 0 var(--u); font-size: calc(2 * var(--u)); font-weight: 700; letter-spacing: -.02em; }
+.podium h3 span { margin-left: var(--u); font-family: var(--font-mono); font-size: var(--u); font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: var(--amber); }
+.podium .steps { flex: 1; display: flex; align-items: flex-end; justify-content: center; min-height: 0; }
+.podium .step { width: 28%; margin: 0 1.5%; display: flex; flex-direction: column; align-items: center; text-align: center; }
+.podium .who { display: flex; flex-direction: column; align-items: center; margin-bottom: var(--u); }
+.podium .who img.emoji { width: calc(4.5 * var(--u)); height: calc(4.5 * var(--u)); margin-bottom: calc(.6 * var(--u)); }
+.podium .name { font-size: calc(2.1 * var(--u)); font-weight: 700; letter-spacing: -.02em; }
+.podium .co { margin-top: calc(.2 * var(--u)); font-family: var(--font-mono); font-size: var(--u); color: var(--ink-2); }
+.podium .pct { margin-top: calc(.4 * var(--u)); font-family: var(--font-mono); font-size: calc(2.3 * var(--u)); font-weight: 700; color: var(--up); }
+.podium .block { width: 100%; padding-top: var(--u); display: flex; justify-content: center; border-radius: calc(.8 * var(--u)) calc(.8 * var(--u)) 0 0; font-family: var(--font-mono); font-size: calc(3 * var(--u)); font-weight: 700; color: var(--void); }
+.podium .p1 .block { height: calc(15 * var(--u)); background: linear-gradient(160deg, #fff1c4 4%, #ffc061 40%, #b87a2a 96%); }
+.podium .p2 .block { height: calc(10.5 * var(--u)); background: linear-gradient(160deg, #f4f9ff 4%, #c3d4e6 42%, #7d8ea3 96%); }
+.podium .p3 .block { height: calc(7.5 * var(--u)); background: linear-gradient(160deg, #ffd9b8 4%, #d9945a 44%, #8a5326 96%); }
 
 /* --- Driftstatus ----------------------------------------------------------- */
 
@@ -151,4 +179,14 @@ body.is-tv { font-size: calc(1.15 * var(--u)); }
   .tv-head { grid-template-columns: auto minmax(0, 1fr); }
   .tv-lead { grid-row: 2; grid-column: 1 / -1; }
   .tv-main { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) calc(45 * var(--u)); }
+  /* Grafpanelen är låg här, så pallen måste vara kompakt. */
+  .podium h3 { margin-bottom: calc(.3 * var(--u)); font-size: calc(1.5 * var(--u)); }
+  .podium .who { margin-bottom: calc(.4 * var(--u)); }
+  .podium .who img.emoji { width: calc(2.6 * var(--u)); height: calc(2.6 * var(--u)); margin-bottom: calc(.2 * var(--u)); }
+  .podium .name { font-size: calc(1.5 * var(--u)); }
+  .podium .pct { margin-top: 0; font-size: calc(1.6 * var(--u)); }
+  .podium .block { padding-top: calc(.2 * var(--u)); font-size: calc(1.6 * var(--u)); }
+  .podium .p1 .block { height: calc(5 * var(--u)); }
+  .podium .p2 .block { height: calc(3.5 * var(--u)); }
+  .podium .p3 .block { height: calc(2.5 * var(--u)); }
 }

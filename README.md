@@ -5,7 +5,7 @@ aktie; den med bäst procentuell utveckling från öppningskursen den första
 handelsdagen till sista stängning före julafton vinner. Ingen insats — bara äran.
 
 **Sidan är statisk och gratis att driva.** Ett schemalagt GitHub Actions-jobb
-hämtar kurser och nyheter, och publicerar resultatet till GitHub Pages.
+hämtar kurser och pressmeddelanden, och publicerar resultatet till GitHub Pages.
 
 ---
 
@@ -31,7 +31,7 @@ Det är den enda filen du normalt behöver röra.
       "about": "Kort text om bolaget som visas när raden fälls ut.",
 
       // Valfritt:
-      "newsQuery": "Ericsson",     // om nyhetssökningen blir dålig, se nedan
+      "mfn": "ericsson",           // bolagets namn hos MFN, se nedan
       "color": "#ffb454"           // annars tilldelas en färg automatiskt
     }
   ]
@@ -96,11 +96,11 @@ därifrån. Svenska aktier slutar på `.ST` och aktieslaget skrivs med bindestre
 
 Avnoterade bolag försvinner ur Yahoo — `--validate` fångar det.
 
-### Om nyheterna blir irrelevanta
+### Pressmeddelanden
 
-Sökningen använder bolagsnamnet utan aktieslag (`"Hexagon B"` → `"Hexagon"`).
-Har bolaget ett tvetydigt eller mycket vanligt namn kan träffarna bli dåliga.
-Sätt då `newsQuery` till en bättre sökterm.
+Bolagens pressmeddelanden hämtas från MFN med fältet `mfn`, som är bolagets
+namn i adressen `mfn.se/all/a/<namn>`. Stämmor, återköp och konferenser sorteras
+bort. Saknas fältet visas inga pressmeddelanden för den deltagaren.
 
 ---
 
@@ -122,13 +122,15 @@ börsens öppettider, plus en avslutande körning efter stängning.
 
 ## TV-läge
 
-`tv.html` visar allt på en 16:9-yta utan scroll, för en skärm i ett roterande
-signage-flöde: graf, ställning och ett band längst ned med kursuppgifter och
-nyheter från de senaste 30 dagarna per deltagare. Grafens rubrikrad visar dagens
-vinnare, den tävlande vars aktie steg mest senaste handelsdagen. Bandets position är en ren funktion av klockan, så
-sidan tål att laddas om hur ofta som helst utan att bandet börjar om.
-Hastigheten sätts i `docs/assets/tv.js` som sekunder per skärmbredd
-(`TICKER_SCREEN_S`). Data hämtas om var femte minut. `?preview=1` fungerar
+`tv.html` visar allt på en yta utan scroll, för en skärm i ett roterande
+signage-flöde: graf, ställning och en berättelserad längst ned. Raden varvar
+börshändelser (OMXS30, dagens rörelser och pressmeddelanden från de senaste 7
+dagarna) med tävlingens berättelser (duellen i toppen, ledarbyten, rekord och
+veckans etapp), och byter mening var 5,5 sekund utifrån klockan, så att
+visningar vid olika tidpunkter visar olika delar. Tabellens pilar visar
+placeringsändring mot för en vecka sedan. Grafens rubrikrad visar dagens vinnare.
+Sista dagen räknar huvudet ned till stängning, och när resultatet är avgjort
+ersätts grafen av en pall. Data hämtas om var femte minut. `?preview=1` fungerar
 även här.
 
 Avatarerna ritas som SVG-filer i `docs/assets/emoji/`, eftersom många TV-apparater
@@ -141,7 +143,7 @@ Grafiken är © Twitter, Inc och andra bidragsgivare, under
 ## Köra lokalt
 
 ```bash
-node scripts/update.mjs        # hämta kurser + nyheter
+node scripts/update.mjs        # hämta kurser + pressmeddelanden
 python3 -m http.server 8765 --directory docs
 ```
 
@@ -168,7 +170,7 @@ config/competition.json          deltagare, datum, texter
         ▼
 scripts/update.mjs               Node, inga beroenden
         │  ├─ Yahoo Finance      dagsstaplar + aktuell kurs
-        │  └─ Google Nyheter     rubriker (RSS), endast länkar
+        │  └─ MFN                pressmeddelanden (rubrik och länk)
         ▼
 docs/data/standings.json         statisk JSON
 docs/data/news.json
@@ -219,7 +221,7 @@ så att alla får samma startlinje oavsett när de läggs in.
 ### Kostnad
 
 Noll. Publika repon har obegränsat med Actions-minuter, GitHub Pages är gratis,
-och både Yahoo Finance och Google Nyheter används utan API-nyckel. Frekvensen är
+och både Yahoo Finance och MFN används utan API-nyckel. Frekvensen är
 medvetet vald för att ligga långt under alla gränser.
 
 ---

@@ -50,8 +50,8 @@ jobs:
         with:
           node-version: '22'
 
-      # Nyheter cachas mellan körningar. Om Google News fallerar en gång
-      # behåller sidan gårdagens rubriker i stället för att visa tom panel.
+      # Pressmeddelanden cachas mellan körningar. Om MFN fallerar en gång
+      # behåller sidan de senaste i stället för att visa en tom rad.
       # Bara nyheterna: baslinjer och stängningar är committade, så att en
       # manuell rättning i repot inte skrivs över av en äldre cache.
       - name: Återställ nyhetscache

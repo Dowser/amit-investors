@@ -770,7 +770,7 @@ function dossier(p) {
 
   /* Högerspalt: nyheter */
   const right = el('div');
-  right.append(el('h3', null, 'I nyhetsflödet'));
+  right.append(el('h3', null, 'Pressmeddelanden'));
   const feed = state.news[p.id];
   if (feed?.items?.length) {
     const ul = el('ul', 'news');
@@ -787,7 +787,7 @@ function dossier(p) {
     }
     right.append(ul);
   } else {
-    right.append(el('p', 'news-empty', 'Inga färska rubriker just nu.'));
+    right.append(el('p', 'news-empty', 'Inga färska pressmeddelanden just nu.'));
   }
 
   pad.append(left, right);

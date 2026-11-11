@@ -16,8 +16,6 @@
 <body class="is-tv">
 
 <canvas id="starfield" aria-hidden="true"></canvas>
-<div class="aurora" aria-hidden="true"><span></span><span></span><span></span></div>
-<div class="grain" aria-hidden="true"></div>
 <div class="vignette" aria-hidden="true"></div>
 
 <div class="tv" id="tv" hidden>
@@ -34,7 +32,7 @@
     <dl class="tv-readouts">
       <div class="readout"><dt>Marknad</dt><dd id="tv-market">–</dd></div>
       <div class="readout"><dt>Handelsdag</dt><dd id="tv-day">–</dd></div>
-      <div class="readout"><dt>Kvar</dt><dd id="tv-left">–</dd></div>
+      <div class="readout"><dt id="tv-left-label">Kvar</dt><dd id="tv-left">–</dd></div>
       <div class="readout"><dt>Synkad</dt><dd id="tv-synced">–</dd></div>
     </dl>
   </header>
@@ -56,8 +54,8 @@
     </section>
   </main>
 
-  <footer class="tv-ticker" aria-label="Bolagsinformation och nyheter">
-    <div class="tv-track" id="tv-track"></div>
+  <footer class="tv-foot" aria-label="Börshändelser och tävlingen">
+    <div class="tv-story" id="tv-story"></div>
   </footer>
 
   <div class="tv-stale" id="tv-stale" role="status" hidden></div>

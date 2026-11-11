@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Hämtar kursdata (Yahoo Finance) och nyheter (Google News RSS) för alla
+ * Hämtar kursdata (Yahoo Finance) och pressmeddelanden (MFN) för alla
  * deltagare och skriver statiska JSON-filer som sidan läser.
  *
  * Designprincip: skriptet är TILLSTÅNDSLÖST. Hela kurshistoriken räknas om
@@ -13,7 +13,6 @@
  *   node scripts/update.mjs             # kurser + nyheter
  *   node scripts/update.mjs --no-news   # bara kurser (snabbare)
  *   node scripts/update.mjs --validate  # kontrollera att alla tickers finns
- *   node scripts/update.mjs --force-news # hamta nyheter aven om cachen ar farsk
  *   node scripts/update.mjs --offline   # nodlage: publicera committad data utan Yahoo
  *   node scripts/update.mjs --preview   # forhandsvisning: kor tavlingen som
  *                                       # om den startat for 90 dagar sedan och
@@ -49,13 +48,6 @@ const OFFLINE = args.includes('--offline');
 const WANT_NEWS = !args.includes('--no-news') && !OFFLINE;
 const VALIDATE_ONLY = args.includes('--validate');
 const PREVIEW = args.includes('--preview');
-const FORCE_NEWS = args.includes('--force-news');
-
-/* Kurser hämtas var 30:e minut, men nyheter behöver inte det. Att hämta åtta
-   RSS-flöden varje körning blir ~380 anrop per dygn till Google News, vilket
-   är precis vad som utlöser strypningen. Med fyra timmars hållbarhet blir det
-   ~50 — och rubriker som är några timmar gamla är ändå färska nog. */
-const NEWS_MAX_AGE_MS = 4 * 60 * 60 * 1000;
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -156,74 +148,31 @@ async function fetchDayIntraday(ticker, isoDate, tz) {
 
 const round = (n, dp = 2) => (n == null || !Number.isFinite(n) ? null : Math.round(n * 10 ** dp) / 10 ** dp);
 
-const decodeEntities = (s) =>
-  s.replace(/&#(\d+);/g, (_, d) => String.fromCharCode(+d))
-   .replace(/&#x([0-9a-f]+);/gi, (_, h) => String.fromCharCode(parseInt(h, 16)))
-   .replace(/&quot;/g, '"').replace(/&apos;/g, "'").replace(/&lt;/g, '<')
-   .replace(/&gt;/g, '>').replace(/&amp;/g, '&').trim();
+/* Pressmeddelanden från MFN, där bolagen själva publicerar. Rapporter, order,
+   studieresultat och emissioner är det som flyttar kurserna, och de hittas inte
+   tillförlitligt via nyhetssökningar. Stämmor, återköp och konferenser sorteras
+   bort. Märket :regulatory:mar betyder att bolaget klassat meddelandet som
+   insiderinformation enligt MAR, alltså kurspåverkande. */
+const PRESS_NOISE = /kallelse|valberedning|investerarkonferens|presenterar vid|presenterar på|deltar i|telefonkonferens|webbsändning|webbpresentation|kommuniké från|stämmokommuniké|återköp|rättelse|inbjudan/i;
+const pressKind = (tags) => (tags.includes(':regulatory:mar') ? 'Kurspåverkande'
+  : tags.some((t) => t.startsWith('sub:report')) ? 'Rapport' : 'Pressmeddelande');
 
-/* Söknamn för nyheter. Aktieslaget måste bort: frasen "Truecaller B" ger
-   nästan bara skräpträffar, medan "Truecaller" ger relevant finanspress.
-   Kan överstyras per deltagare med fältet newsQuery i konfigurationen. */
-const newsName = (p) => p.newsQuery || p.company.replace(/\s+[A-C]$/, '').trim();
-
-/** Plockar isär ett RSS-svar till artiklar. */
-function parseRss(xml) {
-  const items = [];
-  for (const m of xml.matchAll(/<item>([\s\S]*?)<\/item>/g)) {
-    const block = m[1];
-    const pick = (tag) => {
-      const r = new RegExp(`<${tag}[^>]*>([\\s\\S]*?)</${tag}>`).exec(block);
-      return r ? decodeEntities(r[1].replace(/<!\[CDATA\[([\s\S]*?)\]\]>/, '$1')) : null;
-    };
-    const rawTitle = pick('title');
-    if (!rawTitle) continue;
-    const source = pick('source') || '';
-    // Google formaterar rubriker som "Rubrik - Källa"; kapa dubbletten.
-    const title = source && rawTitle.endsWith(` - ${source}`)
-      ? rawTitle.slice(0, -(source.length + 3))
-      : rawTitle;
-    const published = pick('pubDate');
-    items.push({
-      title,
-      link: pick('link'),
-      source,
-      published: published ? new Date(published).toISOString() : null,
-    });
-  }
-  items.sort((a, b) => (b.published || '').localeCompare(a.published || ''));
-  return items;
-}
-
-/* Googles sökning träffar även listartiklar och forumsidor som bara nämner
-   bolaget i brödtexten. På en TV står allt som "Nyhet", så rubriken måste
-   handla om bolaget. */
-const NEWS_NOISE = /aktieforum|rapportkalender|veckans vinnare|aktierna med störst/i;
-const isRelevantNews = (item, p) =>
-  item.title.toLowerCase().includes(newsName(p).split(/\s+/)[0].toLowerCase())
-  && !NEWS_NOISE.test(item.title)
-  && !/tradedesk/i.test(item.source || '');
-
-/** Google News RSS. Vi lagrar rubrik + länk tillbaka till källan, aldrig artikeltext. */
-async function fetchNews(participant, limit = 5) {
-  // 90 dagars fönster: småbolag som Vitec bevakas för glest för 45 dagar.
-  // Vi sorterar ändå nyast först, så välbevakade bolag tappar inget.
-  const q = encodeURIComponent(
-    `"${newsName(participant)}" (aktie OR bolaget OR rapport OR analys OR kvartal) when:90d`
-  );
-  const url = `https://news.google.com/rss/search?q=${q}&hl=sv&gl=SE&ceid=SE:sv`;
-
-  /* Google strypter anrop genom att svara HTTP 200 med ett giltigt men TOMT
-     flöde — inte med 429. Ett tomt resultat är därför tvetydigt: det kan
-     betyda "inga nyheter" eller "du frågar för ofta". Vi behandlar det som
-     det senare och försöker igen med växande paus. Exakt samma fråga kan ge
-     60 träffar i ett anrop och 0 i nästa. */
-  for (let attempt = 0; attempt < 3; attempt++) {
-    if (attempt) await sleep(3000 * attempt);
-    const items = parseRss(await (await fetchWithRetry(url)).text());
-    if (items.length) return items.filter((item) => isRelevantNews(item, participant)).slice(0, limit);
-  }
-  return [];
+async function fetchPress(p, limit = 8) {
+  const res = await fetchWithRetry(`https://mfn.se/all/a/${encodeURIComponent(p.mfn)}.json?lang=sv&limit=30`);
+  const { items = [] } = await res.json();
+  return items
+    .filter((i) => {
+      const tags = i.properties?.tags || [];
+      return i.properties?.lang === 'sv' && i.content?.title && !PRESS_NOISE.test(i.content.title)
+        && !tags.some((t) => t.startsWith('sub:ci:gm') || t.startsWith('sub:ca:shares:repurchase'));
+    })
+    .slice(0, limit)
+    .map((i) => ({
+      title: i.content.title.replace(/^[^:]{3,40} AB: /, ''),
+      link: i.url,
+      source: pressKind(i.properties.tags || []),
+      published: new Date(i.content.publish_date).toISOString(),
+    }));
 }
 
 /* Sen deltagare: valfritt startDate per person ger baslinje från den dagens
@@ -463,10 +412,25 @@ async function main() {
   const nowSec = Math.floor(Date.now() / 1000);
   const marketState = session && nowSec >= session.start && nowSec <= session.end ? 'REGULAR' : 'CLOSED';
 
+  // Börsen som helhet. Stängningar i stället för meta: en saknad stapel ska inte ge fel siffra.
+  let market = null;
+  if (!afterEnd && !OFFLINE) {
+    try {
+      const closes = (await fetchChart('^OMX', startDate, endDate, tz)).candles.filter((c) => c.c != null);
+      if (closes.length >= 2) {
+        const [prev, last] = closes.slice(-2);
+        market = { name: 'OMXS30', pct: round((last.c / prev.c - 1) * 100, 2), date: last.d };
+      }
+    } catch (err) {
+      console.error(`  FEL   OMXS30 ${err.message}`);
+    }
+  }
+
   const standings = {
     generatedAt: new Date().toISOString(),
     state,
     provisional,
+    market,
     marketState,
     session,
     today,
@@ -507,37 +471,18 @@ async function main() {
     );
     for (const p of cfg.participants) {
       if (!p.ticker) continue;
-      let cached = byParticipant[p.id];
-      if (cached && cached.query !== newsName(p)) {
-        // Deltagaren har bytt bolag: förra bolagets rubriker är fel oavsett ålder.
-        delete byParticipant[p.id];
-        cached = undefined;
-      }
-      const age = cached?.fetchedAt ? Date.now() - Date.parse(cached.fetchedAt) : Infinity;
-      if (!FORCE_NEWS && age < NEWS_MAX_AGE_MS) {
-        process.stdout.write(`  nyhet ${p.company.padEnd(20)} cachad (${Math.round(age / 60000)} min)\n`);
-        continue;
-      }
+      // Bytt bolag: förra bolagets meddelanden är fel oavsett ålder.
+      if (byParticipant[p.id]?.query !== p.mfn) delete byParticipant[p.id];
+      if (!p.mfn) continue;
       try {
-        const items = await fetchNews(p);
-        if (items.length) {
-          byParticipant[p.id] = { fetchedAt: new Date().toISOString(), query: newsName(p), items };
-          process.stdout.write(`  nyhet ${p.company.padEnd(20)} ${items.length} st\n`);
-        } else {
-          // Behåll cachade rubriker hellre än att tömma panelen.
-          const kept = byParticipant[p.id]?.items?.length ?? 0;
-          process.stdout.write(`  nyhet ${p.company.padEnd(20)} tomt svar — behåller ${kept} cachade\n`);
-        }
+        const items = await fetchPress(p);
+        byParticipant[p.id] = { fetchedAt: new Date().toISOString(), query: p.mfn, items };
+        process.stdout.write(`  press ${p.company.padEnd(20)} ${items.length} st\n`);
       } catch (err) {
-        // Behåll föregående nyheter hellre än att tömma panelen.
-        console.error(`  FEL   nyheter ${p.company}: ${err.message} (behåller cachade)`);
+        // Behåll föregående meddelanden hellre än att tömma raden.
+        console.error(`  FEL   press ${p.company}: ${err.message} (behåller cachade)`);
       }
-      await sleep(1400);
-    }
-    // Även cachade rubriker från före filtret ska bort.
-    for (const p of cfg.participants) {
-      const feed = byParticipant[p.id];
-      if (feed?.items) feed.items = feed.items.filter((item) => isRelevantNews(item, p));
+      await sleep(300);
     }
     await writeFile(
       path.join(OUT_DIR, 'news.json'),
