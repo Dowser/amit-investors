@@ -41,7 +41,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: github-pages
-      url: ${{ steps.deploy.outputs.page_url }}
+      url: ${{ steps.deploy.outputs.page_url || steps.deploy2.outputs.page_url || steps.deploy3.outputs.page_url }}
 
     steps:
       - uses: actions/checkout@v4
@@ -99,5 +99,26 @@ jobs:
         with:
           path: docs
 
+      # deploy-pages hittar ibland inte paketet som laddades upp sekunden innan
+      # ("No artifacts named github-pages"). Försök igen efter en paus innan
+      # körningen räknas som misslyckad; bara det sista försöket kan fälla den.
       - id: deploy
+        uses: actions/deploy-pages@v4
+        continue-on-error: true
+
+      - name: Vänta före andra försöket
+        if: steps.deploy.outcome == 'failure'
+        run: sleep 20
+
+      - id: deploy2
+        if: steps.deploy.outcome == 'failure'
+        uses: actions/deploy-pages@v4
+        continue-on-error: true
+
+      - name: Vänta före sista försöket
+        if: steps.deploy2.outcome == 'failure'
+        run: sleep 60
+
+      - id: deploy3
+        if: steps.deploy2.outcome == 'failure'
         uses: actions/deploy-pages@v4
