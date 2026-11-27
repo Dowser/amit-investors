@@ -190,3 +190,64 @@ body.is-tv { font-size: calc(1.15 * var(--u)); }
   .podium .p2 .block { height: calc(3.5 * var(--u)); }
   .podium .p3 .block { height: calc(2.5 * var(--u)); }
 }
+
+/* --- Teman: jul och Nobeldagen ----------------------------------------------
+   Klasserna t-advent och t-nobel sätts på body av tv.js efter datum. Allt ritas som SVG eller CSS,
+   inga tecken som kan bli fyrkanter. */
+
+.av { position: relative; display: inline-block; }
+.tv-row .avatar { position: relative; }
+
+/* Adventsljusstaken tar punktens plats bredvid märket. */
+.tv-candles { grid-row: 1 / span 2; display: block; width: calc(3.85 * var(--u)); height: calc(3.4 * var(--u)); }
+.tv-candles[hidden] { display: none; }
+.tv-candles svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.tv-candles .candle { fill: #cfc6b4; opacity: .5; }
+.tv-candles .candle.lit { fill: #f6efdf; opacity: 1; }
+.tv-candles .wick { stroke: #2a2420; stroke-width: 1; }
+.tv-candles .flame { fill: #ffb454; }
+.tv-candles .flame-core { fill: #fff3cf; }
+.tv-candles .halo { fill: rgba(255, 190, 100, .22); }
+.tv-candles .holder { fill: #b9261f; }
+.t-advent .tv-brand .tele-dot { display: none; }
+.t-advent .tv-title em { background-image: linear-gradient(96deg, #ffe2ad 4%, var(--amber) 38%, #ff7a5c 100%); }
+.tv-story .chip.c-xmas { color: #ff8273; background: rgba(226, 56, 46, .12); }
+
+/* Ljusstaken tar plats i huvudet. Lite tätare text ger ledarpillen samma utrymme som annars. */
+.t-advent .tv-head { grid-gap: calc(1.1 * var(--u)); }
+.t-advent .tv-brand { grid-column-gap: calc(.5 * var(--u)); }
+.t-advent .tv-lead { padding-left: calc(1.1 * var(--u)); padding-right: calc(1.1 * var(--u)); }
+.t-advent .tv-lead > * + * { margin-left: calc(.8 * var(--u)); }
+.t-advent .tv-lead .lab { letter-spacing: .14em; }
+.t-advent .tv-readouts { letter-spacing: .07em; }
+
+/* Ljusslinga, fallande snö framför grafen, snö på panelernas kanter och tomteluva. */
+.tv-lights { position: fixed; top: 0; left: 0; right: 0; z-index: 6; pointer-events: none; }
+.tv-lights[hidden] { display: none; }
+.tv-lights svg { display: block; }
+.tv-lights .wire { fill: none; stroke: #20303f; stroke-width: 2; }
+.tv-lights .socket { fill: #2b3b4b; }
+.t-advent .tv { padding-top: calc(2.5 * var(--u)); }
+.t-advent #starfield { z-index: 5; }
+.tv-panel > .snowcap { position: absolute; top: calc(-.3 * var(--u)); left: calc(1.2 * var(--u)); z-index: 4; pointer-events: none; }
+.snowcap path { fill: #f4f8ff; opacity: .93; }
+.deco .hat { position: absolute; width: 1.05em; height: .8em; left: -.2em; top: -.52em; transform: rotate(-14deg); pointer-events: none; }
+.tv-row .avatar.deco .hat { left: -.08em; top: -.5em; }
+.podium .deco .hat { width: calc(4 * var(--u)); height: calc(3 * var(--u)); left: calc(-.6 * var(--u)); top: calc(-1.9 * var(--u)); }
+
+/* Nobeldagen: guld, lagerkrans på ledaren och priser i berättelseraden. */
+.t-nobel { --amber: #f3cf74; }
+.t-nobel .tv-title em { background-image: linear-gradient(96deg, #fff3cc 4%, #f3cf74 40%, #b98a2e 100%); }
+.t-nobel .tv-candles .holder { fill: #c79a3a; }
+.t-nobel .tv-lead { border-color: rgba(243, 207, 116, .6); }
+.t-nobel .tv-row.is-leader { border-color: rgba(243, 207, 116, .65); background: rgba(243, 207, 116, .09); }
+.t-nobel .corners { opacity: .75; }
+.t-nobel .tv-daywin { border-color: rgba(243, 207, 116, .55); background: rgba(243, 207, 116, .09); }
+.t-nobel .tv-daywin .lab, .t-nobel .tv-daywin .pct { color: var(--amber); }
+.tv-story .chip.c-nobel { color: #f3cf74; background: rgba(243, 207, 116, .14); }
+.deco .laurel { position: absolute; width: 1.9em; height: 1.9em; left: 50%; top: 50%; margin: -.98em 0 0 -.95em; pointer-events: none; }
+.laurel .leaf { fill: #f3cf74; }
+.laurel .stem { fill: none; stroke: #c79a3a; stroke-width: 1.2; }
+.deco-laurel img.emoji { transform: scale(.74); }
+.tv-lead .deco-laurel { margin: 0 .35em 0 .3em; }
+.podium .deco .laurel { width: calc(7.4 * var(--u)); height: calc(7.4 * var(--u)); margin: calc(-4 * var(--u)) 0 0 calc(-3.7 * var(--u)); }

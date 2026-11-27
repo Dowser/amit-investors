@@ -34,7 +34,139 @@ function avatarImg(emoji) {
   return img;
 }
 
-const state = { data: null, news: {}, frames: [], storyIndex: -1, fetchFails: 0 };
+const state = { data: null, news: {}, frames: [], storyIndex: -1, fetchFails: 0, theme: null };
+
+/* ------------------------------------------------------------------ teman
+   Jul från första advent till annandagen, och Nobeldagen den 10 december.
+   Temat följer kalendern i tävlingens tidszon. Förhandsvisning:
+   ?datum=ÅÅÅÅ-MM-DD visar en annan dags tema, ?ruta=N låser berättelseraden
+   på mening N och ?tema=av stänger av. */
+const QS = new URLSearchParams(location.search);
+function themeOf(iso) {
+  const y = Number(iso.slice(0, 4)), md = iso.slice(5), t = Date.parse(iso + 'T00:00:00Z');
+  // Fjärde advent är söndagen närmast före juldagen.
+  const xmas = Date.UTC(y, 11, 25), fourth = xmas - (new Date(xmas).getUTCDay() || 7) * 864e5;
+  let advent = 0;
+  for (let k = 1; k <= 4; k++) if (t >= fourth - (4 - k) * 7 * 864e5) advent = k;
+  if (md > '12-26') advent = 0;
+  return { advent, nobel: md === '12-10', lucka: md >= '12-01' && md <= '12-24' ? Number(md.slice(3)) : 0 };
+}
+function currentTheme() {
+  const q = QS.get('datum') || '';
+  const timeZone = (state.data && state.data.competition.timezone) || 'Europe/Stockholm';
+  const iso = /^\d{4}-\d\d-\d\d$/.test(q) ? q : new Date().toLocaleDateString('sv-SE', { timeZone });
+  const t = QS.get('tema') === 'av' ? { advent: 0, nobel: false, lucka: 0 } : themeOf(iso);
+  t.key = [t.advent, t.nobel, t.lucka].join('|');
+  return t;
+}
+const ordinal = (n) => `${n}:${n < 3 ? 'a' : 'e'}`;
+
+function applyTheme() {
+  const t = currentTheme();
+  if (state.theme && state.theme.key === t.key) return false;
+  state.theme = t;
+  const b = document.body.classList;
+  b.toggle('t-advent', t.advent > 0); b.toggle('t-nobel', t.nobel);
+  renderCandles(); renderLights(); renderCaps(); drawSky();
+  return true;
+}
+
+/* Adventsljusstaken: ett ljus till för varje advent, och de som brunnit längst är kortast. */
+function renderCandles() {
+  let box = $('#tv-candles');
+  if (!box) { box = el('span', 'tv-candles'); box.id = 'tv-candles'; const brand = $('.tv-brand'); brand.insertBefore(box, brand.firstChild); }
+  const n = state.theme.advent; box.hidden = !n; box.innerHTML = '';
+  if (!n) return;
+  const svg = mk('svg', { viewBox: '0 0 52 46', 'aria-hidden': 'true' });
+  for (let i = 0; i < 4; i++) {
+    const lit = i < n, h = lit ? 25 - (n - 1 - i) * 3.6 : 25, cx = 8 + i * 12, top = 39 - h;
+    if (lit) svg.append(mk('circle', { cx, cy: top - 6, r: 8, class: 'halo' }));
+    svg.append(mk('rect', { x: cx - 3.4, y: top, width: 6.8, height: h, rx: 1.2, class: 'candle' + (lit ? ' lit' : '') }));
+    svg.append(mk('line', { x1: cx, x2: cx, y1: top, y2: top - 2.4, class: 'wick' }));
+    if (lit) {
+      svg.append(mk('path', { d: `M${cx} ${top - 12} C${cx + 4} ${top - 7} ${cx + 3.2} ${top - 1.8} ${cx} ${top - 1.8} C${cx - 3.2} ${top - 1.8} ${cx - 4} ${top - 7} ${cx} ${top - 12}Z`, class: 'flame' }));
+      svg.append(mk('ellipse', { cx, cy: top - 4.4, rx: 1.3, ry: 2.4, class: 'flame-core' }));
+    }
+  }
+  svg.append(mk('rect', { x: 1, y: 39, width: 50, height: 5, rx: 2.5, class: 'holder' }));
+  box.append(svg);
+}
+
+const unitPx = () => parseFloat(getComputedStyle(document.body).fontSize) / 1.15;   // --u i px
+
+/* Ljusslingan längs överkanten: tråden hänger i bågar med lampor i fyra färger. */
+function renderLights() {
+  let box = $('#tv-lights');
+  if (!box) { box = el('div', 'tv-lights'); box.id = 'tv-lights'; document.body.append(box); }
+  box.hidden = !state.theme.advent; box.innerHTML = '';
+  if (box.hidden) return;
+  const u = unitPx(), W = innerWidth, H = u * 2.6, colors = ['#ff5a4f', '#ffc861', '#4ee39b', '#6fb7ff'];
+  const svg = mk('svg', { viewBox: `0 0 ${W} ${H}`, width: W, height: H, 'aria-hidden': 'true' });
+  const spans = Math.max(4, Math.round(W / (u * 13))), span = W / spans, sag = u * 0.75, per = 5;
+  let d = 'M0 0', k = 0;
+  for (let i = 0; i < spans; i++) d += ` Q${(i + 0.5) * span} ${sag * 2} ${(i + 1) * span} 0`;
+  svg.append(mk('path', { d, class: 'wire' }));
+  for (let i = 0; i < spans; i++) for (let j = 0; j < per; j++, k++) {
+    const t = (j + 0.5) / per, x = (i + t) * span, y = 4 * t * (1 - t) * sag, c = colors[k % colors.length];
+    svg.append(mk('rect', { x: x - u * 0.13, y, width: u * 0.26, height: u * 0.3, class: 'socket' }));
+    const bulb = mk('ellipse', { cx: x, cy: y + u * 0.68, rx: u * 0.27, ry: u * 0.42, fill: c });
+    bulb.style.filter = `drop-shadow(0 0 ${(u * 0.45).toFixed(1)}px ${c})`;
+    svg.append(bulb);
+  }
+  box.append(svg);
+}
+
+/* Snö på panelernas överkant. Formen är densamma varje gång. */
+function renderCaps() {
+  Array.from(document.querySelectorAll('.snowcap')).forEach((n) => n.remove());
+  if (!state.theme.advent) return;
+  Array.from(document.querySelectorAll('.tv-panel')).forEach((panel, pi) => {
+    const u = unitPx(), W = panel.clientWidth - u * 2.4, H = u * 1.3;
+    if (W < u * 6) return;
+    let seed = 7 + pi * 13; const rnd = () => { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };
+    const n = Math.round(W / (u * 2.6)), step = W / n;
+    let d = `M0 ${u * 0.5} Q${u * 0.1} ${u * 0.12} ${u * 0.7} ${u * 0.1} L${W - u * 0.7} ${u * 0.1} Q${W - u * 0.1} ${u * 0.12} ${W} ${u * 0.5}`;
+    for (let i = n; i > 0; i--) {
+      const drop = u * (0.5 + rnd() * 0.55), x1 = i * step, x0 = (i - 1) * step;
+      d += ` Q${x1 - step * 0.25} ${drop + u * 0.25} ${x1 - step * 0.5} ${drop} Q${x0 + step * 0.25} ${drop - u * 0.2} ${x0} ${u * 0.5}`;
+    }
+    const svg = mk('svg', { class: 'snowcap', viewBox: `0 0 ${W} ${H}`, width: W, height: H, 'aria-hidden': 'true' });
+    svg.append(mk('path', { d: d + 'Z' }));
+    panel.append(svg);
+  });
+}
+
+function hatSvg() {
+  const svg = mk('svg', { class: 'hat', viewBox: '0 0 40 30', 'aria-hidden': 'true' });
+  svg.append(mk('path', { d: 'M5 23 C5 10 14 2 23 3 C30 4 35 11 36 19 C33 15 29 13 27 14 L28 23 Z', fill: '#e2382e' }));
+  svg.append(mk('path', { d: 'M23 3 C30 4 35 11 36 19 C33 15 29 13 27 14 C27 9 26 6 23 3 Z', fill: '#b9261f' }));
+  svg.append(mk('rect', { x: 2, y: 20, width: 29, height: 8, rx: 4, fill: '#fff' }));
+  svg.append(mk('circle', { cx: 36, cy: 20, r: 3.8, fill: '#fff' }));
+  return svg;
+}
+
+function laurelSvg() {
+  const svg = mk('svg', { class: 'laurel', viewBox: '0 0 44 44', 'aria-hidden': 'true' });
+  [1, -1].forEach((side) => {
+    const g = mk('g', side < 0 ? { transform: 'translate(44 0) scale(-1 1)' } : {});
+    g.append(mk('path', { d: 'M20 41 C8 38 3 28 5 17 C6 12 8 8 11 5', class: 'stem' }));
+    for (let k = 0; k < 7; k++) {
+      const a = (104 + k * 21) * Math.PI / 180, x = 22 + 18 * Math.cos(a), y = 22 + 18 * Math.sin(a), rot = 104 + k * 21 + 62;
+      g.append(mk('ellipse', { cx: x, cy: y, rx: 4.6, ry: 2, transform: `rotate(${rot} ${x.toFixed(1)} ${y.toFixed(1)})`, class: 'leaf' }));
+    }
+    svg.append(g);
+  });
+  return svg;
+}
+
+/* Pynt på ledarens avatar: lagerkrans på Nobeldagen, annars tomteluva under advent. */
+function decorate(holder) {
+  const t = state.theme, kind = t.nobel ? 'laurel' : t.advent ? 'hat' : '';
+  if (!kind) return holder;
+  holder.classList.add('deco', 'deco-' + kind);
+  holder.append(kind === 'hat' ? hatSvg() : laurelSvg());
+  return holder;
+}
 const competitors = () => state.data.participants.filter((p) => !p.benchmark);
 const benchmarkOf = () => state.data.participants.find((p) => p.benchmark) || null;
 const ranked = () => competitors().sort((a, b) => {
@@ -42,23 +174,60 @@ const ranked = () => competitors().sort((a, b) => {
   if (a.pct == null) return 1; if (b.pct == null) return -1; return b.pct - a.pct;
 });
 
-/* ------------------------------------------------------------ stjärnfält
-   Glesare än huvudsidan och stillastående: rörelse stör i ett kontorslandskap
-   och signage-hårdvara är ofta svag. */
+/* ------------------------------------------------------------ himlen
+   Glesa, stillastående stjärnor: rörelse stör i ett kontorslandskap och
+   signage-hårdvara är ofta svag. I julläget byts de mot långsamt fallande snö. */
+let drawSky = () => {};
 function starfield() {
   const cv = $('#starfield'), ctx = cv.getContext('2d');
-  const draw = () => {
-    const dpr = Math.min(devicePixelRatio || 1, 1.5), w = innerWidth, h = innerHeight;
+  let w = 0, h = 0, flakes = [], zones = [], raf = 0, last = 0, frame = 0, slow = 0;
+  const size = () => {
+    const dpr = Math.min(devicePixelRatio || 1, 1.5); w = innerWidth; h = innerHeight;
     cv.width = w * dpr; cv.height = h * dpr;
     cv.style.width = w + 'px'; cv.style.height = h + 'px'; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.clearRect(0, 0, w, h);
+  };
+  const stars = () => {
     for (let i = Math.round(w * h * 0.00012); i > 0; i--) {
       ctx.beginPath(); ctx.arc(Math.random() * w, Math.random() * h, 0.4 + Math.random() * 1.2, 0, 6.28);
       ctx.fillStyle = `rgba(206,226,255,${(0.25 + Math.random() * 0.6).toFixed(3)})`; ctx.fill();
     }
   };
-  draw();
-  let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(draw, 200); });
+  const paint = (t) => {
+    const u = unitPx();
+    ctx.clearRect(0, 0, w, h);
+    // Snön faller över grafen och i marginalerna, inte över text som ska läsas.
+    if (frame++ % 60 === 0) zones = ['.tv-head', '.tv-main .tv-panel:last-child', '.tv-foot'].map((q) => $(q)).filter(Boolean).map((n) => n.getBoundingClientRect());
+    for (const f of flakes) {
+      const x = f.x + Math.sin(t * 0.0005 + f.ph) * u * 0.7;
+      if (zones.some((z) => x > z.left && x < z.right && f.y > z.top && f.y < z.bottom)) continue;
+      ctx.beginPath(); ctx.arc(x, f.y, f.r, 0, 6.28);
+      ctx.fillStyle = `rgba(255,255,255,${f.a})`; ctx.fill();
+    }
+  };
+  const fall = (t) => {
+    raf = requestAnimationFrame(fall);
+    if (t - last < 45) return;   // drygt 20 bilder per sekund räcker
+    // Svag hårdvara: om bilderna kommer för glest får snön ligga still.
+    if (last && t - last > 160 && document.visibilityState !== 'hidden') slow++;
+    if (slow > 25) { cancelAnimationFrame(raf); return; }
+    const dt = Math.min(t - last, 200) / 1000; last = t;
+    for (const f of flakes) { f.y += f.v * dt; if (f.y > h + 4) { f.y = -4; f.x = Math.random() * w; } }
+    paint(t);
+  };
+  drawSky = () => {
+    cancelAnimationFrame(raf); size();
+    const theme = state.theme || {};
+    if (!theme.advent) { stars(); return; }
+    const u = unitPx();
+    flakes = Array.from({ length: Math.round(w * h * 0.00006) }, () => ({
+      x: Math.random() * w, y: Math.random() * h, ph: Math.random() * 6.28,
+      r: u * (0.05 + Math.random() * 0.11), v: u * (0.7 + Math.random() * 1.5), a: (0.3 + Math.random() * 0.5).toFixed(2),
+    }));
+    frame = 0; last = 0; slow = 0; paint(0); raf = requestAnimationFrame(fall);
+  };
+  drawSky();
+  let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => { drawSky(); renderLights(); renderCaps(); }, 200); });
 }
 
 /* ------------------------------------------------------------------- data */
@@ -96,7 +265,9 @@ function marketClock(c) {
 /* ------------------------------------------------------------------ huvud */
 function renderHead() {
   const d = state.data, c = d.competition;
-  $('#tv-sub').textContent = c.subtitle || '';
+  // Säsongen tar undertitelns plats: en längre rad tränger ihop ledarpillen.
+  const th = state.theme;
+  $('#tv-sub').textContent = th.nobel ? 'Nobeldagen' : th.advent ? `${ordinal(th.advent)} advent` : c.subtitle || '';
 
   const fmtD = (iso) => new Date(iso + 'T12:00:00Z').toLocaleDateString('sv-SE', { day: 'numeric', month: 'short' });
   // Bara dagnumret: datumet står redan på grafens x-axel, och huvudet är trångt.
@@ -111,7 +282,16 @@ function renderHead() {
   }
   const pct = el('span', 'pct', pctFmt(top.pct)); pct.style.color = upDown(top.pct);
   lead.append(el('span', 'lab', d.state === 'ended' ? (d.provisional ? 'Preliminär segrare' : 'Segrare') : 'I ledning'),
-    nameWithAvatar('who', top), el('span', 'co', leadNote(top)), pct);
+    nameWithAvatar('who', top, true), el('span', 'co', leadNote(top)), pct);
+  fitLead();
+}
+
+/* Avståndet till tvåan skrivs kortare när hela meningen inte får plats. */
+function fitLead() {
+  const co = $('#tv-lead .co'), r = ranked();
+  if (!co || !state.data || state.data.state === 'ended' || !r[1] || r[1].pct == null) return;
+  co.textContent = leadNote(r[0]);
+  if (co.clientWidth && co.scrollWidth > co.clientWidth + 1) co.textContent = `+${nf(1).format(r[0].pct - r[1].pct)} pe`;
 }
 
 /* Pillen ska säga något tabellens första rad inte redan säger: avståndet. */
@@ -121,8 +301,9 @@ function leadNote(top) {
     ? top.company : `${nf(1).format(top.pct - next.pct)} pe före ${next.name}`;
 }
 
-function nameWithAvatar(cls, p) {
-  const n = el('span', cls); n.append(avatarImg(p.avatar), ` ${p.name}`);
+function nameWithAvatar(cls, p, leader) {
+  const n = el('span', cls), a = el('span', 'av'); a.append(avatarImg(p.avatar));
+  n.append(leader ? decorate(a) : a, ` ${p.name}`);
   return n;
 }
 
@@ -142,7 +323,7 @@ function renderDayWinner() {
   const tz = { timeZone: d.competition.timezone };
   const last = w.lastTrade ? new Date(w.lastTrade * 1000) : null;
   const today = !last || last.toLocaleDateString('sv-SE', tz) === new Date().toLocaleDateString('sv-SE', tz);
-  const label = today ? 'Dagens vinnare'
+  const label = today ? (state.theme.nobel ? 'Dagens pristagare' : 'Dagens vinnare')
     : `Vinnare ${last.toLocaleDateString('sv-SE', Object.assign({ day: 'numeric', month: 'short' }, tz))}`;
   box.append(el('span', 'lab', label), nameWithAvatar('who', w), el('span', 'pct', pctFmt(w.dayChangePct)));
 }
@@ -209,7 +390,8 @@ function renderPodium(panel) {
   const top = ranked().slice(0, 3);
   [[1, 'p2'], [0, 'p1'], [2, 'p3']].forEach(([i, cls]) => {
     const p = top[i], step = el('div', 'step ' + cls), who = el('div', 'who');
-    who.append(avatarImg(p.avatar), el('div', 'name', p.name), el('div', 'co', p.company), el('div', 'pct', pctFmt(p.pct)));
+    const av = el('span', 'av'); av.append(avatarImg(p.avatar));
+    who.append(i === 0 ? decorate(av) : av, el('div', 'name', p.name), el('div', 'co', p.company), el('div', 'pct', pctFmt(p.pct)));
     step.append(who, el('div', 'block', String(i + 1))); steps.append(step);
   });
   pod.append(h, steps); panel.append(pod);
@@ -348,6 +530,7 @@ function renderBoard() {
     const day = el('div', 'day' + dayClass, p.stale ? 'senast kända kurs' : p.dayChangePct == null ? '' : `idag ${pctFmt(p.dayChangePct)}`);
     right.append(pct, day);
     const avatar = el('span', 'avatar'); avatar.append(avatarImg(p.avatar));
+    if (idx === 0 && p.pct != null) decorate(avatar);
     li.append(rank, avatar, who, right, sparkline(p));
     board.append(li);
   });
@@ -371,10 +554,12 @@ function weekResults() {
   });
   return groups.map((g, i) => {
     const ref = i ? groups[i - 1].days[groups[i - 1].days.length - 1] : null, end = g.days[g.days.length - 1];
-    return raced().map((p) => {
+    const res = raced().map((p) => {
       const a = ref ? valueOn(p, ref) : 0, b = valueOn(p, end);
       return a == null || b == null ? null : { p, r: ((1 + b / 100) / (1 + a / 100) - 1) * 100 };
     }).filter(Boolean).sort((x, y) => y.r - x.r);
+    res.monday = g.m;
+    return res;
   });
 }
 
@@ -440,6 +625,80 @@ function marketFrame(tz, dayIso) {
   return { chip: label, cls: 'c-mkt', parts };
 }
 
+const dayMonth = (iso) => new Date(iso + 'T12:00:00Z').toLocaleDateString('sv-SE', { day: 'numeric', month: 'short' }).replace('.', '');
+const isoWeek = (iso) => {
+  const t = new Date(iso + 'T12:00:00Z'); t.setUTCDate(t.getUTCDate() + 3 - ((t.getUTCDay() + 6) % 7));
+  const y0 = new Date(Date.UTC(t.getUTCFullYear(), 0, 4));
+  return 1 + Math.round(((t - y0) / 864e5 - 3 + ((y0.getUTCDay() + 6) % 7)) / 7);
+};
+const dayMoves = (p) => p.series.slice(1).map((s, i) => ({ d: s.d, r: (s.c / p.series[i].c - 1) * 100 }));
+
+/* Julkalendern: en lucka per dag 1–24 december med ett nedslag i tävlingen. */
+function luckaFrame(n) {
+  const R = raced().filter((p) => p.pct != null && p.series.length > 1);
+  if (!n || !R.length || state.data.state !== 'live') return null;
+  const facts = [
+    () => {
+      let best = null;
+      R.forEach((p) => dayMoves(p).forEach((m) => { if (!best || m.r > best.r) best = { p, r: m.r, d: m.d }; }));
+      return best && best.r > 0 ? ['Tävlingens bästa dag hittills: ', { b: best.p.name }, ' med ', signed(best.r), ` den ${dayMonth(best.d)}`] : null;
+    },
+    () => {
+      const avg = R.reduce((a, p) => a + p.pct, 0) / R.length, plus = R.filter((p) => p.pct > 0).length;
+      return avg > 0 ? [`De ${R.length} aktierna har i snitt gått `, signed(avg), ` sedan start · ${plus} av ${R.length} ligger på plus`] : null;
+    },
+    () => {
+      let best = null;
+      weekResults().forEach((w) => { if (w[0] && (!best || w[0].r > best.r)) best = { p: w[0].p, r: w[0].r, m: w.monday }; });
+      return best && best.r > 0 ? ['Bästa veckan hittills: ', { b: best.p.name }, ' med ', signed(best.r), ` vecka ${isoWeek(best.m)}`] : null;
+    },
+    () => {
+      let best = null;
+      R.forEach((p) => { let run = 0; dayMoves(p).forEach((m) => { run = m.r > 0 ? run + 1 : 0; if (!best || run > best.n) best = { p, n: run }; }); });
+      return best && best.n >= 3 ? ['Längsta plussviten hittills: ', { b: best.p.name }, ` med ${best.n} börsdagar i rad`] : null;
+    },
+    () => {
+      let best = null;
+      R.forEach((p) => p.series.forEach((s) => { if (!best || s.p > best.v) best = { p, v: s.p, d: s.d }; }));
+      return best && best.v > 0 ? ['Högsta noteringen under tävlingen: ', { b: best.p.name }, ' på ', signed(best.v), ` den ${dayMonth(best.d)}`] : null;
+    },
+    () => {
+      const bench = benchmarkOf(), beat = bench && bench.pct != null ? R.filter((p) => p.pct > bench.pct).length : 0;
+      return beat ? [{ b: `${beat} av ${R.length}` }, ` slår ${bench.name} just nu`] : null;
+    },
+  ];
+  for (let k = 0; k < facts.length; k++) {
+    const parts = facts[(n - 1 + k) % facts.length]();
+    if (parts) return { chip: `Lucka ${n}`, cls: 'c-xmas', parts };
+  }
+  return null;
+}
+
+/* Nobeldagen: sex priser till sex olika deltagare. */
+function nobelFrames(L, tz, dayIso) {
+  const R = raced().filter((p) => p.pct != null && p.series.length > 1), taken = {}, out = [];
+  const award = (title, list, why) => {
+    const w = list.filter((x) => !taken[x.p.id]).sort((a, b) => b.v - a.v)[0];
+    if (!w) return;
+    taken[w.p.id] = true;
+    out.push({ chip: 'Nobeldagen', cls: 'c-nobel', parts: [{ b: title }, ' till ', { b: w.p.name }, ' · '].concat(why(w)) });
+  };
+  award('Ekonomipriset', [{ p: L, v: L.pct }], (w) => ['för störst avkastning sedan start, ', signed(w.v)]);
+  award('Fysikpriset', R.filter((p) => !p.stale && p.dayChangePct > 0).map((p) => ({ p, v: p.dayChangePct })),
+    (w) => [`för ${w.p.lastTrade && new Date(w.p.lastTrade * 1000).toLocaleDateString('sv-SE', tz()) === dayIso ? 'dagens' : 'senaste börsdagens'} kraftigaste acceleration, `, signed(w.v)]);
+  const weeks = weekResults(), cur = weeks[weeks.length - 1] || [];
+  award('Kemipriset', cur.filter((x) => x.r > 0).map((x) => ({ p: x.p, v: x.r })), (w) => ['för veckans bästa reaktion, ', signed(w.v)]);
+  award('Medicinpriset', R.map((p) => ({ p, v: p.series[p.series.length - 1].p - Math.min.apply(null, p.series.map((s) => s.p)) })).filter((x) => x.v > 0),
+    (w) => [`för bästa återhämtningen, ${nf(0).format(w.v)} procentenheter upp från botten`]);
+  award('Litteraturpriset', R.map((p) => ({ p, v: Math.max.apply(null, [0].concat(((state.news[p.id] || {}).items || []).map((x) => (x.title || '').length))) })).filter((x) => x.v > 0),
+    (w) => [`för ${shortName(w.p)}${/s$/i.test(shortName(w.p)) ? '' : 's'} längsta rubrik, ${w.v} tecken`]);
+  award('Fredspriset', R.filter((p) => p.series.length > 10).map((p) => {
+    const m = dayMoves(p).map((x) => x.r), mean = m.reduce((a, b) => a + b, 0) / m.length;
+    return { p, v: -Math.sqrt(m.reduce((a, b) => a + (b - mean) * (b - mean), 0) / m.length) };
+  }), () => ['för tävlingens lugnaste kurs']);
+  return out;
+}
+
 function tradingDaysLeft(dayIso, endIso) {
   let n = 0;
   for (let t = Date.parse(dayIso + 'T12:00:00Z'), end = Date.parse(endIso + 'T12:00:00Z'); t <= end; t += 864e5) {
@@ -468,7 +727,12 @@ function buildFrames() {
       ? { chip: 'Slutspurt', cls: 'c-final', parts: [`${left} handelsdagar kvar · `].concat(chase) }
       : { chip: 'Duellen', cls: 'c-duel', parts: chase };
   const press = pressFrames(tz, dayIso);
-  return [marketFrame(tz, dayIso), press[0], duel, press[1], contest[0], press[2]].concat(contest.slice(1)).filter(Boolean);
+  const base = [marketFrame(tz, dayIso), luckaFrame(state.theme.lucka), press[0], duel, press[1], contest[0], press[2]].concat(contest.slice(1)).filter(Boolean);
+  if (!state.theme.nobel) return base;
+  // Nobeldagen: vartannat pris, varannan vanlig mening.
+  const prizes = nobelFrames(L, tz, dayIso), out = [];
+  for (let i = 0; i < Math.max(prizes.length, base.length); i++) { if (prizes[i]) out.push(prizes[i]); if (base[i]) out.push(base[i]); }
+  return out;
 }
 
 function drawStory(i) {
@@ -480,7 +744,7 @@ function drawStory(i) {
   const dots = el('span', 'dots'); frames.forEach((_, k) => dots.append(el('i', k === i ? 'on' : null)));
   box.append(el('span', 'chip ' + f.cls, f.chip), text, dots);
 }
-const storyIndexNow = () => Math.floor(Date.now() / STORY_MS) % state.frames.length;
+const storyIndexNow = () => (QS.has('ruta') ? Number(QS.get('ruta')) || 0 : Math.floor(Date.now() / STORY_MS)) % state.frames.length;
 
 function renderStory() {
   state.frames = buildFrames();
@@ -537,16 +801,21 @@ async function boot(attempt = 0) {
 
 function start() {
   $('#tv').hidden = false;
-  const afterLayout = () => { renderAll([renderChart, renderStory]); $('#boot').classList.add('is-done'); };
+  const afterLayout = () => { renderAll([renderChart, renderStory, renderLights, renderCaps, fitLead]); $('#boot').classList.add('is-done'); };
   let done = false;
   requestAnimationFrame(() => { if (!done) { done = true; afterLayout(); } });
   setTimeout(() => { if (!done) { done = true; afterLayout(); } }, 300);   // rAF-strypt miljö
   setInterval(tickStory, 500);
   setInterval(() => refresh().catch(() => {}), REFRESH_MS);
-  setInterval(() => renderAll([renderStatus, renderDayWinner, nightlyReload]), 60 * 1000);
-  let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => renderAll([renderChart]), 200); });
+  setInterval(() => {
+    // Vid midnatt kan temat byta: tänd nästa ljus, öppna nästa lucka.
+    if (applyTheme()) renderAll([renderHead, renderBoard, renderChart, renderStory]);
+    renderAll([renderStatus, renderDayWinner, fitLead, nightlyReload]);
+  }, 60 * 1000);
+  let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => renderAll([renderChart, fitLead]), 200); });
   window.__tvStarted = true;
 }
 
 starfield();
+applyTheme();
 boot();

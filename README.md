@@ -133,6 +133,22 @@ Sista dagen räknar huvudet ned till stängning, och när resultatet är avgjort
 ersätts grafen av en pall. Data hämtas om var femte minut. `?preview=1` fungerar
 även här.
 
+### Jul och Nobeldagen
+
+TV-läget byter tema efter kalendern, utan att något behöver ändras:
+
+- **Jul**, från första advent till annandagen: en adventsljusstake vid loggan
+  där ett ljus till tänds varje advent, ljusslinga, snö på panelernas kanter,
+  långsamt fallande snö över grafen och tomteluva på ledaren. Den 1–24 december
+  får berättelseraden dagens lucka med ett nedslag ur tävlingen.
+- **Nobeldagen**, 10 december: guldton, lagerkrans på ledaren och sex priser
+  till sex olika deltagare i berättelseraden, ovanpå jultemat.
+
+Undertiteln byts mot "2:a advent" eller "Nobeldagen" medan temat är aktivt.
+Snön stannar av sig själv på hårdvara som inte orkar animera den.
+`?datum=2026-12-10` förhandsvisar en annan dags tema, `?ruta=3` låser
+berättelseraden på en viss mening och `?tema=av` stänger av temat på den skärmen.
+
 Avatarerna ritas som SVG-filer i `docs/assets/emoji/`, eftersom många TV-apparater
 saknar en emojifont som täcker tecknen. Filnamnet är emojins kodpunkter i hex utan
 `fe0f`, till exempel `1fa7b.svg`. Byter du avatar behöver filen läggas dit från
